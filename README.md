@@ -3,6 +3,9 @@
 A simple Android MVVM pattern example using:
 
 - Kotlin
+- Kotlin coroutines
 - Retrofit
-- Room
+- Room Persistence Library
 - Navigation component
+- Glide
+- Anko

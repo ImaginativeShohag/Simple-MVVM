@@ -3,24 +3,20 @@ package org.imaginativeworld.simplemvvm.views.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.recycler_view
 import kotlinx.android.synthetic.main.fragment_user.*
-import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
 import org.imaginativeworld.simplemvvm.adapters.UserListAdapter
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
+import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.viewmodels.AppViewModel
@@ -85,6 +81,12 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         appViewModel?.getUsers()
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        appViewModel?.clearUserObservables()
+    }
+
     override fun initViews() {
 
         // List
@@ -116,6 +118,8 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 )
             )
 
+            listener?.showLoading()
+
         }
 
         appViewModel?.addUserResponse
@@ -129,6 +133,10 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                 }
 
+                resource?.let {
+                    listener?.hideLoading()
+                }
+
             })
 
         appViewModel?.getUsersResponse
@@ -138,6 +146,10 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                     adapter.addAll(it)
 
+                }
+
+                resource?.let {
+                    listener?.hideLoading()
                 }
 
             })

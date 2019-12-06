@@ -17,10 +17,8 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResponse
-import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.utils.Resource
 import org.imaginativeworld.simplemvvm.viewmodels.AppViewModel
-import kotlin.random.Random
 
 
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
@@ -55,6 +53,12 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         initListeners()
 
         appViewModel?.getPosts()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        appViewModel?.clearPostObservables()
     }
 
     override fun initViews() {

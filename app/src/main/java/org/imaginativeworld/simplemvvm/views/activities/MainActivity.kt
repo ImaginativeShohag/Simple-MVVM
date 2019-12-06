@@ -1,9 +1,10 @@
 package org.imaginativeworld.simplemvvm.views.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.animation.Animator
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.loading_layout.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -121,10 +123,38 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun showLoading() {
+        val loadingAnimation = global_loading_layout.animate()
+            .alpha(1f)
+            .setDuration(200)
+            .setListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
+                    global_loading_layout.alpha = 0f
+                    global_loading_layout.visibility = View.VISIBLE
+                }
 
+                override fun onAnimationEnd(animation: Animator) {}
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+
+        loadingAnimation?.start()
     }
 
     override fun hideLoading() {
+        val loadingAnimation = global_loading_layout.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(object : Animator.AnimatorListener {
+                override fun onAnimationEnd(animation: Animator?) {
+                    global_loading_layout.visibility = View.GONE
+                }
 
+                override fun onAnimationRepeat(animation: Animator?) {}
+                override fun onAnimationCancel(animation: Animator?) {}
+                override fun onAnimationStart(animation: Animator?) {}
+
+            })
+
+        loadingAnimation?.start()
     }
 }

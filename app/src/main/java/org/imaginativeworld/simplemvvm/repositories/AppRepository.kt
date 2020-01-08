@@ -1,5 +1,6 @@
 package org.imaginativeworld.simplemvvm.repositories
 
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
@@ -9,6 +10,7 @@ import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 
 class AppRepository(
+    private val context: Context,
     private val api: ApiInterface,
     private val db: AppDatabase
 ) : SafeApiRequest() {
@@ -43,7 +45,7 @@ class AppRepository(
     suspend fun getPosts(): List<PostResponse> {
         return withContext(Dispatchers.IO) {
 
-            apiRequest {
+            apiRequest(context) {
                 api.getPosts()
             }
 

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +17,14 @@ import kotlinx.android.synthetic.main.fragment_post.recycler_view
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.UserListAdapter
+import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.UserEntity
-import org.imaginativeworld.simplemvvm.viewmodels.AppViewModel
+import org.imaginativeworld.simplemvvm.network.ApiClient
+import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
 import kotlin.random.Random
 
 class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
@@ -28,7 +33,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private var appViewModel: AppViewModel? = null
+    private var appViewModel: UserViewModel? = null
 
     private lateinit var adapter: UserListAdapter
 
@@ -58,8 +63,20 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.let {
-            appViewModel = ViewModelProviders.of(it).get(AppViewModel::class.java)
+        // Init ViewModel
+        activity?.also {
+            val appRepository = AppRepository(
+                it.applicationContext,
+                ApiClient.getClient(),
+                AppDatabase(it.applicationContext)
+            )
+
+            appViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return UserViewModel(appRepository) as T
+                }
+            })[UserViewModel::class.java]
         }
     }
 

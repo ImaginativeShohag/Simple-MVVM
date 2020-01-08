@@ -5,27 +5,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.loading_layout.*
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-import org.imaginativeworld.simplemvvm.network.ApiClient
-import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import org.imaginativeworld.simplemvvm.viewmodels.AppViewModel
+import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
 import org.jetbrains.anko.design.indefiniteSnackbar
 import org.jetbrains.anko.design.longSnackbar
 
 class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener {
-
-    private lateinit var appViewModel: AppViewModel
 
     private lateinit var navController: NavController
 
@@ -34,18 +26,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
         setContentView(R.layout.activity_main)
 
         navController = findNavController(R.id.nav_host_fragment)
-
-        val appRepository = AppRepository(
-            ApiClient.getClient(),
-            AppDatabase(this)
-        )
-
-        appViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return AppViewModel(appRepository) as T
-            }
-        })[AppViewModel::class.java]
 
 
         initViews()
@@ -64,8 +44,8 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
         setTitle(title)
     }
 
-    override fun getAppViewModel(): AppViewModel {
-        return appViewModel
+    override fun getAppViewModel(): UserViewModel? {
+        return null
     }
 
     override fun gotoFragment(@IdRes destinationResId: Int) {

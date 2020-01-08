@@ -1,20 +1,26 @@
 package org.imaginativeworld.simplemvvm.network
 
+import android.content.Context
 import android.util.Log
+import org.imaginativeworld.oopsnointernet.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.HttpURLConnection
 
 abstract class SafeApiRequest {
 
-    suspend fun <T : Any> apiRequest(call: suspend () -> Response<T>): T {
+    suspend fun <T : Any> apiRequest(context: Context, call: suspend () -> Response<T>): T {
 
         try {
 
+            if (!NoInternetUtils.isConnectedToInternet(context)) {
+                throw ApiException("No internet connection!")
+            }
+
             val response = call.invoke()
 
-            // && response.code() == HttpURLConnection.HTTP_OK
-            if (response.isSuccessful) {
+            if (response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK) {
 
                 return response.body()!!
 

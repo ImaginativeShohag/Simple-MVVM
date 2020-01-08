@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_post.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
+import org.imaginativeworld.simplemvvm.databinding.FragmentPostBinding
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
@@ -29,6 +31,8 @@ import org.imaginativeworld.simplemvvm.viewmodels.PostViewModel
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
 
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var binding: FragmentPostBinding
 
     private var appViewModel: PostViewModel? = null
 
@@ -58,7 +62,9 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_post, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_post, container, false)
+
+        return binding.root
     }
 
     override fun onResume() {

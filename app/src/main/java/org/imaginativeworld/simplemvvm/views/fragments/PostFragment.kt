@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_post.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
 import org.imaginativeworld.simplemvvm.databinding.FragmentPostBinding
@@ -88,16 +87,16 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         // List
         val layoutManager = LinearLayoutManager(activity)
-        recycler_view.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-            recycler_view.context,
+            binding.recyclerView.context,
             layoutManager.orientation
         )
-        recycler_view.addItemDecoration(dividerItemDecoration)
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         adapter = PostListAdapter(context!!, this)
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
     }
 

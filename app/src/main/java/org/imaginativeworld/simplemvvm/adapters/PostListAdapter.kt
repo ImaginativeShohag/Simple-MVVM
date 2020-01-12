@@ -4,20 +4,32 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_post.view.*
-import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import kotlinx.android.synthetic.main.item_user.view.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.models.PostResponse
 
 class PostListAdapter(
-    private var context: Context,
-    listener: OnObjectListInteractionListener<PostResponse>
+    private var context: Context
 ) :
-    RecyclerView.Adapter<PostListAdapter.ListViewHolder>() {
+    ListAdapter<PostResponse, PostListAdapter.ListViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostResponse>() {
+            override fun areItemsTheSame(oldItem: PostResponse, newItem: PostResponse): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: PostResponse, newItem: PostResponse): Boolean {
+                return oldItem == newItem
+            }
+        }
+
+    }
 
     private var mListener = listener
 

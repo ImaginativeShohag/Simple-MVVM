@@ -8,6 +8,7 @@
         <variable
             name="post"
             type="org.imaginativeworld.simplemvvm.models.PostResponse" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,25 +25,25 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@{post.title}"
             android:textColor="@color/flat_grey_dark_2"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:postTitle="@{post.title}"
             tools:text="@tools:sample/lorem[5]" />
 
         <TextView
             android:id="@+id/tv_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@{post.body}"
             android:textColor="@color/flat_grey_dark_1"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            app:postBody="@{post.body}"
             tools:text="@tools:sample/lorem[20]" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

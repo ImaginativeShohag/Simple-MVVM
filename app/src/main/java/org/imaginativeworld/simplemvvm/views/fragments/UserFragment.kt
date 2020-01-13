@@ -123,7 +123,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initListeners() {
 
-        floating_action_button.setOnClickListener {
+        fab_add.setOnClickListener {
 
             val randomIndex = Random.nextInt(totalData)
 

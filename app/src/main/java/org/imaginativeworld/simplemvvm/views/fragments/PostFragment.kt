@@ -1,5 +1,6 @@
 package org.imaginativeworld.simplemvvm.views.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -63,6 +64,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_post, container, false)
 
+        binding.lifecycleOwner = this
+
         return binding.root
     }
 
@@ -95,7 +98,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
-        adapter = PostListAdapter(context!!, this)
+        adapter = PostListAdapter(this)
+
         binding.recyclerView.adapter = adapter
 
     }
@@ -111,7 +115,9 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                         resource.data?.let {
 
-                            adapter.addAll(it)
+                            adapter.submitList(it)
+
+                            adapter.checkEmptiness()
 
                         }
 
@@ -149,6 +155,11 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onClick(position: Int, dataObject: PostResponse) {
 
+        AlertDialog.Builder(this.context)
+            .setTitle(dataObject.title)
+            .setMessage(dataObject.body)
+            .show()
+
     }
 
     override fun onLongClick(position: Int, dataObject: PostResponse) {
@@ -156,10 +167,10 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     }
 
     override fun showEmptyView() {
-
+        binding.emptyView.emptyLayout.visibility = View.VISIBLE
     }
 
     override fun hideEmptyView() {
-
+        binding.emptyView.emptyLayout.visibility = View.GONE
     }
 }

@@ -1,11 +1,11 @@
 package org.imaginativeworld.simplemvvm.network
 
 import android.content.Context
-import android.util.Log
 import org.imaginativeworld.oopsnointernet.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
+import timber.log.Timber
 import java.net.HttpURLConnection
 
 abstract class SafeApiRequest {
@@ -41,7 +41,7 @@ abstract class SafeApiRequest {
 
                 message.append("Error Code: ${response.code()}")
 
-                Log.e("SafeApiRequest", "ApiException: $message")
+                Timber.e("SafeApiRequest: ApiException: $message")
 
                 throw ApiException(message.toString())
             }

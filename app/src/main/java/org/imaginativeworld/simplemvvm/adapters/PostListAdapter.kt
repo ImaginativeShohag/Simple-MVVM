@@ -1,21 +1,17 @@
 package org.imaginativeworld.simplemvvm.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_post.view.*
-import org.imaginativeworld.simplemvvm.R
+import org.imaginativeworld.simplemvvm.databinding.ItemPostBinding
+import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResponse
 
 class PostListAdapter(
-    private var context: Context
-) :
-    ListAdapter<PostResponse, PostListAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    private val listener: OnObjectListInteractionListener<PostResponse>
+) : ListAdapter<PostResponse, PostListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
 
@@ -31,82 +27,52 @@ class PostListAdapter(
 
     }
 
-    private var mListener = listener
-
-    private var dataList: MutableList<PostResponse> = arrayListOf()
-
-    fun addAll(dataList: List<PostResponse>) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList)
-        notifyDataSetChanged()
-
-        checkEmptiness()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+        return ListViewHolder.from(parent, listener)
     }
 
-    fun add(obj: PostResponse) {
-        this.dataList.add(obj)
-        notifyItemInserted(this.dataList.size - 1)
-
-        checkEmptiness()
-    }
-
-    fun empty() {
-        this.dataList.clear()
-        notifyDataSetChanged()
-
-        checkEmptiness()
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
     }
 
     fun checkEmptiness() {
-        if (this.dataList.size > 0) {
-            mListener.hideEmptyView()
+        if (itemCount > 0) {
+            listener.hideEmptyView()
         } else {
-            mListener.showEmptyView()
+            listener.showEmptyView()
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+    class ListViewHolder private constructor(
+        private val binding: ItemPostBinding,
+        private val listener: OnObjectListInteractionListener<PostResponse>
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_post, parent, false)
+        fun bind(item: PostResponse) {
+            binding.post = item
+            binding.executePendingBindings()
+            binding.root.setOnClickListener {
+                listener.onClick(adapterPosition, item)
+            }
+            binding.root.setOnLongClickListener {
+                listener.onLongClick(adapterPosition, item)
 
-        return ListViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return this.dataList.size
-    }
-
-
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-
-        val obj: PostResponse = dataList[position]
-
-        holder.tvTitle.text = obj.title
-        holder.tvBody.text = obj.body
-
-
-        // Init Listener
-        holder.itemView.setOnClickListener {
-
-            mListener.onClick(position, obj)
-
+                true
+            }
         }
 
-        holder.itemView.setOnLongClickListener {
-
-            mListener.onLongClick(position, obj)
-
-            true
-
+        companion object {
+            fun from(
+                parent: ViewGroup,
+                listener: OnObjectListInteractionListener<PostResponse>
+            ): ListViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemPostBinding.inflate(layoutInflater, parent, false)
+                return ListViewHolder(binding, listener)
+            }
         }
-    }
-
-
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val tvTitle: TextView = itemView.tv_title
-        val tvBody: TextView = itemView.tv_body
 
     }
 

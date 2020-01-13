@@ -12,6 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/empty_layout" />
+
     </FrameLayout>
 
 </layout>

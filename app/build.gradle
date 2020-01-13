@@ -107,4 +107,7 @@ dependencies {
 
     // Permission
     implementation 'com.karumi:dexter:6.0.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

@@ -2,7 +2,6 @@ package org.imaginativeworld.simplemvvm.views.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,7 @@ import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
+import timber.log.Timber
 import kotlin.random.Random
 
 class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
@@ -144,7 +144,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                 resource?.data?.let { insertId ->
 
-                    Log.e(TAG, "insertId: $insertId")
+                    Timber.e("insertId: $insertId")
 
                     appViewModel?.getUsers()
 

@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.imaginativeworld.simplemvvm.R
+import org.imaginativeworld.simplemvvm.databinding.FragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 
 class HomeFragment : Fragment(), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +25,9 @@ class HomeFragment : Fragment(), CommonFunctions {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -38,13 +42,13 @@ class HomeFragment : Fragment(), CommonFunctions {
 
     override fun initListeners() {
 
-        btn_user.setOnClickListener {
+        binding.btnUser.setOnClickListener {
 
             listener?.gotoFragment(R.id.userFragment)
 
         }
 
-        btn_post.setOnClickListener {
+        binding.btnPost.setOnClickListener {
 
             listener?.gotoFragment(R.id.postFragment)
 

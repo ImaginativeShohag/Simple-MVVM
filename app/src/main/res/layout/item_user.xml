@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="user"
+            type="org.imaginativeworld.simplemvvm.models.UserEntity" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +28,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_user" />
+            app:srcCompat="@drawable/ic_user"
+            app:srcUrlProfile="@{user.image}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -29,6 +38,7 @@
             android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{user.name}"
             android:textColor="@color/flat_grey_dark_2"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -44,6 +54,7 @@
             android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{user.phone}"
             android:textColor="@color/flat_grey_dark_1"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

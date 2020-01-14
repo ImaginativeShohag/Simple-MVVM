@@ -56,6 +56,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 }
             })[PostViewModel::class.java]
         }
+
+        adapter = PostListAdapter(this)
     }
 
     override fun onCreateView(
@@ -97,8 +99,6 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
             layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
-
-        adapter = PostListAdapter(this)
 
         binding.recyclerView.adapter = adapter
 

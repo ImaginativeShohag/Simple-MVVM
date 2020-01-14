@@ -19,7 +19,7 @@ interface UserDao {
 
 
     @Query("DELETE FROM tbl_user")
-    suspend fun resetUserTable()
+    suspend fun removeAllUsers()
 
 
     @Query("SELECT * FROM tbl_user")

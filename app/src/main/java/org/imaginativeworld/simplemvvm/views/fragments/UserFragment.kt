@@ -12,10 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_post.recycler_view
-import kotlinx.android.synthetic.main.fragment_user.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.UserListAdapter
+import org.imaginativeworld.simplemvvm.databinding.FragmentUserBinding
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
@@ -32,6 +31,8 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     private val TAG = "UserFragment"
 
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var binding: FragmentUserBinding
 
     private var appViewModel: UserViewModel? = null
 
@@ -78,13 +79,19 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 }
             })[UserViewModel::class.java]
         }
+
+        adapter = UserListAdapter(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_user, container, false)
+        binding = FragmentUserBinding.inflate(inflater)
+
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -108,22 +115,21 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         // List
         val layoutManager = LinearLayoutManager(activity)
-        recycler_view.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-            recycler_view.context,
+            binding.recyclerView.context,
             layoutManager.orientation
         )
-        recycler_view.addItemDecoration(dividerItemDecoration)
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
-        adapter = UserListAdapter(context!!, this)
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
     }
 
     override fun initListeners() {
 
-        fab_add.setOnClickListener {
+        binding.fabAdd.setOnClickListener {
 
             val randomIndex = Random.nextInt(totalData)
 
@@ -138,6 +144,30 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
             listener?.showLoading()
 
         }
+
+        binding.fabClear.setOnClickListener {
+
+            appViewModel?.removeAllUsers()
+
+        }
+
+        appViewModel?.removeAllUsersResponse
+            ?.observe(this, Observer { resource ->
+
+                resource?.data?.let { success ->
+
+                    if (success) {
+                        appViewModel?.getUsers()
+
+                        appViewModel?.removeAllUsersResponse?.value = null
+                    }
+
+                }
+
+                resource?.let {
+                    listener?.hideLoading()
+                }
+            })
 
         appViewModel?.addUserResponse
             ?.observe(this, Observer { resource ->
@@ -161,7 +191,13 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                 resource?.data?.let {
 
-                    adapter.addAll(it)
+                    adapter.submitList(it)
+
+                    if (it.isEmpty()) {
+                        showEmptyView()
+                    } else {
+                        hideEmptyView()
+                    }
 
                 }
 
@@ -170,6 +206,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 }
 
             })
+
 
     }
 
@@ -196,10 +233,10 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     }
 
     override fun showEmptyView() {
-
+        binding.emptyView.emptyLayout.visibility = View.VISIBLE
     }
 
     override fun hideEmptyView() {
-
+        binding.emptyView.emptyLayout.visibility = View.GONE
     }
 }

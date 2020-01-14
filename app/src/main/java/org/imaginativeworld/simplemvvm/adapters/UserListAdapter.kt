@@ -1,105 +1,80 @@
 package org.imaginativeworld.simplemvvm.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import org.imaginativeworld.simplemvvm.databinding.ItemUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import kotlinx.android.synthetic.main.item_user.view.*
-import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.models.UserEntity
-import org.imaginativeworld.simplemvvm.utils.GlideApp
 
 class UserListAdapter(
-    private var context: Context,
-    listener: OnObjectListInteractionListener<UserEntity>
+    val listener: OnObjectListInteractionListener<UserEntity>
 ) :
-    RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
+    ListAdapter<UserEntity, UserListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    private var mListener = listener
+    companion object {
 
-    private var dataList: MutableList<UserEntity> = arrayListOf()
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserEntity>() {
+            override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    fun addAll(dataList: List<UserEntity>) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList)
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
 
-        checkEmptiness()
-    }
-
-    fun add(obj: UserEntity) {
-        this.dataList.add(obj)
-        notifyItemInserted(this.dataList.size - 1)
-
-        checkEmptiness()
-    }
-
-    fun empty() {
-        this.dataList.clear()
-        notifyDataSetChanged()
-
-        checkEmptiness()
     }
 
     fun checkEmptiness() {
-        if (this.dataList.size > 0) {
-            mListener.hideEmptyView()
+        if (itemCount > 0) {
+            listener.hideEmptyView()
         } else {
-            mListener.showEmptyView()
+            listener.showEmptyView()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_user, parent, false)
-
-        return ListViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return this.dataList.size
+        return ListViewHolder.from(parent, listener)
     }
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-
-        val obj: UserEntity = dataList[position]
-
-        holder.tvName.text = obj.name
-        holder.tvPhone.text = obj.phone
-
-        GlideApp.with(context)
-            .load(obj.image)
-            .profilePhoto()
-            .into(holder.imgProfile)
-
-        // Init Listener
-        holder.itemView.setOnClickListener {
-
-            mListener.onClick(position, obj)
-
-        }
-
-        holder.itemView.setOnLongClickListener {
-
-            mListener.onLongClick(position, obj)
-
-            true
-
-        }
+        val item = getItem(position)
+        holder.bind(item)
     }
 
 
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListViewHolder private constructor(
+        private val binding: ItemUserBinding,
+        private val listener: OnObjectListInteractionListener<UserEntity>
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        val imgProfile: ImageView = itemView.img_profile
-        val tvName: TextView = itemView.tv_name
-        val tvPhone: TextView = itemView.tv_phone
+        fun bind(item: UserEntity) {
+            binding.user = item
+            binding.executePendingBindings()
+            binding.root.setOnClickListener {
+                listener.onClick(adapterPosition, item)
+            }
+            binding.root.setOnLongClickListener {
+                listener.onLongClick(adapterPosition, item)
+
+                true
+            }
+        }
+
+        companion object {
+            fun from(
+                parent: ViewGroup,
+                listener: OnObjectListInteractionListener<UserEntity>
+            ): ListViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemUserBinding.inflate(layoutInflater, parent, false)
+                return ListViewHolder(binding, listener)
+            }
+        }
 
     }
 

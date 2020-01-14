@@ -39,6 +39,24 @@ class UserViewModel(
 
     // ----------------------------------------------------------------
 
+    val removeAllUsersResponse: MutableLiveData<Resource<Boolean>?> by lazy {
+        MutableLiveData<Resource<Boolean>?>()
+    }
+
+    fun removeAllUsers() {
+
+        viewModelScope.launch {
+
+            repository.removeAllUsers()
+
+            removeAllUsersResponse.setValue(Resource.Success(true))
+
+        }
+
+    }
+
+    // ----------------------------------------------------------------
+
     val getUsersResponse: MutableLiveData<Resource<List<UserEntity>>?> by lazy {
         MutableLiveData<Resource<List<UserEntity>>?>()
     }

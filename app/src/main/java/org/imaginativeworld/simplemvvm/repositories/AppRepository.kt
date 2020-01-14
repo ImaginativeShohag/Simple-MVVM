@@ -29,6 +29,14 @@ class AppRepository(
         }
     }
 
+    suspend fun removeAllUsers() {
+        return withContext(Dispatchers.IO) {
+
+            db.userDao().removeAllUsers()
+
+        }
+    }
+
     suspend fun getUsers(): List<UserEntity> {
         return withContext(Dispatchers.IO) {
 

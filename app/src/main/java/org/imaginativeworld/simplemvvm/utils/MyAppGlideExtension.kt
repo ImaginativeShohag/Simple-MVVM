@@ -17,8 +17,10 @@ object MyAppGlideExtension {
     fun profilePhoto(options: BaseRequestOptions<*>): BaseRequestOptions<*> {
         return options
             .fitCenter()
-            .placeholder(R.drawable.ic_user)
             .circleCrop()
+            .placeholder(R.drawable.ic_user)
+            .fallback(R.drawable.ic_user)
+            .error(R.drawable.ic_user)
     }
 
 }

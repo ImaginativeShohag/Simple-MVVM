@@ -47,8 +47,7 @@ class PostListAdapter(
     class ListViewHolder private constructor(
         private val binding: ItemPostBinding,
         private val listener: OnObjectListInteractionListener<PostResponse>
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PostResponse) {
             binding.post = item

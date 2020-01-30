@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.PostFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.post.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" />
     <fragment

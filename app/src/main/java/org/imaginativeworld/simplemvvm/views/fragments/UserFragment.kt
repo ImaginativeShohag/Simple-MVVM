@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.R
@@ -72,7 +71,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 AppDatabase(it.applicationContext)
             )
 
-            appViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            appViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                     return UserViewModel(appRepository) as T
@@ -131,6 +130,8 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         binding.fabAdd.setOnClickListener {
 
+            listener?.showLoading()
+
             val randomIndex = Random.nextInt(totalData)
 
             appViewModel?.addUser(
@@ -140,8 +141,6 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                     image = images[randomIndex]
                 )
             )
-
-            listener?.showLoading()
 
         }
 

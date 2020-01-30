@@ -52,12 +52,13 @@ class PostListAdapter(
         fun bind(item: PostResponse) {
             binding.post = item
             binding.executePendingBindings()
+
             binding.root.setOnClickListener {
                 listener.onClick(adapterPosition, item)
             }
+
             binding.root.setOnLongClickListener {
                 listener.onLongClick(adapterPosition, item)
-
                 true
             }
         }

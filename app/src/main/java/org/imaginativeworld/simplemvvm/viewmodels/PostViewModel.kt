@@ -1,5 +1,6 @@
 package org.imaginativeworld.simplemvvm.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,39 +8,49 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.PostResponse
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import org.imaginativeworld.simplemvvm.utils.Resource
 
 class PostViewModel(
     private val repository: AppRepository
 ) : ViewModel() {
 
-    fun clearPostObservables() {
-        getPostsResponse.value = null
+    val eventShowMessage: MutableLiveData<String?> by lazy {
+        MutableLiveData<String?>()
+    }
+
+    val eventShowLoading: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
     }
 
     // ----------------------------------------------------------------
 
-    val getPostsResponse: MutableLiveData<Resource<List<PostResponse>>?> by lazy {
-        MutableLiveData<Resource<List<PostResponse>>?>()
+    fun clearPostObservables() {
+        eventShowLoading.value = null
+        eventShowMessage.value = null
+        _postsResponse.value = null
     }
 
-    fun getPosts() {
+    // ----------------------------------------------------------------
 
-        viewModelScope.launch {
+    private val _postsResponse: MutableLiveData<List<PostResponse>> by lazy {
+        MutableLiveData<List<PostResponse>>()
+    }
 
-            try {
+    val postsResponse: LiveData<List<PostResponse>?>
+        get() = _postsResponse
 
-                val response = repository.getPosts()
+    fun getPosts() = viewModelScope.launch {
 
-                getPostsResponse.setValue(Resource.Success(response))
+        eventShowLoading.value = true
 
-            } catch (e: ApiException) {
-
-                getPostsResponse.setValue(Resource.Error(e.message!!))
-
-            }
+        try {
+            _postsResponse.value = repository.getPosts()
+        } catch (e: ApiException) {
+            eventShowMessage.value = e.message
         }
 
+        eventShowLoading.value = false
+
     }
+
 
 }

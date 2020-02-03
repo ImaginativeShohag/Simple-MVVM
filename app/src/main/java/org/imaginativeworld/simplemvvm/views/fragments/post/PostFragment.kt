@@ -23,7 +23,6 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.PostResponse
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import org.imaginativeworld.simplemvvm.viewmodels.PostViewModel
 
 // TODO: Make full use of Data Binding.
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
@@ -50,7 +49,9 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
             appViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return PostViewModel(appRepository) as T
+                    return PostViewModel(
+                        appRepository
+                    ) as T
                 }
             })[PostViewModel::class.java]
         }

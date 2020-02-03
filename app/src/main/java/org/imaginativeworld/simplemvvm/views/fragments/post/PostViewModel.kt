@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.viewmodels
+package org.imaginativeworld.simplemvvm.views.fragments.post
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

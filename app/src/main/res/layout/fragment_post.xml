@@ -7,7 +7,7 @@
 
         <variable
             name="postViewModel"
-            type="org.imaginativeworld.simplemvvm.viewmodels.PostViewModel" />
+            type="org.imaginativeworld.simplemvvm.views.fragments.post.PostViewModel" />
 
     </data>
 

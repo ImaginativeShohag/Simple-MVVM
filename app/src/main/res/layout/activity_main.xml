@@ -19,6 +19,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <include layout="@layout/loading_layout" />
+    <include
+        layout="@layout/loading_layout"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,42 +13,52 @@ class PostViewModel(
     private val repository: AppRepository
 ) : ViewModel() {
 
-    val eventShowMessage: MutableLiveData<String?> by lazy {
+    private val _eventShowMessage: MutableLiveData<String?> by lazy {
         MutableLiveData<String?>()
     }
 
-    val eventShowLoading: MutableLiveData<Boolean?> by lazy {
+    val eventShowMessage: LiveData<String?>
+        get() = _eventShowMessage
+
+    // ----------------------------------------------------------------
+
+    private val _eventShowLoading: MutableLiveData<Boolean?> by lazy {
         MutableLiveData<Boolean?>()
     }
+
+    val eventShowLoading: LiveData<Boolean?>
+        get() = _eventShowLoading
+
+    // ----------------------------------------------------------------
+
+    private val _postItems: MutableLiveData<List<PostResponse>> by lazy {
+        MutableLiveData<List<PostResponse>>()
+    }
+
+    val postItems: LiveData<List<PostResponse>?>
+        get() = _postItems
 
     // ----------------------------------------------------------------
 
     fun clearPostObservables() {
-        eventShowLoading.value = null
-        eventShowMessage.value = null
-        _postsResponse.value = null
+        _eventShowMessage.value = null
+        _eventShowLoading.value = null
+        _postItems.value = null
     }
 
     // ----------------------------------------------------------------
 
-    private val _postsResponse: MutableLiveData<List<PostResponse>> by lazy {
-        MutableLiveData<List<PostResponse>>()
-    }
-
-    val postsResponse: LiveData<List<PostResponse>?>
-        get() = _postsResponse
-
     fun getPosts() = viewModelScope.launch {
 
-        eventShowLoading.value = true
+        _eventShowLoading.value = true
 
         try {
-            _postsResponse.value = repository.getPosts()
+            _postItems.value = repository.getPosts()
         } catch (e: ApiException) {
-            eventShowMessage.value = e.message
+            _eventShowMessage.value = e.message
         }
 
-        eventShowLoading.value = false
+        _eventShowLoading.value = false
 
     }
 

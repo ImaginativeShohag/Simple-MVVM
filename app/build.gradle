@@ -17,7 +17,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.191228"
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -64,12 +64,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    // Fragment
-//    implementation "androidx.fragment:fragment-ktx:1.2.0"
-
-    // Testing Fragments in Isolation
-//    implementation "androidx.fragment:fragment-testing:1.2.0"
-
     // Retrofit and GSON
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
@@ -80,7 +74,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     // Material Design
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:2.2.3"

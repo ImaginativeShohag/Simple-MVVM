@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/global_loading_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#99000000"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:visibility="gone"
-    tools:visibility="visible">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="200dp"
-        android:layout_height="180dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+    <LinearLayout
+        android:id="@+id/global_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="200dp"
+            android:layout_height="180dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-            <ProgressBar
-                android:id="@+id/spin_kit"
-                style="@android:style/Widget.Material.ProgressBar.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/loading"
-                android:textColor="@color/flat_grey_dark_1"
-                android:textSize="26sp" />
+                <ProgressBar
+                    android:id="@+id/spin_kit"
+                    style="@android:style/Widget.Material.ProgressBar.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/loading"
+                    android:textColor="@color/flat_grey_dark_1"
+                    android:textSize="26sp" />
 
-    </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-</LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</layout>

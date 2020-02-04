@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments
+package org.imaginativeworld.simplemvvm.views.fragments.home
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,6 @@ import org.imaginativeworld.simplemvvm.databinding.FragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 
-// TODO: Make full use of Data Binding.
 class HomeFragment : Fragment(), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null

@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.viewmodels
+package org.imaginativeworld.simplemvvm.views.fragments.home
 
 import androidx.lifecycle.ViewModel
 

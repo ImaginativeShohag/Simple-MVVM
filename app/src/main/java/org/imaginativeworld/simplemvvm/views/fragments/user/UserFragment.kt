@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments
+package org.imaginativeworld.simplemvvm.views.fragments.user
 
 import android.content.Context
 import android.os.Bundle
@@ -21,9 +21,6 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
-import timber.log.Timber
-import kotlin.random.Random
 
 class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
 
@@ -33,32 +30,9 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     private lateinit var binding: FragmentUserBinding
 
-    private var appViewModel: UserViewModel? = null
+    private var userViewModel: UserViewModel? = null
 
     private lateinit var adapter: UserListAdapter
-
-    private val totalData = 4
-
-    private val names = listOf(
-        "Shohag",
-        "Rakib",
-        "Shafee",
-        "Imran"
-    )
-
-    private val phones = listOf(
-        "01111111111",
-        "02222222222",
-        "03333333333",
-        "04444444444"
-    )
-
-    private val images = listOf(
-        "http://teamshunno.com/wp-content/uploads/2018/07/Sohag-278x300.jpg",
-        "http://teamshunno.com/wp-content/uploads/2018/07/Rakib-1-283x300.jpg",
-        "http://teamshunno.com/wp-content/uploads/2018/07/Shafee_new-3-300x300.png",
-        "http://teamshunno.com/wp-content/uploads/2018/07/imran-1-285x300.jpg"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,13 +45,17 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 AppDatabase(it.applicationContext)
             )
 
-            appViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            userViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return UserViewModel(appRepository) as T
+                    return UserViewModel(
+                        appRepository
+                    ) as T
                 }
             })[UserViewModel::class.java]
         }
+
+        initObservers()
 
         adapter = UserListAdapter(this)
     }
@@ -86,9 +64,11 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserBinding.inflate(inflater)
+        binding = FragmentUserBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
+
+        binding.userViewModel = userViewModel
 
         return binding.root
     }
@@ -101,13 +81,13 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         initViews()
         initListeners()
 
-        appViewModel?.getUsers()
+        userViewModel?.getUsers()
     }
 
     override fun onPause() {
         super.onPause()
 
-        appViewModel?.clearUserObservables()
+        userViewModel?.clearUserObservables()
     }
 
     override fun initViews() {
@@ -128,84 +108,112 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initListeners() {
 
-        binding.fabAdd.setOnClickListener {
+//        binding.fabAdd.setOnClickListener {
+//
+//            listener?.showLoading()
+//
+//            val randomIndex = Random.nextInt(totalData)
+//
+//            appViewModel?.addUser(
+//                UserEntity(
+//                    name = names[randomIndex],
+//                    phone = phones[randomIndex],
+//                    image = images[randomIndex]
+//                )
+//            )
+//
+//        }
 
-            listener?.showLoading()
+//        binding.fabClear.setOnClickListener {
+//
+//            appViewModel?.removeAllUsers()
+//
+//        }
 
-            val randomIndex = Random.nextInt(totalData)
 
-            appViewModel?.addUser(
-                UserEntity(
-                    name = names[randomIndex],
-                    phone = phones[randomIndex],
-                    image = images[randomIndex]
-                )
-            )
+    }
 
-        }
+    override fun initObservers() {
 
-        binding.fabClear.setOnClickListener {
+        userViewModel?.eventShowMessage
+            ?.observe(this, Observer {
 
-            appViewModel?.removeAllUsers()
+                it?.run {
 
-        }
+                    listener?.showSnackbar(this)
 
-        appViewModel?.removeAllUsersResponse
-            ?.observe(this, Observer { resource ->
-
-                resource?.data?.let { success ->
-
-                    if (success) {
-                        appViewModel?.getUsers()
-
-                        appViewModel?.removeAllUsersResponse?.value = null
-                    }
-
-                }
-
-                resource?.let {
-                    listener?.hideLoading()
-                }
-            })
-
-        appViewModel?.addUserResponse
-            ?.observe(this, Observer { resource ->
-
-                resource?.data?.let { insertId ->
-
-                    Timber.e("insertId: $insertId")
-
-                    appViewModel?.getUsers()
-
-                }
-
-                resource?.let {
-                    listener?.hideLoading()
                 }
 
             })
 
-        appViewModel?.getUsersResponse
-            ?.observe(this, Observer { resource ->
+        userViewModel?.eventShowLoading
+            ?.observe(this, Observer {
 
-                resource?.data?.let {
-
-                    adapter.submitList(it)
-
-                    if (it.isEmpty()) {
-                        showEmptyView()
+                it?.apply {
+                    if (it == true) {
+                        listener?.showLoading()
                     } else {
-                        hideEmptyView()
+                        listener?.hideLoading()
                     }
-
-                }
-
-                resource?.let {
-                    listener?.hideLoading()
                 }
 
             })
 
+//        appViewModel?.removeAllUsersResponse
+//            ?.observe(this, Observer { resource ->
+//
+//                resource?.data?.let { success ->
+//
+//                    if (success) {
+//                        appViewModel?.getUsers()
+//
+//                        appViewModel?.removeAllUsersResponse?.value = null
+//                    }
+//
+//                }
+//
+//                resource?.let {
+//                    listener?.hideLoading()
+//                }
+//            })
+
+//        appViewModel?.addUserResponse
+//            ?.observe(this, Observer { resource ->
+//
+//                resource?.data?.let { insertId ->
+//
+//                    Timber.e("insertId: $insertId")
+//
+//                    appViewModel?.getUsers()
+//
+//                }
+//
+//                resource?.let {
+//                    listener?.hideLoading()
+//                }
+//
+//            })
+
+//        appViewModel?.getUsersResponse
+//            ?.observe(this, Observer { resource ->
+//
+//                resource?.data?.let {
+//
+//                    adapter.submitList(it)
+//
+//                    if (it.isEmpty()) {
+//                        showEmptyView()
+//                    } else {
+//                        hideEmptyView()
+//                    }
+//
+//                }
+//
+//                resource?.let {
+//                    listener?.hideLoading()
+//                }
+//
+//            })
 
     }
 

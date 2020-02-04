@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.imaginativeworld.simplemvvm.viewmodels.HomeViewModel" />
+            type="org.imaginativeworld.simplemvvm.views.fragments.home.HomeViewModel" />
 
     </data>
 
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context=".views.fragments.HomeFragment">
+        tools:context=".views.fragments.home.HomeFragment">
 
         <TextView
             android:layout_width="wrap_content"

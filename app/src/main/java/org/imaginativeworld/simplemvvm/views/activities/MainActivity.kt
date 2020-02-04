@@ -8,12 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.loading_layout.*
 import org.imaginativeworld.simplemvvm.R
+import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
+import org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel
 import org.jetbrains.anko.design.indefiniteSnackbar
 import org.jetbrains.anko.design.longSnackbar
 
@@ -21,9 +20,12 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
     private lateinit var navController: NavController
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         navController = findNavController(R.id.nav_host_fragment)
 
@@ -37,6 +39,10 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun initListeners() {
+
+    }
+
+    override fun initObservers() {
 
     }
 
@@ -95,21 +101,21 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun showSnackbar(message: String) {
-        main_container.longSnackbar(message)
+        binding.mainContainer.longSnackbar(message)
     }
 
     override fun showSnackbar(message: String, buttonText: String, action: (View) -> Unit) {
-        main_container.indefiniteSnackbar(message, buttonText, action)
+        binding.mainContainer.indefiniteSnackbar(message, buttonText, action)
     }
 
     override fun showLoading() {
-        val loadingAnimation = global_loading_layout.animate()
+        val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
             .alpha(1f)
             .setDuration(200)
             .setListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {
-                    global_loading_layout.alpha = 0f
-                    global_loading_layout.visibility = View.VISIBLE
+                    binding.loadingView.globalLoadingLayout.alpha = 0f
+                    binding.loadingView.globalLoadingLayout.visibility = View.VISIBLE
                 }
 
                 override fun onAnimationEnd(animation: Animator) {}
@@ -121,12 +127,12 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun hideLoading() {
-        val loadingAnimation = global_loading_layout.animate()
+        val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
             .alpha(0f)
             .setDuration(200)
             .setListener(object : Animator.AnimatorListener {
                 override fun onAnimationEnd(animation: Animator?) {
-                    global_loading_layout.visibility = View.GONE
+                    binding.loadingView.globalLoadingLayout.visibility = View.GONE
                 }
 
                 override fun onAnimationRepeat(animation: Animator?) {}

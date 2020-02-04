@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -24,14 +23,13 @@ import org.imaginativeworld.simplemvvm.models.PostResponse
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 
-// TODO: Make full use of Data Binding.
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
 
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var binding: FragmentPostBinding
 
-    private var appViewModel: PostViewModel? = null
+    private var postViewModel: PostViewModel? = null
 
     private lateinit var adapter: PostListAdapter
 
@@ -46,7 +44,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 AppDatabase(it.applicationContext)
             )
 
-            appViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            postViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                     return PostViewModel(
@@ -56,7 +54,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
             })[PostViewModel::class.java]
         }
 
-        initListeners()
+        initObservers()
 
         adapter = PostListAdapter(this)
     }
@@ -65,11 +63,11 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_post, container, false)
+        binding = FragmentPostBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this.viewLifecycleOwner
 
-        binding.postViewModel = appViewModel
+        binding.postViewModel = postViewModel
 
         return binding.root
     }
@@ -83,13 +81,13 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         initViews()
 
-        appViewModel?.getPosts()
+        postViewModel?.getPosts()
     }
 
     override fun onPause() {
         super.onPause()
 
-        appViewModel?.clearPostObservables()
+        postViewModel?.clearPostObservables()
     }
 
     override fun initViews() {
@@ -108,9 +106,9 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     }
 
-    override fun initListeners() {
+    override fun initObservers() {
 
-        appViewModel?.eventShowMessage
+        postViewModel?.eventShowMessage
             ?.observe(this, Observer {
 
                 it?.run {
@@ -121,7 +119,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
             })
 
-        appViewModel?.eventShowLoading
+        postViewModel?.eventShowLoading
             ?.observe(this, Observer {
 
                 it?.apply {

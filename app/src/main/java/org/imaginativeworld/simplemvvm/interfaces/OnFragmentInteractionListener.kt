@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavDirections
-import org.imaginativeworld.simplemvvm.viewmodels.UserViewModel
+import org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel
 
 interface OnFragmentInteractionListener {
 

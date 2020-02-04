@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.ItemUserBinding
+import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.UserEntity
 
 class UserListAdapter(
     val listener: OnObjectListInteractionListener<UserEntity>
 ) :
-    ListAdapter<UserEntity, UserListAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<UserEntity, UserListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<UserEntity>> {
 
     companion object {
 
@@ -28,7 +30,15 @@ class UserListAdapter(
 
     }
 
-    fun checkEmptiness() {
+    override fun setItems(data: List<UserEntity>?) {
+        submitList(
+            data
+        ) {
+            checkEmptiness()
+        }
+    }
+
+    private fun checkEmptiness() {
         if (itemCount > 0) {
             listener.hideEmptyView()
         } else {

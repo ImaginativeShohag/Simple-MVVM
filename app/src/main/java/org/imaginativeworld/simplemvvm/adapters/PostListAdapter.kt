@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.ItemPostBinding
+import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResponse
 
 class PostListAdapter(
     private val listener: OnObjectListInteractionListener<PostResponse>
-) : ListAdapter<PostResponse, PostListAdapter.ListViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<PostResponse, PostListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<PostResponse>> {
 
     companion object {
 
@@ -36,7 +38,13 @@ class PostListAdapter(
         holder.bind(item)
     }
 
-    fun checkEmptiness() {
+    override fun setItems(data: List<PostResponse>?) {
+        submitList(data) {
+            checkEmptiness()
+        }
+    }
+
+    private fun checkEmptiness() {
         if (itemCount > 0) {
             listener.hideEmptyView()
         } else {

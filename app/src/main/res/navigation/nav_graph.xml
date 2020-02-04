@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.HomeFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_post" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.UserFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
 </navigation>

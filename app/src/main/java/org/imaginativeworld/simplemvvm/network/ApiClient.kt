@@ -18,7 +18,9 @@ class ApiClient {
 
         private fun buildClient(): OkHttpClient {
             return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.BODY
+                })
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()
                         .addHeader("Accept", "application/json")

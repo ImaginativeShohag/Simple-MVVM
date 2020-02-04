@@ -2,10 +2,15 @@
 
 A simple Android MVVM pattern example using:
 
+- View Binding
+- Data Binding
 - Kotlin
-- Kotlin coroutines
+- Kotlin Coroutines
 - Retrofit
 - Room Persistence Library
-- Navigation component
+- Navigation Component
+- Paging (coming soon...)
 - Glide
 - Anko
+- Timber
+- Dexter (coming soon...)

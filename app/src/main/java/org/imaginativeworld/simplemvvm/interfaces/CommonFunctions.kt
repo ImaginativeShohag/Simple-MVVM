@@ -6,6 +6,8 @@ interface CommonFunctions {
 
     fun initListeners() {}
 
+    fun initObservers() {}
+
     fun isValidInputs(): Boolean = true
 
 }

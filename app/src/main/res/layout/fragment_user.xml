@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.fragments.user.UserFragment">
 
     <data>
 
         <variable
             name="userViewModel"
-            type="org.imaginativeworld.simplemvvm.viewmodels.UserViewModel" />
+            type="org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel" />
 
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.fragments.UserFragment">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:items="@{userViewModel.userItems}"
+            tools:listitem="@layout/item_user" />
 
         <include
             android:id="@+id/empty_view"
@@ -31,8 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="16dp"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_delete_black_24dp" />
+            android:onClick="@{() -> userViewModel.removeAllUsers()}"
+            app:backgroundTint="@color/flat_red_1"
+            app:srcCompat="@drawable/ic_delete_black_24dp"
+            app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add"
@@ -40,9 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:tint="@color/white"
-            app:backgroundTint="@color/flat_awesome_green_2"
-            app:srcCompat="@drawable/ic_add_24dp" />
+            android:onClick="@{() -> userViewModel.addUser()}"
+            app:backgroundTint="@color/flat_green_2"
+            app:srcCompat="@drawable/ic_add_24dp"
+            app:tint="@color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

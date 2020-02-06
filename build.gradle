@@ -14,7 +14,7 @@ buildscript {
         // in the individual module build.gradle files
 
         // Navigation Component: Safe Args
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.1"
     }
 }
 

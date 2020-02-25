@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">typicode.com</domain>
         <domain includeSubdomains="true">teamshunno.com</domain>
+        <domain includeSubdomains="true">gorest.co.in</domain>
     </domain-config>
 </network-security-config>

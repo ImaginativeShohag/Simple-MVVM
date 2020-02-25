@@ -14,3 +14,5 @@ A simple Android MVVM pattern example using:
 - Anko
 - Timber
 - Dexter (coming soon...)
+- Custom Fonts
+- Shimmer Effect

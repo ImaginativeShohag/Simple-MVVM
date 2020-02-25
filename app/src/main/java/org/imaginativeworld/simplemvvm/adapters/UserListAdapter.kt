@@ -31,10 +31,10 @@ class UserListAdapter(
     }
 
     override fun setItems(data: List<UserEntity>?) {
-        submitList(
-            data
-        ) {
-            checkEmptiness()
+        data?.apply {
+            submitList(this) {
+                checkEmptiness()
+            }
         }
     }
 

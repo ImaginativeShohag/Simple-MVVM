@@ -48,12 +48,18 @@ class PostViewModel(
 
     // ----------------------------------------------------------------
 
-    fun getPosts() = viewModelScope.launch {
+    fun getPosts(
+        format: String,
+        accessToken: String
+    ) = viewModelScope.launch {
 
         _eventShowLoading.value = true
 
         try {
-            _postItems.value = repository.getPosts()
+            _postItems.value = repository.getPosts(
+                format,
+                accessToken
+            )
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }

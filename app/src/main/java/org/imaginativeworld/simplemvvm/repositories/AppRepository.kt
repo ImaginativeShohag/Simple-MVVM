@@ -50,11 +50,17 @@ class AppRepository(
     // Post
     // ----------------------------------------------------------------
 
-    suspend fun getPosts(): List<PostResponse> {
+    suspend fun getPosts(
+        format: String,
+        accessToken: String
+    ): List<PostResponse> {
         return withContext(Dispatchers.IO) {
 
             apiRequest(context) {
-                api.getPosts()
+                api.getPosts(
+                    format,
+                    accessToken
+                )
             }
 
         }

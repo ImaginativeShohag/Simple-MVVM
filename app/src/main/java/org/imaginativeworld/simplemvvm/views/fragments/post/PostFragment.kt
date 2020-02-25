@@ -22,6 +22,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.PostResponse
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.utils.Constants
 
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
 
@@ -72,22 +73,33 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        listener?.hideLoading()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         listener?.setAppTitle(getString(R.string.title_posts))
 
-        initViews()
+        listener?.hideLoading()
 
-        postViewModel?.getPosts()
+        initViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        load();
+    }
+
+    private fun load() {
+        postViewModel?.getPosts(
+            Constants.SERVER_FORMAT,
+            Constants.SERVER_TOKEN
+        )
     }
 
     override fun onPause() {
         super.onPause()
 
-        postViewModel?.clearPostObservables()
+//        postViewModel?.clearPostObservables()
     }
 
     override fun initViews() {
@@ -113,21 +125,12 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
                 it?.run {
 
-                    listener?.showSnackbar(this)
+                    listener?.showSnackbar(this, "Retry") {
 
-                }
+                        load()
 
-            })
-
-        postViewModel?.eventShowLoading
-            ?.observe(this, Observer {
-
-                it?.apply {
-                    if (it == true) {
-                        listener?.showLoading()
-                    } else {
-                        listener?.hideLoading()
                     }
+
                 }
 
             })

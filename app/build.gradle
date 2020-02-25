@@ -11,7 +11,7 @@ apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "org.imaginativeworld.simplemvvm"
         minSdkVersion 21
@@ -42,15 +42,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    androidExtensions {
-        experimental = true
-    }
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
-    }
+    androidExtensions.experimental = true
+    dataBinding.enabled = true
+    viewBinding.enabled = true
 }
 
 dependencies {
@@ -77,11 +71,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     // Room Persistence Library
-    implementation "androidx.room:room-runtime:2.2.3"
-    kapt "androidx.room:room-compiler:2.2.3"
+    implementation "androidx.room:room-runtime:2.2.4"
+    kapt "androidx.room:room-compiler:2.2.4"
 
     // Room: Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.2.3"
+    implementation "androidx.room:room-ktx:2.2.4"
 
     // Android Navigation Architecture
     implementation "androidx.navigation:navigation-fragment-ktx:2.2.1"
@@ -97,7 +91,8 @@ dependencies {
 
     // Anko Commons – Dialogs
     implementation "org.jetbrains.anko:anko-commons:0.10.8"
-    implementation "org.jetbrains.anko:anko-design:0.10.8" // For SnackBars
+    // For SnackBars
+    implementation "org.jetbrains.anko:anko-design:0.10.8"
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:2.1.1"
@@ -116,6 +111,10 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.26'
 
     implementation 'com.google.dagger:dagger-android:2.26'
-    implementation 'com.google.dagger:dagger-android-support:2.26' // if you use the support libraries
+    // if you use the support libraries
+    implementation 'com.google.dagger:dagger-android-support:2.26'
     kapt 'com.google.dagger:dagger-android-processor:2.26'
+
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

@@ -40,7 +40,9 @@ class PostListAdapter(
 
     override fun setItems(data: List<PostResponse>?) {
         submitList(data) {
-            checkEmptiness()
+            data?.apply {
+                checkEmptiness()
+            }
         }
     }
 

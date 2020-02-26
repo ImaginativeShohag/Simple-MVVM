@@ -8,8 +8,9 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import javax.inject.Inject
 
-class PostViewModel(
+class PostViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 

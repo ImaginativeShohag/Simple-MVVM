@@ -1,17 +1,18 @@
 package org.imaginativeworld.simplemvvm.views.fragments.post
 
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
 import org.imaginativeworld.simplemvvm.databinding.FragmentPostBinding
@@ -24,6 +25,7 @@ import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
+import javax.inject.Inject
 
 class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResult> {
 
@@ -31,31 +33,14 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     private lateinit var binding: FragmentPostBinding
 
-    private var postViewModel: PostViewModel? = null
+    @Inject
+    lateinit var postViewModel: PostViewModel
 
     private lateinit var adapter: PostListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("onCreate")
-
-        // Init ViewModel
-        activity?.also {
-            val appRepository = AppRepository(
-                it.applicationContext,
-                ApiClient.getClient(),
-                AppDatabase(it.applicationContext)
-            )
-
-            postViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return PostViewModel(
-                        appRepository
-                    ) as T
-                }
-            })[PostViewModel::class.java]
-        }
 
         initObservers()
 
@@ -86,7 +71,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         initViews()
 
-        load();
+        load()
     }
 
     override fun onResume() {
@@ -95,7 +80,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     }
 
     private fun load() {
-        postViewModel?.getPosts(
+        postViewModel.getPosts(
             Constants.SERVER_FORMAT,
             Constants.SERVER_TOKEN
         )
@@ -124,8 +109,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initObservers() {
 
-        postViewModel?.eventShowMessage
-            ?.observe(this, Observer {
+        postViewModel.eventShowMessage
+            .observe(this, Observer {
 
                 it?.run {
 
@@ -145,6 +130,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         super.onAttach(context)
         Timber.d("onAttach")
 
+        (context.applicationContext as MyApplication).appGraph.inject(this)
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -161,10 +148,12 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onClick(position: Int, dataObject: PostResult) {
 
-        AlertDialog.Builder(this.context)
-            .setTitle(dataObject.title)
-            .setMessage(dataObject.body)
-            .show()
+        this.context?.apply {
+            AlertDialog.Builder(this)
+                .setTitle(dataObject.title)
+                .setMessage(dataObject.body)
+                .show()
+        }
 
     }
 

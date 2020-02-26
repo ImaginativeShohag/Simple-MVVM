@@ -8,8 +8,9 @@ import org.imaginativeworld.simplemvvm.models.PostResponse
 import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
+import javax.inject.Inject
 
-class AppRepository(
+class AppRepository @Inject constructor(
     private val context: Context,
     private val api: ApiInterface,
     private val db: AppDatabase

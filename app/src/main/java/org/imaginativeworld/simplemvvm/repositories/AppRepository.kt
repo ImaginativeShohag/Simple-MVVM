@@ -53,7 +53,7 @@ class AppRepository(
     suspend fun getPosts(
         format: String,
         accessToken: String
-    ): List<PostResponse> {
+    ): PostResponse {
         return withContext(Dispatchers.IO) {
 
             apiRequest(context) {

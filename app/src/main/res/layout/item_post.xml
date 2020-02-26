@@ -7,7 +7,7 @@
 
         <variable
             name="post"
-            type="org.imaginativeworld.simplemvvm.models.PostResponse" />
+            type="org.imaginativeworld.simplemvvm.models.PostResult" />
 
     </data>
 
@@ -38,6 +38,8 @@
             android:id="@+id/tv_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@{post.body}"
             android:textColor="@color/flat_grey_dark_1"
             android:textSize="14sp"

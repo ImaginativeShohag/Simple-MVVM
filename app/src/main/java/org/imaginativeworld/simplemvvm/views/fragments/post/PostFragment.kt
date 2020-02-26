@@ -19,12 +19,13 @@ import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.PostResponse
+import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import org.imaginativeworld.simplemvvm.utils.Constants
+import timber.log.Timber
 
-class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResponse> {
+class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -36,6 +37,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("onCreate")
 
         // Init ViewModel
         activity?.also {
@@ -64,6 +66,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView")
+
         binding = FragmentPostBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -81,12 +85,13 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         listener?.hideLoading()
 
         initViews()
+
+        load();
     }
 
     override fun onResume() {
         super.onResume()
-
-        load();
+        Timber.d("onResume")
     }
 
     private fun load() {
@@ -98,8 +103,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onPause() {
         super.onPause()
-
-//        postViewModel?.clearPostObservables()
+        Timber.d("onPause")
     }
 
     override fun initViews() {
@@ -139,6 +143,8 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Timber.d("onAttach")
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -148,10 +154,12 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onDetach() {
         super.onDetach()
+        Timber.d("onDetach")
+
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: PostResponse) {
+    override fun onClick(position: Int, dataObject: PostResult) {
 
         AlertDialog.Builder(this.context)
             .setTitle(dataObject.title)
@@ -160,7 +168,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     }
 
-    override fun onLongClick(position: Int, dataObject: PostResponse) {
+    override fun onLongClick(position: Int, dataObject: PostResult) {
 
     }
 

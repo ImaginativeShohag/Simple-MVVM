@@ -108,29 +108,6 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initListeners() {
 
-//        binding.fabAdd.setOnClickListener {
-//
-//            listener?.showLoading()
-//
-//            val randomIndex = Random.nextInt(totalData)
-//
-//            appViewModel?.addUser(
-//                UserEntity(
-//                    name = names[randomIndex],
-//                    phone = phones[randomIndex],
-//                    image = images[randomIndex]
-//                )
-//            )
-//
-//        }
-
-//        binding.fabClear.setOnClickListener {
-//
-//            appViewModel?.removeAllUsers()
-//
-//        }
-
-
     }
 
     override fun initObservers() {
@@ -158,62 +135,6 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
                 }
 
             })
-
-//        appViewModel?.removeAllUsersResponse
-//            ?.observe(this, Observer { resource ->
-//
-//                resource?.data?.let { success ->
-//
-//                    if (success) {
-//                        appViewModel?.getUsers()
-//
-//                        appViewModel?.removeAllUsersResponse?.value = null
-//                    }
-//
-//                }
-//
-//                resource?.let {
-//                    listener?.hideLoading()
-//                }
-//            })
-
-//        appViewModel?.addUserResponse
-//            ?.observe(this, Observer { resource ->
-//
-//                resource?.data?.let { insertId ->
-//
-//                    Timber.e("insertId: $insertId")
-//
-//                    appViewModel?.getUsers()
-//
-//                }
-//
-//                resource?.let {
-//                    listener?.hideLoading()
-//                }
-//
-//            })
-
-//        appViewModel?.getUsersResponse
-//            ?.observe(this, Observer { resource ->
-//
-//                resource?.data?.let {
-//
-//                    adapter.submitList(it)
-//
-//                    if (it.isEmpty()) {
-//                        showEmptyView()
-//                    } else {
-//                        hideEmptyView()
-//                    }
-//
-//                }
-//
-//                resource?.let {
-//                    listener?.hideLoading()
-//                }
-//
-//            })
 
     }
 

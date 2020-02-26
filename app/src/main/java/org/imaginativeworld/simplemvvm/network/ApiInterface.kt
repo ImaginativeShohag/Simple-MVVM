@@ -15,7 +15,6 @@ interface ApiInterface {
     suspend fun getPosts(
         @Query("_format") format: String,
         @Query("access-token") accessToken: String
-    ): Response<List<PostResponse>>
-
+    ): Response<PostResponse>
 
 }

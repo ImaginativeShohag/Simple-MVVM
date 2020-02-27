@@ -8,9 +8,10 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.random.Random
 
-class UserViewModel(
+class UserViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 

@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavDirections
+import org.imaginativeworld.simplemvvm.views.activities.main.MainViewModel
 import org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel
 
 interface OnFragmentInteractionListener {
 
     fun setAppTitle(title: String)
 
-    fun getAppViewModel(): UserViewModel?
+    fun getAppViewModel(): MainViewModel?
 
     fun gotoFragment(@IdRes destinationResId: Int)
 

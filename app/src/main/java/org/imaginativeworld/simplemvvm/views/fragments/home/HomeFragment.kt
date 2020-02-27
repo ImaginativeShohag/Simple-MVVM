@@ -6,16 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import javax.inject.Inject
 
 class HomeFragment : Fragment(), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var binding: FragmentHomeBinding
+
+    @Inject
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +63,9 @@ class HomeFragment : Fragment(), CommonFunctions {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        (context.applicationContext as MyApplication).appGraph.inject(this)
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {

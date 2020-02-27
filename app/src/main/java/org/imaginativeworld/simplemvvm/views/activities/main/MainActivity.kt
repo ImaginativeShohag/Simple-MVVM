@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.activities
+package org.imaginativeworld.simplemvvm.views.activities.main
 
 import android.animation.Animator
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -15,6 +16,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel
 import org.jetbrains.anko.design.indefiniteSnackbar
 import org.jetbrains.anko.design.longSnackbar
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener {
 
@@ -22,13 +24,17 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
     private lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as MyApplication).appGraph.inject(this)
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         navController = findNavController(R.id.nav_host_fragment)
-
 
         initViews()
         initListeners()
@@ -50,7 +56,7 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
         setTitle(title)
     }
 
-    override fun getAppViewModel(): UserViewModel? {
+    override fun getAppViewModel(): MainViewModel? {
         return null
     }
 

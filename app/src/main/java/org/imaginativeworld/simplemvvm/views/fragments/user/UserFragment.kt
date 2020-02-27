@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.UserListAdapter
 import org.imaginativeworld.simplemvvm.databinding.FragmentUserBinding
@@ -21,6 +22,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.UserEntity
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import javax.inject.Inject
 
 class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
 
@@ -30,30 +32,13 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     private lateinit var binding: FragmentUserBinding
 
-    private var userViewModel: UserViewModel? = null
+    @Inject
+    lateinit var userViewModel: UserViewModel
 
     private lateinit var adapter: UserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Init ViewModel
-        activity?.also {
-            val appRepository = AppRepository(
-                it.applicationContext,
-                ApiClient.getClient(),
-                AppDatabase(it.applicationContext)
-            )
-
-            userViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return UserViewModel(
-                        appRepository
-                    ) as T
-                }
-            })[UserViewModel::class.java]
-        }
 
         initObservers()
 
@@ -112,8 +97,8 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initObservers() {
 
-        userViewModel?.eventShowMessage
-            ?.observe(this, Observer {
+        userViewModel.eventShowMessage
+            .observe(this, Observer {
 
                 it?.run {
 
@@ -123,8 +108,8 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
             })
 
-        userViewModel?.eventShowLoading
-            ?.observe(this, Observer {
+        userViewModel.eventShowLoading
+            .observe(this, Observer {
 
                 it?.apply {
                     if (it == true) {
@@ -140,6 +125,9 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        (context.applicationContext as MyApplication).appGraph.inject(this)
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {

@@ -66,13 +66,13 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
         initViews()
         initListeners()
 
-        userViewModel?.getUsers()
+        userViewModel.getUsers()
     }
 
     override fun onPause() {
         super.onPause()
 
-        userViewModel?.clearUserObservables()
+        userViewModel.clearUserObservables()
     }
 
     override fun initViews() {

@@ -1,16 +1,18 @@
-package org.imaginativeworld.simplemvvm.views.fragments.post
+package org.imaginativeworld.simplemvvm.views.fragments.postpaged
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import kotlinx.coroutines.launch
+import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.models.PostResult
-import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
-class PostViewModel @Inject constructor(
+class PostPagedViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 
@@ -41,36 +43,18 @@ class PostViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getPosts(
+    fun getPostsPaged(
         format: String,
-        accessToken: String
-    ) = viewModelScope.launch {
+        accessToken: String,
+        listener: OnDataSourceErrorListener
+    ): LiveData<PagedList<PostResult>> {
 
-        _eventShowLoading.value = true
-
-        try {
-            val postResponse = repository.getPosts(
-                format,
-                accessToken
-            )
-
-            if (postResponse._meta.success) {
-
-                _postItems.value = postResponse.result
-
-            } else {
-
-                throw ApiException("Code: ${postResponse._meta.code} & Message: ${postResponse._meta.message}")
-
-            }
-
-        } catch (e: ApiException) {
-            _eventShowMessage.value = e.message
-        }
-
-        _eventShowLoading.value = false
+        return repository.getPostsPaged(
+            format,
+            accessToken,
+            listener
+        )
 
     }
-
 
 }

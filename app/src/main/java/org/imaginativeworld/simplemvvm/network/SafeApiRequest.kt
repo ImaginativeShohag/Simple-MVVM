@@ -8,7 +8,7 @@ import retrofit2.Response
 import timber.log.Timber
 import java.net.HttpURLConnection
 
-abstract class SafeApiRequest {
+object SafeApiRequest {
 
     suspend fun <T : Any> apiRequest(context: Context, call: suspend () -> Response<T>): T {
 

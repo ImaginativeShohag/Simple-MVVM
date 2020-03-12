@@ -6,18 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
+import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
+import org.imaginativeworld.simplemvvm.adapters.PostPagedListAdapter
 import org.imaginativeworld.simplemvvm.databinding.FragmentPostPagedBinding
 
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
+import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
 import java.lang.Exception
 import javax.inject.Inject
 
-class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener {
+class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
+    OnObjectListInteractionListener<PostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -26,8 +34,14 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
     @Inject
     lateinit var postPagedViewModel: PostPagedViewModel
 
+    private lateinit var adapter: PostPagedListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initObservers()
+
+        adapter = PostPagedListAdapter(this)
     }
 
     override fun onCreateView(
@@ -78,10 +92,61 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
         listener = null
     }
 
+    override fun initViews() {
+
+        // List
+        val layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.layoutManager = layoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            binding.recyclerView.context,
+            layoutManager.orientation
+        )
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+
+        binding.recyclerView.adapter = adapter
+
+    }
+
+    override fun initObservers() {
+
+        postPagedViewModel.eventShowMessage
+            .observe(this, Observer {
+
+                it?.run {
+
+                    listener?.showSnackbar(this, "Retry") {
+
+                        load()
+
+                    }
+
+                }
+
+            })
+
+    }
+
     override fun onError(exception: Exception) {
 
+        listener?.showSnackbar(exception.message ?: "Unknown Error!")
 
+    }
 
+    override fun onClick(position: Int, dataObject: PostResult) {
+
+    }
+
+    override fun onLongClick(position: Int, dataObject: PostResult) {
+
+    }
+
+    override fun showEmptyView() {
+        binding.emptyView.emptyLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyView() {
+        binding.emptyView.emptyLayout.visibility = View.GONE
     }
 
 

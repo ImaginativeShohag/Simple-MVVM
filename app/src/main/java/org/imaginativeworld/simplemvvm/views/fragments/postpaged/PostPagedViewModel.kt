@@ -1,11 +1,9 @@
 package org.imaginativeworld.simplemvvm.views.fragments.postpaged
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagedList
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.models.PostResult
@@ -34,11 +32,11 @@ class PostPagedViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _postItems: MutableLiveData<List<PostResult>> by lazy {
-        MutableLiveData<List<PostResult>>()
+    private val _postItems: MediatorLiveData<PagedList<PostResult>> by lazy {
+        MediatorLiveData<PagedList<PostResult>>()
     }
 
-    val postItems: LiveData<List<PostResult>?>
+    val postItems: LiveData<PagedList<PostResult>?>
         get() = _postItems
 
     // ----------------------------------------------------------------
@@ -47,13 +45,19 @@ class PostPagedViewModel @Inject constructor(
         format: String,
         accessToken: String,
         listener: OnDataSourceErrorListener
-    ): LiveData<PagedList<PostResult>> {
+    ) {
 
-        return repository.getPostsPaged(
+        val result = repository.getPostsPaged(
             format,
             accessToken,
             listener
         )
+
+        _postItems.addSource(result, Observer {
+
+
+
+        })
 
     }
 

@@ -13,7 +13,6 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.PostResult
 
 class PostPagedListAdapter(
-    private val context: Context,
     private val listener: OnObjectListInteractionListener<PostResult>
 ) : PagedListAdapter<PostResult, PostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK),
     BindableAdapter<PagedList<PostResult>> {

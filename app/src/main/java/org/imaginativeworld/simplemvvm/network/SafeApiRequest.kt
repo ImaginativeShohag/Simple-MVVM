@@ -14,7 +14,7 @@ object SafeApiRequest {
 
         try {
 
-            if (!NoInternetUtils.isConnectedToInternet(context)) {
+            if (!NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
                 throw ApiException("No internet connection!")
             }
 

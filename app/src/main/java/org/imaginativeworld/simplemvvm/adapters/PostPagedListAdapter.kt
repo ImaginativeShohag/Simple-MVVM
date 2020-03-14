@@ -11,6 +11,7 @@ import org.imaginativeworld.simplemvvm.databinding.ItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResult
+import timber.log.Timber
 
 class PostPagedListAdapter(
     private val listener: OnObjectListInteractionListener<PostResult>
@@ -42,16 +43,8 @@ class PostPagedListAdapter(
         holder.bind(item)
     }
 
-//    override fun onCurrentListChanged(
-//        previousList: PagedList<PostResult>?,
-//        currentList: PagedList<PostResult>?
-//    ) {
-//
-//        checkEmptiness()
-//
-//    }
-
     override fun setItems(data: PagedList<PostResult>?) {
+
         submitList(data) {
             data?.apply {
                 checkEmptiness()

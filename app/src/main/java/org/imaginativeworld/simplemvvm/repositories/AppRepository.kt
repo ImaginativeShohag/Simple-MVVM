@@ -83,7 +83,7 @@ class AppRepository @Inject constructor(
 
         val config = PagedList.Config.Builder()
             .run {
-                setEnablePlaceholders(false)
+                setEnablePlaceholders(true)
                 setPrefetchDistance(4)
                 build()
             }

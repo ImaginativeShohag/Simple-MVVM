@@ -1,6 +1,7 @@
 package org.imaginativeworld.simplemvvm.views.fragments.postpaged
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import kotlinx.coroutines.flow.combine
@@ -8,6 +9,7 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class PostPagedViewModel @Inject constructor(
@@ -53,11 +55,15 @@ class PostPagedViewModel @Inject constructor(
             listener
         )
 
-        _postItems.addSource(result, Observer {
+        _postItems.addSource(result) {
 
+            _postItems.value = it
 
+            if (it.size > 0) {
+                _eventShowLoading.value = false
+            }
 
-        })
+        }
 
     }
 

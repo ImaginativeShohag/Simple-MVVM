@@ -64,6 +64,8 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
 
         listener?.hideLoading()
 
+        initViews()
+
         load()
     }
 

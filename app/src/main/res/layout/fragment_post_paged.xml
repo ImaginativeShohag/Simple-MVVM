@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.fragments.postpaged.PostPagedFragment">
 
     <data>
@@ -17,9 +17,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            app:items="@{userPagedVieModel.postItems}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:items="@{userPagedVieModel.postItems}"
             tools:listitem="@layout/item_post"
             tools:visibility="visible" />
 
@@ -30,10 +30,10 @@
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/loading_view"
-            app:visibility="@{userPagedVieModel.eventShowLoading}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            app:visibility="@{userPagedVieModel.eventShowLoading}"
             tools:viewBindingIgnore="true">
 
             <LinearLayout

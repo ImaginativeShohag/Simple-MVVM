@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import dagger.Lazy
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     private lateinit var binding: ActivityMainBinding
 
     @Inject
-    lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: Lazy<MainViewModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MyApplication).appGraph.inject(this)

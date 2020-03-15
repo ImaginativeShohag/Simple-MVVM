@@ -10,10 +10,12 @@ import timber.log.Timber.DebugTree
 
 class MyApplication : Application() {
 
-    val appGraph: ApplicationGraph = DaggerApplicationGraph
-        .builder()
-        .appModule(AppModule(this))
-        .build()
+    val appGraph: ApplicationGraph by lazy {
+        DaggerApplicationGraph
+            .builder()
+            .appModule(AppModule(this))
+            .build()
+    }
 
     override fun onCreate() {
         super.onCreate()

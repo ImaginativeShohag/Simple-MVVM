@@ -26,8 +26,6 @@ import javax.inject.Inject
 
 class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
 
-    private val TAG = "UserFragment"
-
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var binding: FragmentUserBinding

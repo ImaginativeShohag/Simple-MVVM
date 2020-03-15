@@ -17,4 +17,11 @@ interface ApiInterface {
         @Query("access-token") accessToken: String
     ): Response<PostResponse>
 
+    @GET("posts")
+    suspend fun getPostsPaged(
+        @Query("_format") format: String,
+        @Query("access-token") accessToken: String,
+        @Query("page") page: Long
+    ): Response<PostResponse>
+
 }

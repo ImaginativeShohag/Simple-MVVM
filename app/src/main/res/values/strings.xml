@@ -5,4 +5,5 @@
     <string name="title_users">Users</string>
     <string name="loading">Loading…</string>
     <string name="list_is_empty">List is empty!</string>
+    <string name="title_posts_paged">Posts (Paged)</string>
 </resources>

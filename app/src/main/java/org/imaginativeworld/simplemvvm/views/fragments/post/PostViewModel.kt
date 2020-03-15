@@ -41,14 +41,6 @@ class PostViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-//    fun clearPostObservables() {
-//        _eventShowMessage.value = null
-//        _eventShowLoading.value = null
-//        _postItems.value = null
-//    }
-
-    // ----------------------------------------------------------------
-
     fun getPosts(
         format: String,
         accessToken: String

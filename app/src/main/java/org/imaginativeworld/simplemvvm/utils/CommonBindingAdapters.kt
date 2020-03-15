@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
+import timber.log.Timber
 
 /**
  * Set data to recyclerView adapter.
@@ -15,12 +16,20 @@ import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("items")
 fun <T> RecyclerView.items(postsResponse: LiveData<T>?) {
+
+    Timber.e("fun <T> RecyclerView.items(postsResponse: LiveData<T>?) {")
+
     postsResponse?.apply {
+
+        Timber.e("postsResponse?.apply {")
+
         if (adapter is BindableAdapter<*>) {
 
-//            postsResponse.value?.apply {
-//                Timber.d("Data: $this")
-//            }
+            Timber.e("if (adapter is BindableAdapter<*>) {")
+
+            postsResponse.value?.apply {
+                Timber.d("Data: $this")
+            }
 
             (adapter as BindableAdapter<T>).setItems(postsResponse.value)
         }

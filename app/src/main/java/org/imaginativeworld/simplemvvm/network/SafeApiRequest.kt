@@ -8,13 +8,13 @@ import retrofit2.Response
 import timber.log.Timber
 import java.net.HttpURLConnection
 
-abstract class SafeApiRequest {
+object SafeApiRequest {
 
     suspend fun <T : Any> apiRequest(context: Context, call: suspend () -> Response<T>): T {
 
         try {
 
-            if (!NoInternetUtils.isConnectedToInternet(context)) {
+            if (!NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
                 throw ApiException("No internet connection!")
             }
 

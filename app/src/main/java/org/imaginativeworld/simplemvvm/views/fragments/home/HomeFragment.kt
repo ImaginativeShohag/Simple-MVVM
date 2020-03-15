@@ -59,6 +59,12 @@ class HomeFragment : Fragment(), CommonFunctions {
 
         }
 
+        binding.btnPostPaged.setOnClickListener {
+
+            listener?.gotoFragment(R.id.postPagedFragment)
+
+        }
+
     }
 
     override fun onAttach(context: Context) {

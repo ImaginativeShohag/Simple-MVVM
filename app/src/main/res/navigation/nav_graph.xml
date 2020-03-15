@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postPagedFragment"
+            app:destination="@id/postPagedFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -27,4 +30,9 @@
         android:name="org.imaginativeworld.simplemvvm.views.fragments.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/postPagedFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.postpaged.PostPagedFragment"
+        android:label="fragment_post_paged"
+        tools:layout="@layout/fragment_post_paged" />
 </navigation>

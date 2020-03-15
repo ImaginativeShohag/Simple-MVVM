@@ -14,5 +14,5 @@ A simple Android MVVM pattern example using:
 - Custom Fonts (https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml)
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
 - Dagger (https://github.com/google/dagger)
-- Paging (https://developer.android.com/topic/libraries/architecture/paging) **(coming soon...)**
+- Paging (https://developer.android.com/topic/libraries/architecture/paging)
 - Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**

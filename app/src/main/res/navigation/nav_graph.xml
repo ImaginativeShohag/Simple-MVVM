@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.home.HomeFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_home.DemoHomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/demo_fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_userFragment"
             app:destination="@id/userFragment" />
@@ -22,17 +22,17 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.post.PostFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_post.DemoPostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/demo_fragment_post" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.user.UserFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_user.DemoUserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/demo_fragment_user" />
     <fragment
         android:id="@+id/postPagedFragment"
-        android:name="org.imaginativeworld.simplemvvm.views.fragments.postpaged.PostPagedFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged.DemoPostPagedFragment"
         android:label="fragment_post_paged"
-        tools:layout="@layout/fragment_post_paged" />
+        tools:layout="@layout/demo_fragment_post_paged" />
 </navigation>

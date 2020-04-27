@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.user
+package org.imaginativeworld.simplemvvm.views.fragments.demo_user
 
 import android.content.Context
 import android.os.Bundle
@@ -7,70 +7,67 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.adapters.UserListAdapter
-import org.imaginativeworld.simplemvvm.databinding.FragmentUserBinding
-import org.imaginativeworld.simplemvvm.db.AppDatabase
+import org.imaginativeworld.simplemvvm.adapters.DemoUserListAdapter
+import org.imaginativeworld.simplemvvm.databinding.DemoFragmentUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.UserEntity
-import org.imaginativeworld.simplemvvm.network.ApiClient
-import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
-class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
+class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var binding: FragmentUserBinding
+    private lateinit var binding: DemoFragmentUserBinding
 
     @Inject
-    lateinit var userViewModel: UserViewModel
+    lateinit var viewModel: DemoUserViewModel
 
-    private lateinit var adapter: UserListAdapter
+    private lateinit var adapter: DemoUserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initObservers()
 
-        adapter = UserListAdapter(this)
+        adapter = DemoUserListAdapter(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserBinding.inflate(inflater, container, false)
-
+        binding = DemoFragmentUserBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
-
-        binding.userViewModel = userViewModel
-
+        binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        listener?.setAppTitle(getString(R.string.title_users))
+
+        viewModel.getUsers()
+
+        initViews()
+
+        initListeners()
     }
 
     override fun onResume() {
         super.onResume()
-
-        listener?.setAppTitle(getString(R.string.title_users))
-
-        initViews()
-        initListeners()
-
-        userViewModel.getUsers()
     }
 
     override fun onPause() {
         super.onPause()
 
-        userViewModel.clearUserObservables()
+        viewModel.clearUserObservables()
     }
 
     override fun initViews() {
@@ -95,7 +92,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initObservers() {
 
-        userViewModel.eventShowMessage
+        viewModel.eventShowMessage
             .observe(this, Observer {
 
                 it?.run {
@@ -106,7 +103,7 @@ class UserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
             })
 
-        userViewModel.eventShowLoading
+        viewModel.eventShowLoading
             .observe(this, Observer {
 
                 it?.apply {

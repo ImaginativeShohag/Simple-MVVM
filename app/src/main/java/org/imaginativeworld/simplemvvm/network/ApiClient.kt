@@ -1,11 +1,16 @@
 package org.imaginativeworld.simplemvvm.network
 
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.JsonWriter
+import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.imaginativeworld.simplemvvm.utils.Constants
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ApiClient {
     companion object {
@@ -35,14 +40,14 @@ class ApiClient {
         private fun getRetrofit(): Retrofit {
             return retrofit ?: synchronized(this) {
 
-                val gson = GsonBuilder()
+                val moshi = Moshi.Builder()
                     // Note: To automatically convert date string to Date object use this:
-                    // .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .create()
+                    .add(Date::class.java, DateJsonAdapter())
+                    .build()
 
                 retrofit ?: Retrofit.Builder()
                     .client(buildClient())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .baseUrl(Constants.SERVER_ENDPOINT + "/")
                     .build()
             }
@@ -57,6 +62,28 @@ class ApiClient {
 
             }
 
+        }
+
+    }
+
+    class DateJsonAdapter : JsonAdapter<Date>() {
+
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        override fun fromJson(reader: JsonReader): Date? {
+            return try {
+                val dateAsString = reader.nextString()
+                dateFormat.parse(dateAsString)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+        override fun toJson(writer: JsonWriter, value: Date?) {
+            if (value != null) {
+                writer.value(dateFormat.format(value))
+            }
         }
 
     }

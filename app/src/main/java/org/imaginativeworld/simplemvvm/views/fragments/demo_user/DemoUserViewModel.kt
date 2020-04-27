@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.user
+package org.imaginativeworld.simplemvvm.views.fragments.demo_user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
-class UserViewModel @Inject constructor(
+class DemoUserViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 

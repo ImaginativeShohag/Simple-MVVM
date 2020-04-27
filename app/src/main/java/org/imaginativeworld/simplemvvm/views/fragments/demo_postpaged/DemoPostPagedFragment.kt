@@ -1,59 +1,53 @@
-package org.imaginativeworld.simplemvvm.views.fragments.postpaged
+package org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
-import org.imaginativeworld.simplemvvm.adapters.PostPagedListAdapter
-import org.imaginativeworld.simplemvvm.databinding.FragmentPostPagedBinding
-
+import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedListAdapter
+import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
-import java.lang.Exception
 import javax.inject.Inject
 
-class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
+class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
     OnObjectListInteractionListener<PostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var binding: FragmentPostPagedBinding
+    private lateinit var binding: DemoFragmentPostPagedBinding
 
     @Inject
-    lateinit var postPagedViewModel: PostPagedViewModel
+    lateinit var viewModel: DemoPostPagedViewModel
 
-    private lateinit var adapter: PostPagedListAdapter
+    private lateinit var adapter: DemoPostPagedListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initObservers()
 
-        adapter = PostPagedListAdapter(this)
+        adapter = DemoPostPagedListAdapter(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPostPagedBinding.inflate(inflater, container, false)
-
+        binding = DemoFragmentPostPagedBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
-
-        binding.userPagedVieModel = postPagedViewModel
-
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -66,11 +60,17 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
 
         initViews()
 
+        initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         load()
     }
 
     private fun load() {
-        postPagedViewModel.getPostsPaged(
+        viewModel.getPostsPaged(
             Constants.SERVER_FORMAT,
             Constants.SERVER_TOKEN,
             this
@@ -112,7 +112,7 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
 
     override fun initObservers() {
 
-        postPagedViewModel.eventShowMessage
+        viewModel.eventShowMessage
             .observe(this, Observer {
 
                 it?.run {
@@ -129,7 +129,7 @@ class PostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener
 
     }
 
-    override fun onError(exception: Exception) {
+    override fun onDataSourceError(exception: Exception) {
 
         listener?.showSnackbar(exception.message ?: "Unknown Error!")
 

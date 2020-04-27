@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.post
+package org.imaginativeworld.simplemvvm.views.fragments.demo_post
 
 import android.content.Context
 import android.os.Bundle
@@ -8,35 +8,30 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.adapters.PostListAdapter
-import org.imaginativeworld.simplemvvm.databinding.FragmentPostBinding
-import org.imaginativeworld.simplemvvm.db.AppDatabase
+import org.imaginativeworld.simplemvvm.adapters.DemoPostListAdapter
+import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResult
-import org.imaginativeworld.simplemvvm.network.ApiClient
-import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
 import javax.inject.Inject
 
-class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResult> {
+class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var binding: FragmentPostBinding
+    private lateinit var binding: DemoFragmentPostBinding
 
     @Inject
-    lateinit var postViewModel: PostViewModel
+    lateinit var viewModel: DemoPostViewModel
 
-    private lateinit var adapter: PostListAdapter
+    private lateinit var adapter: DemoPostListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +39,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
         initObservers()
 
-        adapter = PostListAdapter(this)
+        adapter = DemoPostListAdapter(this)
     }
 
     override fun onCreateView(
@@ -53,12 +48,9 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     ): View? {
         Timber.d("onCreateView")
 
-        binding = FragmentPostBinding.inflate(inflater, container, false)
-
+        binding = DemoFragmentPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
-
-        binding.postViewModel = postViewModel
-
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -80,7 +72,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
     }
 
     private fun load() {
-        postViewModel.getPosts(
+        viewModel.getPosts(
             Constants.SERVER_FORMAT,
             Constants.SERVER_TOKEN
         )
@@ -109,7 +101,7 @@ class PostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListene
 
     override fun initObservers() {
 
-        postViewModel.eventShowMessage
+        viewModel.eventShowMessage
             .observe(this, Observer {
 
                 it?.run {

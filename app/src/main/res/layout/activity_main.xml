@@ -23,7 +23,7 @@
 
         <include
             android:id="@+id/loading_view"
-            layout="@layout/loading_layout"
+            layout="@layout/demo_loading_layout"
             tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

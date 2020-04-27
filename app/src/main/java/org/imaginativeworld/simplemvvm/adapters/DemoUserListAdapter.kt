@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.imaginativeworld.simplemvvm.databinding.ItemUserBinding
+import org.imaginativeworld.simplemvvm.databinding.DemoItemUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.UserEntity
 
-class UserListAdapter(
+class DemoUserListAdapter(
     val listener: OnObjectListInteractionListener<UserEntity>
 ) :
-    ListAdapter<UserEntity, UserListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    ListAdapter<UserEntity, DemoUserListAdapter.ListViewHolder>(DIFF_CALLBACK),
     BindableAdapter<List<UserEntity>> {
 
     companion object {
@@ -58,7 +58,7 @@ class UserListAdapter(
 
 
     class ListViewHolder private constructor(
-        private val binding: ItemUserBinding,
+        private val binding: DemoItemUserBinding,
         private val listener: OnObjectListInteractionListener<UserEntity>
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -81,7 +81,7 @@ class UserListAdapter(
                 listener: OnObjectListInteractionListener<UserEntity>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemUserBinding.inflate(layoutInflater, parent, false)
+                val binding = DemoItemUserBinding.inflate(layoutInflater, parent, false)
                 return ListViewHolder(binding, listener)
             }
         }

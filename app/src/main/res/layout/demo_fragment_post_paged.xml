@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.fragments.postpaged.PostPagedFragment">
+    tools:context=".views.fragments.demo_postpaged.DemoPostPagedFragment">
 
     <data>
 
         <variable
-            name="userPagedVieModel"
-            type="org.imaginativeworld.simplemvvm.views.fragments.postpaged.PostPagedViewModel" />
+            name="viewModel"
+            type="org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged.DemoPostPagedViewModel" />
     </data>
 
     <FrameLayout
@@ -19,13 +19,13 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:items="@{userPagedVieModel.postItems}"
-            tools:listitem="@layout/item_post"
+            app:items="@{viewModel.postItems}"
+            tools:listitem="@layout/demo_item_post"
             tools:visibility="visible" />
 
         <include
             android:id="@+id/empty_view"
-            layout="@layout/empty_layout"
+            layout="@layout/demo_empty_layout"
             tools:visibility="gone" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            app:visibility="@{userPagedVieModel.eventShowLoading}"
+            app:visibility="@{viewModel.eventShowLoading}"
             tools:viewBindingIgnore="true">
 
             <LinearLayout
@@ -45,25 +45,25 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp">
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
-                <include layout="@layout/post_placeholder_layout" />
+                <include layout="@layout/demo_post_placeholder_layout" />
 
             </LinearLayout>
 

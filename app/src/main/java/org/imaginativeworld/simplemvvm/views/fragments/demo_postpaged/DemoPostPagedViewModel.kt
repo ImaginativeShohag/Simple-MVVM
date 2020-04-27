@@ -1,18 +1,16 @@
-package org.imaginativeworld.simplemvvm.views.fragments.postpaged
+package org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged
 
-import android.content.Context
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.models.PostResult
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import timber.log.Timber
 import javax.inject.Inject
 
-class PostPagedViewModel @Inject constructor(
+class DemoPostPagedViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 

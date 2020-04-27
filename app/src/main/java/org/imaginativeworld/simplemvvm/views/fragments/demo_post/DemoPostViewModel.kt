@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.post
+package org.imaginativeworld.simplemvvm.views.fragments.demo_post
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
-class PostViewModel @Inject constructor(
+class DemoPostViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 

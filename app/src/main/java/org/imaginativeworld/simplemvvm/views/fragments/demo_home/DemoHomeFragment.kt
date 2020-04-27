@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.home
+package org.imaginativeworld.simplemvvm.views.fragments.demo_home
 
 import android.content.Context
 import android.os.Bundle
@@ -8,41 +8,56 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentHomeBinding
+import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import timber.log.Timber
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), CommonFunctions {
+class DemoHomeFragment : Fragment(), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: DemoFragmentHomeBinding
 
     @Inject
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var viewModel: DemoHomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
         super.onCreate(savedInstanceState)
+
+        initObservers()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater)
+        Timber.d("onCreateView")
 
+        binding = DemoFragmentHomeBinding.inflate(inflater)
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Timber.d("onViewCreated")
+        super.onViewCreated(view, savedInstanceState)
 
         listener?.setAppTitle(getString(R.string.app_name))
 
         listener?.hideLoading()
 
+        initViews()
+
         initListeners()
+    }
+
+    override fun onResume() {
+        Timber.d("onResume")
+        super.onResume()
     }
 
     override fun initListeners() {
@@ -68,6 +83,7 @@ class HomeFragment : Fragment(), CommonFunctions {
     }
 
     override fun onAttach(context: Context) {
+        Timber.d("onAttach")
         super.onAttach(context)
 
         (context.applicationContext as MyApplication).appGraph.inject(this)
@@ -80,6 +96,7 @@ class HomeFragment : Fragment(), CommonFunctions {
     }
 
     override fun onDetach() {
+        Timber.d("onDetach")
         super.onDetach()
         listener = null
     }

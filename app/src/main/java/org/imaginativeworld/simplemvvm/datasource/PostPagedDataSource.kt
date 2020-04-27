@@ -62,7 +62,7 @@ class PostPagedDataSource(
             } catch (e: ApiException) {
                 e.printStackTrace()
 
-                listener.onError(e)
+                listener.onDataSourceError(e)
             }
 
         }

@@ -8,24 +8,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import dagger.Lazy
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
+import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.utils.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.longSnackbar
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener,
+    MainActivityExtraOnFragmentInteractionListener {
 
     private lateinit var navController: NavController
 
     private lateinit var binding: ActivityMainBinding
 
     @Inject
-    lateinit var mainViewModel: Lazy<MainViewModel>
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MyApplication).appGraph.inject(this)
@@ -54,10 +55,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
     override fun setAppTitle(title: String) {
         setTitle(title)
-    }
-
-    override fun getAppViewModel(): MainViewModel? {
-        return null
     }
 
     override fun gotoFragment(@IdRes destinationResId: Int) {
@@ -148,5 +145,9 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
             })
 
         loadingAnimation?.start()
+    }
+
+    override fun getActivityViewModel(): MainViewModel {
+        return viewModel
     }
 }

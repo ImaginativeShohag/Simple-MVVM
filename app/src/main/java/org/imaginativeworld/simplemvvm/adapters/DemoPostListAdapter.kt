@@ -1,27 +1,23 @@
 package org.imaginativeworld.simplemvvm.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.imaginativeworld.simplemvvm.databinding.ItemPostBinding
+import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.PostResult
-import timber.log.Timber
 
-class PostPagedListAdapter(
+class DemoPostListAdapter(
     private val listener: OnObjectListInteractionListener<PostResult>
-) : PagedListAdapter<PostResult, PostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK),
-    BindableAdapter<PagedList<PostResult>> {
+) : ListAdapter<PostResult, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<PostResult>> {
 
     companion object {
 
-        private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<PostResult>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostResult>() {
             override fun areItemsTheSame(oldItem: PostResult, newItem: PostResult): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -29,7 +25,6 @@ class PostPagedListAdapter(
             override fun areContentsTheSame(oldItem: PostResult, newItem: PostResult): Boolean {
                 return oldItem == newItem
             }
-
         }
 
     }
@@ -43,8 +38,7 @@ class PostPagedListAdapter(
         holder.bind(item)
     }
 
-    override fun setItems(data: PagedList<PostResult>?) {
-
+    override fun setItems(data: List<PostResult>?) {
         submitList(data) {
             data?.apply {
                 checkEmptiness()
@@ -60,25 +54,22 @@ class PostPagedListAdapter(
         }
     }
 
-
     class ListViewHolder private constructor(
-        private val binding: ItemPostBinding,
+        private val binding: DemoItemPostBinding,
         private val listener: OnObjectListInteractionListener<PostResult>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: PostResult?) {
-            item?.also { _item ->
-                binding.post = _item
-                binding.executePendingBindings()
+        fun bind(item: PostResult) {
+            binding.post = item
+            binding.executePendingBindings()
 
-                binding.root.setOnClickListener {
-                    listener.onClick(adapterPosition, _item)
-                }
+            binding.root.setOnClickListener {
+                listener.onClick(adapterPosition, item)
+            }
 
-                binding.root.setOnLongClickListener {
-                    listener.onLongClick(adapterPosition, _item)
-                    true
-                }
+            binding.root.setOnLongClickListener {
+                listener.onLongClick(adapterPosition, item)
+                true
             }
         }
 
@@ -86,10 +77,10 @@ class PostPagedListAdapter(
             fun from(
                 parent: ViewGroup,
                 listener: OnObjectListInteractionListener<PostResult>
-            ): PostPagedListAdapter.ListViewHolder {
+            ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemPostBinding.inflate(layoutInflater, parent, false)
-                return PostPagedListAdapter.ListViewHolder(binding, listener)
+                val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)
+                return ListViewHolder(binding, listener)
             }
         }
 

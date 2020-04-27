@@ -2,10 +2,10 @@ package org.imaginativeworld.simplemvvm.di
 
 import dagger.Component
 import org.imaginativeworld.simplemvvm.views.activities.main.MainActivity
-import org.imaginativeworld.simplemvvm.views.fragments.home.HomeFragment
-import org.imaginativeworld.simplemvvm.views.fragments.post.PostFragment
-import org.imaginativeworld.simplemvvm.views.fragments.user.UserFragment
-import org.imaginativeworld.simplemvvm.views.fragments.postpaged.PostPagedFragment
+import org.imaginativeworld.simplemvvm.views.fragments.demo_home.DemoHomeFragment
+import org.imaginativeworld.simplemvvm.views.fragments.demo_post.DemoPostFragment
+import org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged.DemoPostPagedFragment
+import org.imaginativeworld.simplemvvm.views.fragments.demo_user.DemoUserFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -14,12 +14,12 @@ interface ApplicationGraph {
 
     fun inject(activity: MainActivity)
 
-    fun inject(fragment: HomeFragment)
+    fun inject(fragment: DemoHomeFragment)
 
-    fun inject(fragment: PostFragment)
+    fun inject(fragment: DemoPostFragment)
 
-    fun inject(fragment: UserFragment)
+    fun inject(fragment: DemoUserFragment)
 
-    fun inject(fragment: PostPagedFragment)
+    fun inject(fragment: DemoPostPagedFragment)
 
 }

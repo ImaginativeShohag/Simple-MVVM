@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.fragments.user.UserFragment">
+    tools:context=".views.fragments.demo_user.DemoUserFragment">
 
     <data>
 
         <variable
-            name="userViewModel"
-            type="org.imaginativeworld.simplemvvm.views.fragments.user.UserViewModel" />
+            name="viewModel"
+            type="org.imaginativeworld.simplemvvm.views.fragments.demo_user.DemoUserViewModel" />
 
     </data>
 
@@ -20,12 +20,12 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:items="@{userViewModel.userItems}"
-            tools:listitem="@layout/item_user" />
+            app:items="@{viewModel.userItems}"
+            tools:listitem="@layout/demo_item_user" />
 
         <include
             android:id="@+id/empty_view"
-            layout="@layout/empty_layout" />
+            layout="@layout/demo_empty_layout" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_clear"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="16dp"
-            android:onClick="@{() -> userViewModel.removeAllUsers()}"
+            android:onClick="@{() -> viewModel.removeAllUsers()}"
             app:backgroundTint="@color/flat_red_1"
             app:srcCompat="@drawable/ic_delete_black_24dp"
             app:tint="@color/white" />
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:onClick="@{() -> userViewModel.addUser()}"
+            android:onClick="@{() -> viewModel.addUser()}"
             app:backgroundTint="@color/flat_green_2"
             app:srcCompat="@drawable/ic_add_24dp"
             app:tint="@color/white" />

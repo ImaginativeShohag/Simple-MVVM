@@ -6,13 +6,12 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.imaginativeworld.simplemvvm.datasource.PostPagedDataSource
 import org.imaginativeworld.simplemvvm.datasource.PostPagedDataSourceFactory
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
-import org.imaginativeworld.simplemvvm.models.PostResponse
-import org.imaginativeworld.simplemvvm.models.PostResult
-import org.imaginativeworld.simplemvvm.models.UserEntity
+import org.imaginativeworld.simplemvvm.models.DemoPostResponse
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import java.util.concurrent.Executors
@@ -29,7 +28,7 @@ class AppRepository @Inject constructor(
     // ----------------------------------------------------------------
 
     suspend fun addUser(
-        userModel: UserEntity
+        userModel: DemoUserEntity
     ): Long {
         return withContext(Dispatchers.IO) {
 
@@ -46,7 +45,7 @@ class AppRepository @Inject constructor(
         }
     }
 
-    suspend fun getUsers(): List<UserEntity> {
+    suspend fun getUsers(): List<DemoUserEntity> {
         return withContext(Dispatchers.IO) {
 
             db.userDao().getUsers()
@@ -62,7 +61,7 @@ class AppRepository @Inject constructor(
     suspend fun getPosts(
         format: String,
         accessToken: String
-    ): PostResponse {
+    ): DemoPostResponse {
         return withContext(Dispatchers.IO) {
 
             SafeApiRequest.apiRequest(context) {
@@ -79,7 +78,7 @@ class AppRepository @Inject constructor(
         format: String,
         accessToken: String,
         listener: OnDataSourceErrorListener
-    ): LiveData<PagedList<PostResult>> {
+    ): LiveData<PagedList<DemoPostResult>> {
 
         val config = PagedList.Config.Builder()
             .run {

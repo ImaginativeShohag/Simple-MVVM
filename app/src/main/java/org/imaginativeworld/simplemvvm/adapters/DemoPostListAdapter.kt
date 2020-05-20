@@ -8,21 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 
 class DemoPostListAdapter(
-    private val listener: OnObjectListInteractionListener<PostResult>
-) : ListAdapter<PostResult, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
-    BindableAdapter<List<PostResult>> {
+    private val listener: OnObjectListInteractionListener<DemoPostResult>
+) : ListAdapter<DemoPostResult, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<DemoPostResult>> {
 
     companion object {
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostResult>() {
-            override fun areItemsTheSame(oldItem: PostResult, newItem: PostResult): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPostResult>() {
+            override fun areItemsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: PostResult, newItem: PostResult): Boolean {
+            override fun areContentsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
                 return oldItem == newItem
             }
         }
@@ -38,7 +38,7 @@ class DemoPostListAdapter(
         holder.bind(item)
     }
 
-    override fun setItems(data: List<PostResult>?) {
+    override fun setItems(data: List<DemoPostResult>?) {
         submitList(data) {
             data?.apply {
                 checkEmptiness()
@@ -56,10 +56,10 @@ class DemoPostListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<PostResult>
+        private val listener: OnObjectListInteractionListener<DemoPostResult>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: PostResult) {
+        fun bind(item: DemoPostResult) {
             binding.post = item
             binding.executePendingBindings()
 
@@ -76,7 +76,7 @@ class DemoPostListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<PostResult>
+                listener: OnObjectListInteractionListener<DemoPostResult>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)

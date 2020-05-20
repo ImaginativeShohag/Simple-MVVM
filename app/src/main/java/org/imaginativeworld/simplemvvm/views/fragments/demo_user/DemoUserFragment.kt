@@ -16,10 +16,10 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.UserEntity
+import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import javax.inject.Inject
 
-class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<UserEntity> {
+class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<DemoUserEntity> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -135,11 +135,11 @@ class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: UserEntity) {
+    override fun onClick(position: Int, dataObject: DemoUserEntity) {
 
     }
 
-    override fun onLongClick(position: Int, dataObject: UserEntity) {
+    override fun onLongClick(position: Int, dataObject: DemoUserEntity) {
 
     }
 

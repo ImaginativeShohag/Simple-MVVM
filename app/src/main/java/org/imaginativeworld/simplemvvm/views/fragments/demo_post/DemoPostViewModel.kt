@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
@@ -32,11 +32,11 @@ class DemoPostViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _postItems: MutableLiveData<List<PostResult>> by lazy {
-        MutableLiveData<List<PostResult>>()
+    private val _postItems: MutableLiveData<List<DemoPostResult>> by lazy {
+        MutableLiveData<List<DemoPostResult>>()
     }
 
-    val postItems: LiveData<List<PostResult>?>
+    val postItems: LiveData<List<DemoPostResult>?>
         get() = _postItems
 
     // ----------------------------------------------------------------

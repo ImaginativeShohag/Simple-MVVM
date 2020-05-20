@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.views.customsnackbar.CustomSnackbar
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -77,6 +79,34 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         binding.btnPostPaged.setOnClickListener {
 
             listener?.gotoFragment(R.id.postPagedFragment)
+
+        }
+
+        binding.btnCustomSnackbar.setOnClickListener {
+
+//            binding.root.longSnackbar("Hi! I am a snackbar!", "Ok") {
+//
+//            }
+
+            CustomSnackbar.make(
+                binding.root,
+                "Hi! I am a snackbar!\nHi! I am a snackbar!\nHi! I am a snackbar!",
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction("Ok", View.OnClickListener {})
+                .show()
+
+        }
+
+        binding.btnCustomSnackbar2.setOnClickListener {
+
+            CustomSnackbar.make(
+                binding.root,
+                "Hi! I am a snackbar!",
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction("Ok", View.OnClickListener {})
+                .show()
 
         }
 

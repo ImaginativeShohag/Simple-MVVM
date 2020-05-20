@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
 import org.imaginativeworld.simplemvvm.BuildConfig
-import org.imaginativeworld.simplemvvm.models.UserEntity
+import org.imaginativeworld.simplemvvm.models.User
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPerf @Inject constructor(
+class SharedPref @Inject constructor(
     context: Context
 ) {
 
@@ -23,13 +23,13 @@ class SharedPerf @Inject constructor(
     private val context: Context = context.applicationContext
 
     @Volatile
-    private var sharedPerf: SharedPreferences? = null
+    private var sharedPref: SharedPreferences? = null
 
     @Volatile
-    private var user: UserEntity? = null
+    private var user: User? = null
 
     private fun getSharedPerf(): SharedPreferences {
-        return sharedPerf ?: synchronized(this) {
+        return sharedPref ?: synchronized(this) {
             context.getSharedPreferences(
                 "${BuildConfig.APPLICATION_ID}.main",
                 Context.MODE_PRIVATE
@@ -60,24 +60,24 @@ class SharedPerf @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun setUser(user: UserEntity) {
+    fun setUser(user: User) {
         getSharedPerf()
             .edit()
             .apply {
                 val moshi = Moshi.Builder().build()
-                val jsonAdapter = moshi.adapter(UserEntity::class.java)
+                val jsonAdapter = moshi.adapter(User::class.java)
 
                 putString(PREF_USER, jsonAdapter.toJson(user))
                 apply()
             }
     }
 
-    fun getUser(): UserEntity? {
+    fun getUser(): User? {
         return user ?: synchronized(this) {
             getSharedPerf()
                 .let {
                     val moshi = Moshi.Builder().build()
-                    val jsonAdapter = moshi.adapter(UserEntity::class.java)
+                    val jsonAdapter = moshi.adapter(User::class.java)
 
                     val userJson = it.getString(PREF_USER, null)
 

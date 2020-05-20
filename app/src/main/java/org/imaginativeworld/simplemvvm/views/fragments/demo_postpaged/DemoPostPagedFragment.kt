@@ -17,12 +17,12 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
 import javax.inject.Inject
 
 class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
-    OnObjectListInteractionListener<PostResult> {
+    OnObjectListInteractionListener<DemoPostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -130,16 +130,18 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
     }
 
     override fun onDataSourceError(exception: Exception) {
+        activity?.runOnUiThread {
+            listener?.hideLoading()
 
-        listener?.showSnackbar(exception.message ?: "Unknown Error!")
+            listener?.showSnackbar(exception.message ?: "Unknown Error!")
+        }
+    }
+
+    override fun onClick(position: Int, dataObject: DemoPostResult) {
 
     }
 
-    override fun onClick(position: Int, dataObject: PostResult) {
-
-    }
-
-    override fun onLongClick(position: Int, dataObject: PostResult) {
+    override fun onLongClick(position: Int, dataObject: DemoPostResult) {
 
     }
 

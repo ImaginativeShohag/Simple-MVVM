@@ -17,12 +17,12 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
 import javax.inject.Inject
 
-class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<PostResult> {
+class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<DemoPostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -138,7 +138,7 @@ class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: PostResult) {
+    override fun onClick(position: Int, dataObject: DemoPostResult) {
 
         this.context?.apply {
             AlertDialog.Builder(this)
@@ -149,7 +149,7 @@ class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
 
     }
 
-    override fun onLongClick(position: Int, dataObject: PostResult) {
+    override fun onLongClick(position: Int, dataObject: DemoPostResult) {
 
     }
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
@@ -32,11 +32,11 @@ class DemoPostPagedViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _postItems: MediatorLiveData<PagedList<PostResult>> by lazy {
-        MediatorLiveData<PagedList<PostResult>>()
+    private val _postItems: MediatorLiveData<PagedList<DemoPostResult>> by lazy {
+        MediatorLiveData<PagedList<DemoPostResult>>()
     }
 
-    val postItems: LiveData<PagedList<PostResult>?>
+    val postItems: LiveData<PagedList<DemoPostResult>?>
         get() = _postItems
 
     // ----------------------------------------------------------------
@@ -46,6 +46,8 @@ class DemoPostPagedViewModel @Inject constructor(
         accessToken: String,
         listener: OnDataSourceErrorListener
     ) {
+
+        _eventShowLoading.value = true
 
         val result = repository.getPostsPaged(
             format,
@@ -57,9 +59,7 @@ class DemoPostPagedViewModel @Inject constructor(
 
             _postItems.value = it
 
-            if (it.size > 0) {
-                _eventShowLoading.value = false
-            }
+            _eventShowLoading.value = false
 
         }
 

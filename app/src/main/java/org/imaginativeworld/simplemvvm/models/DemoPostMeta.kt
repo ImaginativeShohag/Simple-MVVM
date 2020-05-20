@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class PostMeta(
+data class DemoPostMeta(
     @Json(name = "code")
     val code: Int,
     @Json(name = "currentPage")

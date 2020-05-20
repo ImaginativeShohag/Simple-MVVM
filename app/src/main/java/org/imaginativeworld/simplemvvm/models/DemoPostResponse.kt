@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class PostResponse(
+data class DemoPostResponse(
     @Json(name = "_meta")
-    val _meta: PostMeta,
+    val _meta: DemoPostMeta,
     @Json(name = "result")
-    val result: List<PostResult>
+    val result: List<DemoPostResult>
 )

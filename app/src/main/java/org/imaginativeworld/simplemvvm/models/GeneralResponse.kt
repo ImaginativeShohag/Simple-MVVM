@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class DemoPostResponse(
-    @Json(name = "code")
-    val code: Int,
-    @Json(name = "data")
-    val result: List<DemoPostResult>
+data class GeneralResponse(
+    @Json(name = "success")
+    val success: Boolean,
+    @Json(name = "message")
+    val message: String?
 )

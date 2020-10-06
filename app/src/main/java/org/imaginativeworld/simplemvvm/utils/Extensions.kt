@@ -83,8 +83,8 @@ fun Activity.hideKeyboard() {
  * Show default Alert Dialog.
  */
 fun Activity.showAlertDialog(
-    title: String,
-    message: String,
+    title: String?,
+    message: String?,
     positiveBtnText: String,
     positiveListener: DialogInterface.OnClickListener,
     negativeBtnText: String? = null,
@@ -96,8 +96,13 @@ fun Activity.showAlertDialog(
 
     AlertDialog.Builder(this)
         .apply {
-            setTitle(title)
-            setMessage(message)
+            if (title != null) {
+                setTitle(title)
+            }
+
+            if (message != null) {
+                setMessage(message)
+            }
 
             setPositiveButton(positiveBtnText, positiveListener)
 
@@ -107,7 +112,6 @@ fun Activity.showAlertDialog(
 
             show()
         }
-
 }
 
 

@@ -107,6 +107,8 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun goBack() {
+        hideKeyboard()
+        
         onBackPressed()
     }
 

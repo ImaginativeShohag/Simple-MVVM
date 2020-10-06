@@ -32,9 +32,8 @@ A simple Android MVVM pattern example and template
 - ImageView
 - TextView (for Date() to formatted date-time)
 
+## Todo
 
-todo: change models name and add demo to it (done)
-todo: change navgraph name and add demo to it (done)
-todo: find a way to change package name with ease
-todo: add new binding adapters (done)
-todo: Add token checking in viewmodels
+- Add New Post
+- Login
+- Registration

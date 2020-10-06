@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 class DemoPostViewModel @Inject constructor(
@@ -54,13 +55,13 @@ class DemoPostViewModel @Inject constructor(
                 accessToken
             )
 
-            if (postResponse._meta.success) {
+            if (postResponse.code == HttpURLConnection.HTTP_OK) {
 
                 _postItems.value = postResponse.result
 
             } else {
 
-                throw ApiException("Code: ${postResponse._meta.code} & Message: ${postResponse._meta.message}")
+                throw ApiException("Code: ${postResponse.code}")
 
             }
 

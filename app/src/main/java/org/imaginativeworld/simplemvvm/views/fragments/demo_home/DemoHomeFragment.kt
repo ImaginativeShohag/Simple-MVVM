@@ -84,25 +84,9 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
         binding.btnCustomSnackbar.setOnClickListener {
 
-//            binding.root.longSnackbar("Hi! I am a snackbar!", "Ok") {
-//
-//            }
-
             CustomSnackbar.make(
                 binding.root,
-                "Hi! I am a snackbar!\nHi! I am a snackbar!\nHi! I am a snackbar!",
-                Snackbar.LENGTH_INDEFINITE
-            )
-                .setAction("Ok", View.OnClickListener {})
-                .show()
-
-        }
-
-        binding.btnCustomSnackbar2.setOnClickListener {
-
-            CustomSnackbar.make(
-                binding.root,
-                "Hi! I am a snackbar!",
+                "Hi! I am a custom Snackbar!",
                 Snackbar.LENGTH_INDEFINITE
             )
                 .setAction("Ok", View.OnClickListener {})

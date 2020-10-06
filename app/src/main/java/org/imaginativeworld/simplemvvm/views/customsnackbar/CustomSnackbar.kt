@@ -36,6 +36,8 @@ class CustomSnackbar private constructor(
             )
         )
         getView().setPadding(0, 0, 0, 0)
+
+        content.actionView.visibility = View.GONE
     }
 
     companion object {

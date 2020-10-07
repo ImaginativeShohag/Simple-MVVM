@@ -24,6 +24,7 @@ A simple Android MVVM pattern example and template
 
 - Build variant (https://developer.android.com/studio/build/build-variants)
 - Custom Snackbar
+- Dark Mode (Initially Implemented)
 
 ## Common Binding Adapters
 

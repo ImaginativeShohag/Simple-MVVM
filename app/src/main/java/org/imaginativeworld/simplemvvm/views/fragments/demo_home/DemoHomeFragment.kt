@@ -1,10 +1,12 @@
 package org.imaginativeworld.simplemvvm.views.fragments.demo_home
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import org.imaginativeworld.simplemvvm.MyApplication
@@ -91,6 +93,19 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
             )
                 .setAction("Ok", View.OnClickListener {})
                 .show()
+
+        }
+
+        binding.btnDarkMode.setOnClickListener {
+
+            val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+            when(isNightTheme) {
+                Configuration.UI_MODE_NIGHT_YES ->
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Configuration.UI_MODE_NIGHT_NO ->
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
 
         }
 

@@ -18,6 +18,11 @@
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>
 
+    <!-- Month Picker - NumberPicker Styles -->
+    <style name="NumberPickerDefault">
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
     <!-- Button Styles -->
     <style name="Button.Default" parent="Widget.MaterialComponents.Button">
 

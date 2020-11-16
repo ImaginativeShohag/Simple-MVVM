@@ -14,9 +14,9 @@ import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-import org.imaginativeworld.simplemvvm.utils.hideKeyboard
-import org.imaginativeworld.simplemvvm.utils.indefiniteSnackbar
-import org.imaginativeworld.simplemvvm.utils.longSnackbar
+import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
+import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
+import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener,

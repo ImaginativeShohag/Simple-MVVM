@@ -65,9 +65,6 @@ class DemoPostPagedListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DemoPostResult?) {
-            item?.also { item ->
-
-            }
             item?.also { _item ->
                 binding.post = _item
                 binding.executePendingBindings()

@@ -11,6 +11,7 @@ import android.view.accessibility.AccessibilityManager
 import android.widget.FrameLayout
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -42,6 +43,23 @@ class CustomSnackbar private constructor(
 
     companion object {
 
+        /**
+         * Make a Snackbar to display a message
+         *
+         * <p>Snackbar will try and find a parent view to hold Snackbar's view from the value given to
+         * {@code view}. Snackbar will walk up the view tree trying to find a suitable parent, which is
+         * defined as a {@link CoordinatorLayout} or the window decor's content view, whichever comes
+         * first.
+         *
+         * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows Snackbar to enable certain
+         * features, such as swipe-to-dismiss and automatically moving of widgets.
+         *
+         * @param view The view to find a parent from. This view is also used to find the anchor view when
+         *     calling {@link Snackbar#setAnchorView(int)}.
+         * @param text The text to show. Can be formatted text.
+         * @param duration How long to display the message. Can be {@link #LENGTH_SHORT}, {@link
+         *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
+         */
         fun make(
             @NonNull view: View,
             @NonNull text: CharSequence,
@@ -66,6 +84,34 @@ class CustomSnackbar private constructor(
             return snackbar
         }
 
+
+        /**
+         * Make a Snackbar to display a message.
+         *
+         * <p>Snackbar will try and find a parent view to hold Snackbar's view from the value given to
+         * {@code view}. Snackbar will walk up the view tree trying to find a suitable parent, which is
+         * defined as a {@link CoordinatorLayout} or the window decor's content view, whichever comes
+         * first.
+         *
+         * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows Snackbar to enable certain
+         * features, such as swipe-to-dismiss and automatically moving of widgets.
+         *
+         * @param view The view to find a parent from.
+         * @param resId The resource id of the string resource to use. Can be formatted text.
+         * @param duration How long to display the message. Can be {@link #LENGTH_SHORT}, {@link
+         *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
+         */
+        fun make(
+            @NonNull view: View,
+            @StringRes resId: Int,
+            @Duration duration: Int
+        ): CustomSnackbar {
+            return make(view, view.resources.getText(resId), duration)
+        }
+
+        /**
+         * Find a suitable parent for the Snackbar.
+         */
         private fun View?.findSuitableParent(): ViewGroup? {
             var view: View? = this
             var fallback: ViewGroup? = null
@@ -96,14 +142,25 @@ class CustomSnackbar private constructor(
 
     }
 
+    /**
+     * Update the text in this {@link Snackbar}.
+     *
+     * @param text The new text for this {@link BaseTransientBottomBar}.
+     */
     fun setText(text: CharSequence): CustomSnackbar {
         content.messageView.text = text
         return this
     }
 
+    /**
+     * Set the action to be displayed in this {@link BaseTransientBottomBar}.
+     *
+     * @param text Text to display for the action
+     * @param listener callback to be invoked when the action is clicked
+     */
     fun setAction(
         @Nullable text: CharSequence,
-        @Nullable listener: View.OnClickListener
+        @Nullable listener: View.OnClickListener?
     ): CustomSnackbar {
         val actionView = content.actionView
         if (TextUtils.isEmpty(text) || listener == null) {
@@ -123,6 +180,45 @@ class CustomSnackbar private constructor(
         return this
     }
 
+    /**
+     * Set the action to be displayed in this {@link BaseTransientBottomBar}.
+     *
+     * @param resId String resource to display for the action
+     * @param listener callback to be invoked when the action is clicked
+     */
+    fun setAction(
+        @StringRes resId: Int,
+        @Nullable listener: (View) -> Unit
+    ): CustomSnackbar {
+        return setAction(
+            context.getText(resId),
+            View.OnClickListener {
+                listener.invoke(view)
+            }
+        )
+    }
+
+    /**
+     * Set the action to be displayed in this {@link BaseTransientBottomBar}.
+     *
+     * @param text Text to display for the action
+     * @param listener callback to be invoked when the action is clicked
+     */
+    fun setAction(
+        @Nullable text: CharSequence,
+        @Nullable listener: (View) -> Unit
+    ): CustomSnackbar {
+        return setAction(
+            text,
+            View.OnClickListener {
+                listener.invoke(view)
+            }
+        )
+    }
+
+    /**
+     * Return the duration.
+     */
     @Duration
     override fun getDuration(): Int {
         val userSetDuration = super.getDuration()

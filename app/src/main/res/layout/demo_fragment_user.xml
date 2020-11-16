@@ -25,7 +25,7 @@
 
         <include
             android:id="@+id/empty_view"
-            layout="@layout/demo_empty_layout" />
+            layout="@layout/empty_layout" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_clear"

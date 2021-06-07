@@ -1,4 +1,13 @@
 /*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
+/*
  * Source: https://github.com/Kotlin/anko/blob/master/anko/library/static/design/src/main/java/Snackbar.kt
  *
  * Copyright 2016 JetBrains s.r.o.
@@ -23,7 +32,6 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import org.imaginativeworld.simplemvvm.views.customsnackbar.CustomSnackbar
-
 
 /**
  * Display the Snackbar with the [Snackbar.LENGTH_SHORT] duration.
@@ -85,7 +93,8 @@ inline fun View.indefiniteSnackbar(message: CharSequence) = CustomSnackbar
  * @param message the message text resource.
  */
 inline fun View.snackbar(
-    message: Int, @StringRes actionText: Int,
+    message: Int,
+    @StringRes actionText: Int,
     noinline action: (View) -> Unit
 ) = CustomSnackbar
     .make(this, message, Snackbar.LENGTH_SHORT)
@@ -97,7 +106,11 @@ inline fun View.snackbar(
  *
  * @param message the message text resource.
  */
-inline fun View.longSnackbar(@StringRes message: Int, @StringRes actionText: Int, noinline action: (View) -> Unit) =
+inline fun View.longSnackbar(
+    @StringRes message: Int,
+    @StringRes actionText: Int,
+    noinline action: (View) -> Unit
+) =
     CustomSnackbar
         .make(this, message, Snackbar.LENGTH_LONG)
         .setAction(actionText, action)
@@ -108,7 +121,11 @@ inline fun View.longSnackbar(@StringRes message: Int, @StringRes actionText: Int
  *
  * @param message the message text resource.
  */
-inline fun View.indefiniteSnackbar(@StringRes message: Int, @StringRes actionText: Int, noinline action: (View) -> Unit) =
+inline fun View.indefiniteSnackbar(
+    @StringRes message: Int,
+    @StringRes actionText: Int,
+    noinline action: (View) -> Unit
+) =
     CustomSnackbar
         .make(this, message, Snackbar.LENGTH_INDEFINITE)
         .setAction(actionText, action)

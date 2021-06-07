@@ -42,7 +42,6 @@ class DemoPostPagedListAdapter(
     }
 
     override fun setItems(data: PagedList<DemoPostResult>?) {
-
         submitList(data) {
             data?.apply {
                 checkEmptiness()

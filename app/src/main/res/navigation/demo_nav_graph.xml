@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_postPagedFragment"
             app:destination="@id/postPagedFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_demoCarouselFragment"
+            app:destination="@id/demoCarouselFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -35,4 +38,8 @@
         android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged.DemoPostPagedFragment"
         android:label="fragment_post_paged"
         tools:layout="@layout/demo_fragment_post_paged" />
+    <fragment
+        android:id="@+id/demoCarouselFragment"
+        android:name="org.imaginativeworld.simplemvvm.views.fragments.demo_carousel.DemoCarouselFragment"
+        android:label="DemoCarouselFragment" />
 </navigation>

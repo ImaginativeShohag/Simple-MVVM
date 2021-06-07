@@ -1,9 +1,22 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/flat_grey_dark_1</item>
+        <item name="colorPrimaryVariant">@color/flat_grey_dark_2</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/flat_green_1</item>
+        <item name="colorSecondaryVariant">@color/flat_green_2</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:colorBackground">@color/container_default_background</item>
+        <item name="colorOnBackground">@color/flat_grey_dark_2</item>
+
+        <item name="colorSurface">#eeeeee</item>
+        <item name="colorOnSurface">@color/flat_grey_dark_2</item>
+
+        <item name="colorError">@color/flat_red_1</item>
+        <item name="colorOnError">@color/white</item>
 
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>

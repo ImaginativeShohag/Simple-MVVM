@@ -1,3 +1,12 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
@@ -82,7 +91,7 @@ class AppRepository @Inject constructor(
 
         val config = PagedList.Config.Builder()
             .run {
-                setEnablePlaceholders(true)
+                setEnablePlaceholders(false)
                 setPrefetchDistance(4)
                 build()
             }

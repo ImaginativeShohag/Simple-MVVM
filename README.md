@@ -38,3 +38,5 @@ A simple Android MVVM pattern example and template
 - Add New Post
 - Login
 - Registration
+- Migrate to Hilt
+- Migrate to Paging 3

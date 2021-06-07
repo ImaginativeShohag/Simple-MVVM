@@ -19,7 +19,10 @@ import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteractionListener,
+class MainActivity :
+    AppCompatActivity(),
+    CommonFunctions,
+    OnFragmentInteractionListener,
     MainActivityExtraOnFragmentInteractionListener {
 
     private lateinit var navController: NavController
@@ -43,15 +46,12 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun initViews() {
-
     }
 
     override fun initListeners() {
-
     }
 
     override fun initObservers() {
-
     }
 
     override fun setAppTitle(title: String) {
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
             showLoading()
             navController.navigate(destinationResId)
-
         } else {
 
             navController.currentDestination?.let {
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
                     navController.navigate(destinationResId)
                 }
             }
-
         }
     }
 
@@ -85,7 +83,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
             showLoading()
             navController.navigate(destinationResId, data)
-
         } else {
 
             navController.currentDestination?.let {
@@ -94,7 +91,6 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
                     navController.navigate(destinationResId, data)
                 }
             }
-
         }
     }
 
@@ -108,7 +104,7 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
 
     override fun goBack() {
         hideKeyboard()
-        
+
         onBackPressed()
     }
 
@@ -121,39 +117,44 @@ class MainActivity : AppCompatActivity(), CommonFunctions, OnFragmentInteraction
     }
 
     override fun showLoading() {
-        val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
-            .alpha(1f)
-            .setDuration(200)
-            .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {
-                    binding.loadingView.globalLoadingLayout.alpha = 0f
-                    binding.loadingView.globalLoadingLayout.visibility = View.VISIBLE
-                }
+        try {
+            val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .setListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                        binding.loadingView.globalLoadingLayout.alpha = 0f
+                        binding.loadingView.globalLoadingLayout.visibility = View.VISIBLE
+                    }
 
-                override fun onAnimationEnd(animation: Animator) {}
-                override fun onAnimationCancel(animation: Animator) {}
-                override fun onAnimationRepeat(animation: Animator) {}
-            })
+                    override fun onAnimationEnd(animation: Animator) {}
+                    override fun onAnimationCancel(animation: Animator) {}
+                    override fun onAnimationRepeat(animation: Animator) {}
+                })
 
-        loadingAnimation?.start()
+            loadingAnimation?.start()
+        } catch (e: Exception) {
+        }
     }
 
     override fun hideLoading() {
-        val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
-            .alpha(0f)
-            .setDuration(200)
-            .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationEnd(animation: Animator?) {
-                    binding.loadingView.globalLoadingLayout.visibility = View.GONE
-                }
+        try {
+            val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .setListener(object : Animator.AnimatorListener {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        binding.loadingView.globalLoadingLayout.visibility = View.GONE
+                    }
 
-                override fun onAnimationRepeat(animation: Animator?) {}
-                override fun onAnimationCancel(animation: Animator?) {}
-                override fun onAnimationStart(animation: Animator?) {}
+                    override fun onAnimationRepeat(animation: Animator?) {}
+                    override fun onAnimationCancel(animation: Animator?) {}
+                    override fun onAnimationStart(animation: Animator?) {}
+                })
 
-            })
-
-        loadingAnimation?.start()
+            loadingAnimation?.start()
+        } catch (e: Exception) {
+        }
     }
 
     override fun getActivityViewModel(): MainViewModel {

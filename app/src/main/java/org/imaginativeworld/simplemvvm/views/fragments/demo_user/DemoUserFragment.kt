@@ -19,7 +19,10 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import javax.inject.Inject
 
-class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<DemoUserEntity> {
+class DemoUserFragment :
+    Fragment(),
+    CommonFunctions,
+    OnObjectListInteractionListener<DemoUserEntity> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -39,9 +42,10 @@ class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DemoFragmentUserBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
@@ -83,39 +87,39 @@ class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         binding.recyclerView.adapter = adapter
-
     }
 
     override fun initListeners() {
-
     }
 
     override fun initObservers() {
 
         viewModel.eventShowMessage
-            .observe(this, Observer {
+            .observe(
+                this,
+                Observer {
 
-                it?.run {
+                    it?.run {
 
-                    listener?.showSnackbar(this)
-
-                }
-
-            })
-
-        viewModel.eventShowLoading
-            .observe(this, Observer {
-
-                it?.apply {
-                    if (it == true) {
-                        listener?.showLoading()
-                    } else {
-                        listener?.hideLoading()
+                        listener?.showSnackbar(this)
                     }
                 }
+            )
 
-            })
+        viewModel.eventShowLoading
+            .observe(
+                this,
+                Observer {
 
+                    it?.apply {
+                        if (it == true) {
+                            listener?.showLoading()
+                        } else {
+                            listener?.hideLoading()
+                        }
+                    }
+                }
+            )
     }
 
     override fun onAttach(context: Context) {
@@ -136,11 +140,9 @@ class DemoUserFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
     }
 
     override fun onClick(position: Int, dataObject: DemoUserEntity) {
-
     }
 
     override fun onLongClick(position: Int, dataObject: DemoUserEntity) {
-
     }
 
     override fun showEmptyView() {

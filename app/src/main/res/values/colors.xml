@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">@color/flat_grey_dark_2</color>
     <color name="colorAccent">@color/flat_green_1</color>
 
-    <!-- Colors Form: https://flatuicolors.com/palette/defo -->
+    <!-- Colors From: https://flatuicolors.com/palette/defo -->
     <color name="flat_awesome_green_1">#1abc9c</color>
     <color name="flat_awesome_green_2">#16a085</color>
     <color name="flat_green_1">#2ecc71</color>

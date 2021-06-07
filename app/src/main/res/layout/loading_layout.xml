@@ -28,7 +28,6 @@
                 android:orientation="vertical">
 
                 <ProgressBar
-                    android:id="@+id/spin_kit"
                     style="@android:style/Widget.Material.ProgressBar.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/loading"
-                    android:textColor="@color/flat_grey_dark_1"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="26sp" />
 
             </LinearLayout>

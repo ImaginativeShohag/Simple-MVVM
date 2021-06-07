@@ -1,4 +1,13 @@
 /*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
+/*
  * Source: https://github.com/Kotlin/anko/blob/master/anko/library/static/commons/src/main/java/dialogs/Toasts.kt
  *
  * Copyright 2016 JetBrains s.r.o.
@@ -33,7 +42,6 @@ inline fun Context.toast(message: Int): Toast = Toast
         show()
     }
 
-
 /**
  * Display the simple Toast message with the [Toast.LENGTH_SHORT] duration.
  *
@@ -45,7 +53,6 @@ inline fun Context.toast(message: CharSequence): Toast = Toast
         show()
     }
 
-
 /**
  * Display the simple Toast message with the [Toast.LENGTH_LONG] duration.
  *
@@ -56,7 +63,6 @@ inline fun Context.longToast(message: Int): Toast = Toast
     .apply {
         show()
     }
-
 
 /**
  * Display the simple Toast message with the [Toast.LENGTH_LONG] duration.

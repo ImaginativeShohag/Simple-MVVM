@@ -1,3 +1,12 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.network
 
 import com.squareup.moshi.JsonAdapter
@@ -23,9 +32,11 @@ class ApiClient {
 
         private fun buildClient(): OkHttpClient {
             return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    this.level = HttpLoggingInterceptor.Level.BODY
-                })
+                .addInterceptor(
+                    HttpLoggingInterceptor().apply {
+                        this.level = HttpLoggingInterceptor.Level.BODY
+                    }
+                )
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()
                         .addHeader("Accept", "application/json")
@@ -39,17 +50,18 @@ class ApiClient {
         @Synchronized
         private fun getRetrofit(): Retrofit {
             return retrofit ?: synchronized(this) {
-
                 val moshi = Moshi.Builder()
                     // Note: To automatically convert date string to Date object use this:
                     .add(Date::class.java, DateJsonAdapter())
                     .build()
 
-                retrofit ?: Retrofit.Builder()
+                retrofit = Retrofit.Builder()
                     .client(buildClient())
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .baseUrl(Constants.SERVER_ENDPOINT + "/")
                     .build()
+
+                retrofit!!
             }
         }
 
@@ -57,13 +69,11 @@ class ApiClient {
         fun getClient(): ApiInterface {
 
             return apiInterface ?: synchronized(this) {
+                apiInterface = getRetrofit().create(ApiInterface::class.java)
 
-                getRetrofit().create(ApiInterface::class.java)
-
+                apiInterface!!
             }
-
         }
-
     }
 
     class DateJsonAdapter : JsonAdapter<Date>() {
@@ -85,6 +95,5 @@ class ApiClient {
                 writer.value(dateFormat.format(value))
             }
         }
-
     }
 }

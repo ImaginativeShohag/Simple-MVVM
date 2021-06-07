@@ -1,3 +1,12 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.components
 
 import android.Manifest
@@ -104,7 +113,6 @@ class LocationProviderUtilClient(
         enabled = false
 
         stopLocationUpdate()
-
     }
 
     /**
@@ -126,22 +134,18 @@ class LocationProviderUtilClient(
                 if (exception is ResolvableApiException) {
 
                     try {
-
                         exception.startResolutionForResult(
                             activity,
                             RESOLVE_REQUEST_CODE
                         )
-
                     } catch (sendEx: IntentSender.SendIntentException) {
                         sendEx.printStackTrace()
 
                         // Ignore the error
                     }
-
                 }
             }
     }
-
 
     private fun initLocationCallback() {
         Timber.d("initLocationCallback")
@@ -157,11 +161,8 @@ class LocationProviderUtilClient(
 
                 callback.invoke(currentLocation)
             }
-
         }
-
     }
-
 
     private fun createLocationRequest() {
         Timber.d("createLocationRequest")
@@ -172,9 +173,7 @@ class LocationProviderUtilClient(
             fastestInterval = locationRequestFastestInterval
             priority = locationRequestPriority
         }
-
     }
-
 
     private fun startLocationUpdates() {
         Timber.d("startLocationUpdates")
@@ -183,9 +182,9 @@ class LocationProviderUtilClient(
                 activity,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+                    activity,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
         ) {
             throw SecurityException("You does not have permission to access location.")
         }
@@ -197,9 +196,7 @@ class LocationProviderUtilClient(
         )
 
         locationUpdatedStarted = true
-
     }
-
 
     private fun stopLocationUpdate() {
         Timber.d("stopLocationUpdate")
@@ -207,5 +204,4 @@ class LocationProviderUtilClient(
 
         locationUpdatedStarted = false
     }
-
 }

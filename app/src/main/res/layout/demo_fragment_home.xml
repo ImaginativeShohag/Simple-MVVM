@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:background="@color/container_default_background"
         android:orientation="vertical">
 
         <TextView
@@ -53,6 +54,24 @@
             android:layout_margin="8dp"
             android:text="@string/title_posts_paged"
             app:icon="@drawable/ic_chat_24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_custom_snackbar"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Custom Snackbar"
+            app:icon="@drawable/ic_perm_device_information_24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dark_mode"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Toggle Dark Mode"
+            app:icon="@drawable/ic_round_invert_colors_24" />
 
     </LinearLayout>
 

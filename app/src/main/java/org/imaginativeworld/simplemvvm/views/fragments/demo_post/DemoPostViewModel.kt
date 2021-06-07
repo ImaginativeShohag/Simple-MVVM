@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 class DemoPostViewModel @Inject constructor(
@@ -32,11 +33,11 @@ class DemoPostViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _postItems: MutableLiveData<List<PostResult>> by lazy {
-        MutableLiveData<List<PostResult>>()
+    private val _postItems: MutableLiveData<List<DemoPostResult>> by lazy {
+        MutableLiveData<List<DemoPostResult>>()
     }
 
-    val postItems: LiveData<List<PostResult>?>
+    val postItems: LiveData<List<DemoPostResult>?>
         get() = _postItems
 
     // ----------------------------------------------------------------
@@ -54,13 +55,13 @@ class DemoPostViewModel @Inject constructor(
                 accessToken
             )
 
-            if (postResponse._meta.success) {
+            if (postResponse.code == HttpURLConnection.HTTP_OK) {
 
                 _postItems.value = postResponse.result
 
             } else {
 
-                throw ApiException("Code: ${postResponse._meta.code} & Message: ${postResponse._meta.message}")
+                throw ApiException("Code: ${postResponse.code}")
 
             }
 

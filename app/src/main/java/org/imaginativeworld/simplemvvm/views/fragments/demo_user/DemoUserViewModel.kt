@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.UserEntity
+import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -74,7 +74,7 @@ class DemoUserViewModel @Inject constructor(
             val randomIndex = Random.nextInt(totalData)
 
             val insertUserId = repository.addUser(
-                UserEntity(
+                DemoUserEntity(
                     name = names[randomIndex],
                     phone = phones[randomIndex],
                     image = images[randomIndex]
@@ -108,11 +108,11 @@ class DemoUserViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _userItems: MutableLiveData<List<UserEntity>> by lazy {
-        MutableLiveData<List<UserEntity>>()
+    private val _userItems: MutableLiveData<List<DemoUserEntity>> by lazy {
+        MutableLiveData<List<DemoUserEntity>>()
     }
 
-    val userItems: LiveData<List<UserEntity>>
+    val userItems: LiveData<List<DemoUserEntity>>
         get() = _userItems
 
     // ----------------------------------------------------------------

@@ -3,7 +3,7 @@ package org.imaginativeworld.simplemvvm.datasource
 import android.content.Context
 import androidx.paging.DataSource
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
-import org.imaginativeworld.simplemvvm.models.PostResult
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 
 class PostPagedDataSourceFactory(
@@ -12,8 +12,8 @@ class PostPagedDataSourceFactory(
     private val accessToken: String,
     private val api: ApiInterface,
     private val listener: OnDataSourceErrorListener
-) : DataSource.Factory<Long, PostResult>() {
-    override fun create(): DataSource<Long, PostResult> {
+) : DataSource.Factory<Long, DemoPostResult>() {
+    override fun create(): DataSource<Long, DemoPostResult> {
         return PostPagedDataSource(
             context,
             format,

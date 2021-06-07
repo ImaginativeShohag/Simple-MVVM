@@ -17,7 +17,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 
-package org.imaginativeworld.simplemvvm.utils
+package org.imaginativeworld.simplemvvm.utils.extensions
 
 import android.content.Context
 import android.widget.Toast

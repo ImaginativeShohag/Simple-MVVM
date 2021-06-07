@@ -1,6 +1,6 @@
 package org.imaginativeworld.simplemvvm.network
 
-import org.imaginativeworld.simplemvvm.models.PostResponse
+import org.imaginativeworld.simplemvvm.models.DemoPostResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,13 +15,13 @@ interface ApiInterface {
     suspend fun getPosts(
         @Query("_format") format: String,
         @Query("access-token") accessToken: String
-    ): Response<PostResponse>
+    ): Response<DemoPostResponse>
 
     @GET("posts")
     suspend fun getPostsPaged(
         @Query("_format") format: String,
         @Query("access-token") accessToken: String,
         @Query("page") page: Long
-    ): Response<PostResponse>
+    ): Response<DemoPostResponse>
 
 }

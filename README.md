@@ -23,3 +23,18 @@ A simple Android MVVM pattern example and template
 ## Others
 
 - Build variant (https://developer.android.com/studio/build/build-variants)
+- Custom Snackbar
+- Dark Mode (Initially Implemented)
+
+## Common Binding Adapters
+
+- RecyclerView
+- Spinner
+- ImageView
+- TextView (for Date() to formatted date-time)
+
+## Todo
+
+- Add New Post
+- Login
+- Registration

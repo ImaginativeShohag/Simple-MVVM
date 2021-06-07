@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="org.imaginativeworld.simplemvvm.models.UserEntity" />
+            type="org.imaginativeworld.simplemvvm.models.DemoUserEntity" />
 
     </data>
 

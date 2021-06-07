@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import org.imaginativeworld.simplemvvm.models.UserEntity
+import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 
 // Help: https://android.jlelse.eu/android-room-using-kotlin-f6cc0a05bf23
 
-@Database(entities = [UserEntity::class], version = 1)
+@Database(entities = [DemoUserEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

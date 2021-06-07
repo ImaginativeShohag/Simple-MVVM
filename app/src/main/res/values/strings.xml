@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Simple MVVM</string>
 
-    <string name="title_posts">Posts</string>
-    <string name="title_users">Users</string>
     <string name="loading">Loading…</string>
     <string name="list_is_empty">List is empty!</string>
+
+    <!-- Demo View Strings -->
+    <string name="title_posts">Posts</string>
+    <string name="title_users">Users</string>
     <string name="title_posts_paged">Posts (Paged)</string>
+    <string name="default_notification_channel_id">default_notification_channel</string>
 </resources>

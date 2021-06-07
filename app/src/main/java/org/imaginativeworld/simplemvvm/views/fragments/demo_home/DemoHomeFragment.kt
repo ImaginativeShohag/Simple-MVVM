@@ -1,16 +1,20 @@
 package org.imaginativeworld.simplemvvm.views.fragments.demo_home
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.views.customsnackbar.CustomSnackbar
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -77,6 +81,31 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         binding.btnPostPaged.setOnClickListener {
 
             listener?.gotoFragment(R.id.postPagedFragment)
+
+        }
+
+        binding.btnCustomSnackbar.setOnClickListener {
+
+            CustomSnackbar.make(
+                binding.root,
+                "Hi! I am a custom Snackbar!",
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction("Ok", View.OnClickListener {})
+                .show()
+
+        }
+
+        binding.btnDarkMode.setOnClickListener {
+
+            val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+            when(isNightTheme) {
+                Configuration.UI_MODE_NIGHT_YES ->
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Configuration.UI_MODE_NIGHT_NO ->
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
 
         }
 

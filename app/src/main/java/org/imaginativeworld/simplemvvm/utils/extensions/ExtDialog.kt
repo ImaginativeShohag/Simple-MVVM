@@ -1,3 +1,12 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.utils.extensions
 
 import android.app.Activity
@@ -14,7 +23,6 @@ import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DialogMonthPickerBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogSingleInputBinding
 import java.util.*
-
 
 /**
  * Fix the dialog height.
@@ -61,7 +69,6 @@ fun Activity.showAlertDialog(
         }
 }
 
-
 /**
  * Show a single input dialog.
  *
@@ -96,7 +103,6 @@ fun Activity.showDialogSingleInput(
 
     val alertDialog = builder.create()
 
-
     // init Views
     inputFieldCustomization(dialogBinding.etInput)
 
@@ -105,14 +111,12 @@ fun Activity.showDialogSingleInput(
     dialogBinding.btnNegative.text = negativeBtnText
     dialogBinding.btnPositive.text = positiveBtnText
 
-
     // Listener
     dialogBinding.btnNegative.setOnClickListener {
 
         negativeListener()
 
         alertDialog.dismiss()
-
     }
 
     dialogBinding.btnPositive.setOnClickListener {
@@ -124,14 +128,11 @@ fun Activity.showDialogSingleInput(
             positiveListener(dialogBinding.etInput.text.toString())
 
             alertDialog.dismiss()
-
         } else {
 
             dialogBinding.etInput.error = emptyInputText
             dialogBinding.etInput.requestFocus()
-
         }
-
     }
 
     alertDialog.show()
@@ -219,7 +220,6 @@ fun Int.getMonthName(): String {
         return "Error"
     }
 }
-
 
 /**
  * Ask to open a url.

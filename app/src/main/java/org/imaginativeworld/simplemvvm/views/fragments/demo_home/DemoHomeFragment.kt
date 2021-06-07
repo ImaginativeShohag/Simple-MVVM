@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
@@ -32,17 +33,24 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         super.onCreate(savedInstanceState)
 
         initObservers()
+
+//        NoInternetDialogSignal.Builder(requireActivity(), lifecycle).build()
+//        NoInternetDialogPendulum.Builder(requireActivity(), lifecycle).build()
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Timber.d("onCreateView")
 
         binding = DemoFragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
+
+        NoInternetSnackbarFire.Builder(binding.mainContainer, viewLifecycleOwner.lifecycle).build()
+
         return binding.root
     }
 
@@ -69,19 +77,16 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         binding.btnUser.setOnClickListener {
 
             listener?.gotoFragment(R.id.userFragment)
-
         }
 
         binding.btnPost.setOnClickListener {
 
             listener?.gotoFragment(R.id.postFragment)
-
         }
 
         binding.btnPostPaged.setOnClickListener {
 
             listener?.gotoFragment(R.id.postPagedFragment)
-
         }
 
         binding.btnCustomSnackbar.setOnClickListener {
@@ -93,22 +98,24 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
             )
                 .setAction("Ok", View.OnClickListener {})
                 .show()
+        }
 
+        binding.btnCarousel.setOnClickListener {
+
+            listener?.gotoFragment(R.id.demoCarouselFragment)
         }
 
         binding.btnDarkMode.setOnClickListener {
 
             val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-            when(isNightTheme) {
+            when (isNightTheme) {
                 Configuration.UI_MODE_NIGHT_YES ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 Configuration.UI_MODE_NIGHT_NO ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
-
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -129,5 +136,4 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         super.onDetach()
         listener = null
     }
-
 }

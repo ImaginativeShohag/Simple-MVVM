@@ -1,9 +1,17 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.utils.extensions
 
 import android.text.format.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 /**
  * Return date in yyyy-MM-dd format.
@@ -21,7 +29,6 @@ fun Date?.getYYYYMMDD(): String {
         ""
     }
 }
-
 
 fun Date?.getHumanReadableDateTime(): String {
     if (this == null)

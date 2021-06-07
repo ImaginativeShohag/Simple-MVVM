@@ -1,7 +1,16 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.network
 
 import android.content.Context
-import org.imaginativeworld.oopsnointernet.NoInternetUtils
+import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
@@ -23,7 +32,6 @@ object SafeApiRequest {
             if (response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK) {
 
                 return response.body()!!
-
             } else {
 
                 val error = response.errorBody()?.string()
@@ -45,14 +53,11 @@ object SafeApiRequest {
 
                 throw ApiException(message.toString())
             }
-
         } catch (e: Exception) {
 
             e.printStackTrace()
 
             throw ApiException(e.message ?: "Unknown Error!")
-
         }
     }
-
 }

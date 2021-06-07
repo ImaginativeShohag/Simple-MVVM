@@ -1,3 +1,12 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.utils.extensions
 
 import android.app.Activity
@@ -8,10 +17,9 @@ import android.net.Uri
 import android.provider.Settings
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import org.imaginativeworld.oopsnointernet.NoInternetUtils
+import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.imaginativeworld.simplemvvm.R
 import timber.log.Timber
-
 
 /**
  * Hide soft keyboard
@@ -24,7 +32,6 @@ fun Activity.hideKeyboard() {
     }
 }
 
-
 /**
  * Show soft keyboard
  */
@@ -33,7 +40,6 @@ fun EditText.showKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
-
 
 /**
  * Download file using system download manager.
@@ -65,7 +71,6 @@ fun Activity.downloadFile(
     }
 }
 
-
 /**
  * Open permission setting.
  */
@@ -85,7 +90,6 @@ fun Activity.openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-
     } catch (e: Exception) {
         e.printStackTrace()
 

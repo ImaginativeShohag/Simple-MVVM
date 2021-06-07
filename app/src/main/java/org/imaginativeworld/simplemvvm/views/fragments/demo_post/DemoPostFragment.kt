@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.imaginativeworld.simplemvvm.MyApplication
@@ -22,7 +21,10 @@ import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
 import javax.inject.Inject
 
-class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionListener<DemoPostResult> {
+class DemoPostFragment :
+    Fragment(),
+    CommonFunctions,
+    OnObjectListInteractionListener<DemoPostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -43,9 +45,10 @@ class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Timber.d("onCreateView")
 
         binding = DemoFragmentPostBinding.inflate(inflater, container, false)
@@ -96,26 +99,38 @@ class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         binding.recyclerView.adapter = adapter
-
     }
 
     override fun initObservers() {
 
         viewModel.eventShowMessage
-            .observe(this, Observer {
+            .observe(
+                this,
+                {
 
-                it?.run {
+                    it?.run {
 
-                    listener?.showSnackbar(this, "Retry") {
+                        listener?.showSnackbar(this, "Retry") {
 
-                        load()
-
+                            load()
+                        }
                     }
-
                 }
+            )
 
-            })
-
+        viewModel.eventShowLoading
+            .observe(
+                this,
+                {
+                    it?.run {
+                        if (this) {
+                            listener?.showLoading()
+                        } else {
+                            listener?.hideLoading()
+                        }
+                    }
+                }
+            )
     }
 
     override fun onAttach(context: Context) {
@@ -146,11 +161,9 @@ class DemoPostFragment : Fragment(), CommonFunctions, OnObjectListInteractionLis
                 .setMessage(dataObject.body)
                 .show()
         }
-
     }
 
     override fun onLongClick(position: Int, dataObject: DemoPostResult) {
-
     }
 
     override fun showEmptyView() {

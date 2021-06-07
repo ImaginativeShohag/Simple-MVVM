@@ -1,7 +1,15 @@
+/*
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.utils.extensions
 
 import android.widget.Spinner
-
 
 /**
  * Get item id for general spinner implementation.
@@ -15,7 +23,6 @@ fun Spinner.getGeneralSpinnerSelectedItemId(): Int {
             ?: throw Exception("This spinner not using general spinner items!")
     }
 }
-
 
 /**
  * Get item name for general spinner implementation.

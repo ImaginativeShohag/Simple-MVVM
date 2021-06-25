@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_postpaged
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

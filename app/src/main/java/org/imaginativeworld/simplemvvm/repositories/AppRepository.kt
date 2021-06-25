@@ -13,6 +13,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.datasource.PostPagedDataSourceFactory
@@ -27,7 +28,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class AppRepository @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val api: ApiInterface,
     private val db: AppDatabase
 ) {

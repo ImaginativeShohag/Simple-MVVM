@@ -3,22 +3,17 @@ package org.imaginativeworld.simplemvvm.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import org.imaginativeworld.simplemvvm.MyApplication
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.network.ApiInterface
-import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class AppModule(
-    private var application: MyApplication
-) {
+class AppModule {
 
-    @Provides
-    @Singleton
-    fun provideApplicationContext(): Context {
-        return application
-    }
 
     @Provides
     fun provideApiInterface(): ApiInterface {
@@ -26,8 +21,7 @@ class AppModule(
     }
 
     @Provides
-    fun provideAppDatabase(): AppDatabase {
-        return AppDatabase(application)
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase(context)
     }
-
 }

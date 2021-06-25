@@ -9,18 +9,25 @@
 
 package org.imaginativeworld.simplemvvm.utils
 
-class Constants {
+import org.imaginativeworld.simplemvvm.BuildConfig
 
-    companion object {
-
-        /**
-         * Server endpoint without end slash.
-         */
+object Constants {
+    /**
+     * Server endpoint without end slash.
+     */
 //        const val SERVER_ENDPOINT = "http://jsonplaceholder.typicode.com"
-        const val SERVER_ENDPOINT = "https://gorest.co.in/public-api"
-        const val SERVER_TOKEN = "VnGB6avSC9AAjSsmBsZCq1FM_L46SjjObJy1"
-        const val SERVER_FORMAT = "json"
+    const val SERVER_ENDPOINT = "https://gorest.co.in/public-api"
+    const val SERVER_TOKEN = "VnGB6avSC9AAjSsmBsZCq1FM_L46SjjObJy1"
+    const val SERVER_FORMAT = "json"
 
-    }
+    /**
+     * For MyNotificationOpenedHandler
+     */
+    const val INTENT_EXTRA_TARGET_KEY = "target"
+    const val INTENT_EXTRA_TARGET_VAL_NOTIFICATIONS = "notifications"
 
+    /**
+     * For Broadcast
+     */
+    const val BROADCAST_ACTION_NOTIFICATIONS = BuildConfig.APPLICATION_ID + ".notifications"
 }

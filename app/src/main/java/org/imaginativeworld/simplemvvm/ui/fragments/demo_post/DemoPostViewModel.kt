@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_post
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_post
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

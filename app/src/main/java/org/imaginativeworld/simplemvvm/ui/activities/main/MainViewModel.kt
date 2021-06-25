@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.activities.main
+package org.imaginativeworld.simplemvvm.ui.activities.main
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.activities.main
+package org.imaginativeworld.simplemvvm.ui.activities.main
 
 import android.animation.Animator
 import android.os.Bundle
@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import org.imaginativeworld.simplemvvm.MyApplication
+import com.onesignal.OneSignal
+import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -19,6 +20,7 @@ import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity :
     AppCompatActivity(),
     CommonFunctions,
@@ -33,7 +35,6 @@ class MainActivity :
     lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (applicationContext as MyApplication).appGraph.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,6 +44,22 @@ class MainActivity :
 
         initViews()
         initListeners()
+    }
+
+    // todo Add this to onResume
+    private fun updateOneSignalId() {
+        // this can also be used to observer:
+        // https://documentation.onesignal.com/docs/android-native-sdk#addsubscriptionobserver
+        if (OneSignal.getDeviceState() != null && OneSignal.getDeviceState()!!.isSubscribed) {
+            val userId = OneSignal.getDeviceState()!!.userId
+
+//            if (UserDataManager.isUserLoggedIn()
+//                && (UserDataManager.getOneSignalPlayerId() == null || !UserDataManager.getOneSignalPlayerId()
+//                    .equals(userId))
+//            ) {
+//                AuthRepo.get().updateOneSignalId(userId)
+//            }
+        }
     }
 
     override fun initViews() {

@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_postpaged
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_postpaged
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.imaginativeworld.simplemvvm.MyApplication
+import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedListAdapter
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
@@ -21,6 +21,7 @@ import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
     OnObjectListInteractionListener<DemoPostResult> {
 
@@ -79,8 +80,6 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        (context.applicationContext as MyApplication).appGraph.inject(this)
 
         if (context is OnFragmentInteractionListener) {
             listener = context

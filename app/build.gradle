@@ -1,12 +1,13 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'kotlin-kapt'
-
-// Navigation Component: Safe Args
-apply plugin: "androidx.navigation.safeargs"
-
-apply plugin: 'com.google.gms.google-services'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'dagger.hilt.android.plugin'
+}
 
 android {
     compileSdkVersion 30
@@ -17,13 +18,14 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.000000" // Major.Minor.YYMMDD
+        versionName "1.0.0.000000" // Major.Minor.Patch.YYMMDD
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [
+                arguments += [
                         "room.schemaLocation"  : "$projectDir/schemas".toString(),
                         "room.incremental"     : "true",
                         "room.expandProjection": "true"
@@ -66,11 +68,28 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-Xallow-jvm-ir-dependencies"
+        // Enable experimental coroutines APIs, including Flow
+        freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
     }
 
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose true
+
+        // Disable unused AGP features
+        // buildConfig false
+        aidl false
+        renderScript false
+        resValues false
+        shaders false
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
     }
 }
 
@@ -83,11 +102,62 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
-    // Retrofit and Moshi
+    // ----------------------------------------------------------------
+    // Compose
+    // ----------------------------------------------------------------
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-util:$compose_version"
+    // Tooling support (Previews, etc.)
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // Animation
+    implementation "androidx.compose.animation:animation:$compose_version"
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
+    // Material Design
+    implementation "androidx.compose.material:material:$compose_version"
+    // Material design icons
+    // implementation "androidx.compose.material:material-icons-core:$compose_version"
+    // implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    // Integration with observables
+    implementation "androidx.compose.runtime:runtime:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    // Compose Navigation Component
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha03"
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.3.0-beta02'
+
+    // Fragments
+    // implementation "androidx.fragment:fragment-ktx:1.4.0-alpha01"
+
+    // Jetpack Compose Integration for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+
+    // Paging
+    implementation "androidx.paging:paging-compose:1.0.0-alpha10"
+
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-glide:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+
+    // ----------------------------------------------------------------
+
+    // Material Design
+    implementation 'com.google.android.material:material:1.3.0'
+
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    // Moshi
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
 
@@ -96,8 +166,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
-    // Material Design
-    implementation 'com.google.android.material:material:1.3.0'
+    // Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:2.3.0"
@@ -110,21 +181,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
-    // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
-    // Lifecycles only (without ViewModel or LiveData)
-//    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:3.0.0"
-
-    // No Internet Library
-    implementation 'org.imaginativeworld.oopsnointernet:oopsnointernet:2.0.0'
 
     // Permission
     implementation 'com.karumi:dexter:6.2.2'
@@ -133,11 +195,16 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.36'
-    kapt 'com.google.dagger:dagger-compiler:2.36'
+//    implementation "com.google.dagger:dagger:$hilt_version"
+//    kapt "com.google.dagger:dagger-compiler:$hilt_version"
+//
+//    implementation "com.google.dagger:dagger-android:$hilt_version"
+//    kapt "com.google.dagger:dagger-android-processor:$hilt_version"
 
-    implementation 'com.google.dagger:dagger-android:2.36'
-    kapt 'com.google.dagger:dagger-android-processor:2.36'
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
 
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
@@ -158,6 +225,22 @@ dependencies {
     // Image compressor
     implementation 'id.zelory:compressor:3.0.1'
 
+    // No Internet Library
+    implementation 'org.imaginativeworld.oopsnointernet:oopsnointernet:2.0.0'
+
     // Image Carousel
     implementation "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.2"
+
+    // OneSignal SDK
+    implementation 'com.onesignal:OneSignal:4.2.0'
+}
+
+// Workaround for OneSignal from:
+// https://github.com/OneSignal/OneSignal-Gradle-Plugin/issues/37#issuecomment-391983620
+googleServices { disableVersionCheck = true }
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

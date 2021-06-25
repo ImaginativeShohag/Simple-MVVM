@@ -1,44 +1,48 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_user
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_post
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.imaginativeworld.simplemvvm.MyApplication
+import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.adapters.DemoUserListAdapter
-import org.imaginativeworld.simplemvvm.databinding.DemoFragmentUserBinding
+import org.imaginativeworld.simplemvvm.adapters.DemoPostListAdapter
+import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import org.imaginativeworld.simplemvvm.utils.Constants
+import timber.log.Timber
 import javax.inject.Inject
 
-class DemoUserFragment :
+@AndroidEntryPoint
+class DemoPostFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoUserEntity> {
+    OnObjectListInteractionListener<DemoPostResult> {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var binding: DemoFragmentUserBinding
+    private lateinit var binding: DemoFragmentPostBinding
 
     @Inject
-    lateinit var viewModel: DemoUserViewModel
+    lateinit var viewModel: DemoPostViewModel
 
-    private lateinit var adapter: DemoUserListAdapter
+    private lateinit var adapter: DemoPostListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("onCreate")
 
         initObservers()
 
-        adapter = DemoUserListAdapter(this)
+        adapter = DemoPostListAdapter(this)
     }
 
     override fun onCreateView(
@@ -46,7 +50,9 @@ class DemoUserFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DemoFragmentUserBinding.inflate(inflater, container, false)
+        Timber.d("onCreateView")
+
+        binding = DemoFragmentPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
@@ -55,23 +61,30 @@ class DemoUserFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listener?.setAppTitle(getString(R.string.title_users))
+        listener?.setAppTitle(getString(R.string.title_posts))
 
-        viewModel.getUsers()
+        listener?.hideLoading()
 
         initViews()
 
-        initListeners()
+        load()
     }
 
     override fun onResume() {
         super.onResume()
+        Timber.d("onResume")
+    }
+
+    private fun load() {
+        viewModel.getPosts(
+            Constants.SERVER_FORMAT,
+            Constants.SERVER_TOKEN
+        )
     }
 
     override fun onPause() {
         super.onPause()
-
-        viewModel.clearUserObservables()
+        Timber.d("onPause")
     }
 
     override fun initViews() {
@@ -89,19 +102,19 @@ class DemoUserFragment :
         binding.recyclerView.adapter = adapter
     }
 
-    override fun initListeners() {
-    }
-
     override fun initObservers() {
 
         viewModel.eventShowMessage
             .observe(
                 this,
-                Observer {
+                {
 
                     it?.run {
 
-                        listener?.showSnackbar(this)
+                        listener?.showSnackbar(this, "Retry") {
+
+                            load()
+                        }
                     }
                 }
             )
@@ -109,10 +122,9 @@ class DemoUserFragment :
         viewModel.eventShowLoading
             .observe(
                 this,
-                Observer {
-
-                    it?.apply {
-                        if (it == true) {
+                {
+                    it?.run {
+                        if (this) {
                             listener?.showLoading()
                         } else {
                             listener?.hideLoading()
@@ -124,8 +136,7 @@ class DemoUserFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        (context.applicationContext as MyApplication).appGraph.inject(this)
+        Timber.d("onAttach")
 
         if (context is OnFragmentInteractionListener) {
             listener = context
@@ -136,13 +147,22 @@ class DemoUserFragment :
 
     override fun onDetach() {
         super.onDetach()
+        Timber.d("onDetach")
+
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: DemoUserEntity) {
+    override fun onClick(position: Int, dataObject: DemoPostResult) {
+
+        this.context?.apply {
+            AlertDialog.Builder(this)
+                .setTitle(dataObject.title)
+                .setMessage(dataObject.body)
+                .show()
+        }
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoUserEntity) {
+    override fun onLongClick(position: Int, dataObject: DemoPostResult) {
     }
 
     override fun showEmptyView() {

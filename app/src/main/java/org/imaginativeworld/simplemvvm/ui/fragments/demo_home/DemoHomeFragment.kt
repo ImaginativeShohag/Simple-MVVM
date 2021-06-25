@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_home
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_home
 
 import android.content.Context
 import android.content.res.Configuration
@@ -9,16 +9,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
-import org.imaginativeworld.simplemvvm.MyApplication
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-import org.imaginativeworld.simplemvvm.views.customsnackbar.CustomSnackbar
+import org.imaginativeworld.simplemvvm.ui.customsnackbar.CustomSnackbar
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DemoHomeFragment : Fragment(), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
@@ -121,8 +122,6 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
     override fun onAttach(context: Context) {
         Timber.d("onAttach")
         super.onAttach(context)
-
-        (context.applicationContext as MyApplication).appGraph.inject(this)
 
         if (context is OnFragmentInteractionListener) {
             listener = context

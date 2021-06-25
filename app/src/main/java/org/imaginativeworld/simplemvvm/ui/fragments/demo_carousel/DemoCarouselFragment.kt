@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_carousel
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_carousel
 
 import android.content.Context
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.customsnackbar
+package org.imaginativeworld.simplemvvm.ui.customsnackbar
 
 import android.content.Context
 import android.os.Build.VERSION

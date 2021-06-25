@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.views.fragments.demo_home
+package org.imaginativeworld.simplemvvm.ui.fragments.demo_home
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

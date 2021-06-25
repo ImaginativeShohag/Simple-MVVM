@@ -1,6 +1,6 @@
 # Simple MVVM
 
-A simple Android MVVM pattern example and template
+A simple Android MVVM pattern example and template.
 
 ## Used Components/Libraries
 
@@ -24,7 +24,7 @@ A simple Android MVVM pattern example and template
 
 - Build variant (https://developer.android.com/studio/build/build-variants)
 - Custom Snackbar
-- Dark Mode (Initially Implemented)
+- Dark Mode
 
 ## Common Binding Adapters
 
@@ -36,7 +36,11 @@ A simple Android MVVM pattern example and template
 ## Todo
 
 - Add New Post
-- Login
-- Registration
+- Demo Login
+- Demo Registration
 - Migrate to Hilt
 - Migrate to Paging 3
+- OneSignal integration
+- Splash (Introduced in Android S)
+- Jetpack Compose Integration
+- Testing

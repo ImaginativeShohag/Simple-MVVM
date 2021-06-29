@@ -31,7 +31,7 @@ package org.imaginativeworld.simplemvvm.utils.extensions
 import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
-import org.imaginativeworld.simplemvvm.ui.customsnackbar.CustomSnackbar
+import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackbar
 
 /**
  * Display the Snackbar with the [Snackbar.LENGTH_SHORT] duration.

@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.ui.customsnackbar
+package org.imaginativeworld.simplemvvm.ui.components.customsnackbar
 
 import android.content.Context
 import android.util.AttributeSet

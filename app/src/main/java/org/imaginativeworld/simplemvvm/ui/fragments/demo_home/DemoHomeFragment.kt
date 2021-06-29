@@ -15,7 +15,7 @@ import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
-import org.imaginativeworld.simplemvvm.ui.customsnackbar.CustomSnackbar
+import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackbar
 import timber.log.Timber
 import javax.inject.Inject
 

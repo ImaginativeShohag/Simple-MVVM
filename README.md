@@ -16,7 +16,7 @@ A simple Android MVVM pattern example and template.
 - Timber (https://github.com/JakeWharton/timber)
 - Custom Fonts (https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml)
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
-- Dagger (https://github.com/google/dagger)
+- Dagger-Hilt (https://github.com/google/dagger)
 - Paging (https://developer.android.com/topic/libraries/architecture/paging)
 - Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**
 
@@ -38,9 +38,9 @@ A simple Android MVVM pattern example and template.
 - Add New Post
 - Demo Login
 - Demo Registration
-- Migrate to Hilt
 - Migrate to Paging 3
 - OneSignal integration
 - Splash (Introduced in Android S)
 - Jetpack Compose Integration
 - Testing
+- Example of LocationProviderUtilClient

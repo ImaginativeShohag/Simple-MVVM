@@ -108,7 +108,7 @@ private fun DefaultButtonWithIconPreview() {
     AppTheme {
         DefaultButton(
             text = "Default Button",
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }
@@ -160,7 +160,7 @@ fun DefaultIconButton(
 private fun DefaultIconButtonPreview() {
     AppTheme {
         DefaultIconButton(
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }
@@ -210,7 +210,7 @@ fun DefaultIconButtonForMap(
 private fun DefaultIconButtonForMapPreview() {
     AppTheme {
         DefaultIconButtonForMap(
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }
@@ -260,7 +260,7 @@ fun DefaultIconBorderLessButton(
 private fun DefaultIconBorderLessButtonPreview() {
     AppTheme {
         DefaultIconBorderLessButton(
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }
@@ -337,7 +337,7 @@ private fun DefaultBorderedButtonWithIconPreview() {
     AppTheme {
         DefaultBorderedButton(
             text = "Default Bordered Button",
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }
@@ -413,7 +413,7 @@ private fun DefaultTextButtonWithIconPreview() {
     AppTheme {
         DefaultTextButton(
             text = "Default Text Button",
-            iconDrawableId = R.drawable.ic_add_24dp
+            iconDrawableId = R.drawable.ic_round_visibility_24
         ) {
 
         }

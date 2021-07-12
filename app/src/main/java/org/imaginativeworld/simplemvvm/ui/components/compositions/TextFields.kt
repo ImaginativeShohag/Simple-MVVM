@@ -47,11 +47,25 @@ fun defaultTextInputShape() = RoundedCornerShape(8.dp)
 @Composable
 private fun DefaultTextInputFieldPreview() {
     AppTheme {
-        Column {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+        ) {
             DefaultTextInputField(
                 textFieldValue = remember { mutableStateOf(TextFieldValue()) },
-                placeholder = "I am  a placeholder",
+                placeholder = "The quick brown fox jumps over a lazy dog, and the quick black cat jumps over a lazy tiger.",
                 keyboardType = KeyboardType.Text,
+            )
+
+            DefaultTextInputField(
+                modifier = Modifier
+                    .padding(top = 32.dp)
+                    .height(128.dp),
+                textFieldValue = remember { mutableStateOf(TextFieldValue()) },
+                placeholder = "The quick brown fox jumps over a lazy dog, and the quick black cat jumps over a lazy tiger.",
+                keyboardType = KeyboardType.Text,
+                singleLine = false,
             )
 
             DefaultPasswordInputField(
@@ -124,12 +138,11 @@ fun DefaultTextInputField(
                     .background(rBackground)
                     .height(rHeight)
                     .padding(horizontal = 12.dp),
-                contentAlignment = Alignment.CenterStart
             ) {
                 Box(
                     Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 2.dp)
+                        .padding(top = 13.dp, bottom = 15.dp)
                 ) {
                     innerTextField()
 

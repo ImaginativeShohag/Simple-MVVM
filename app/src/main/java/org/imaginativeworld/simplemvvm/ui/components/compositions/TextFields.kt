@@ -120,8 +120,8 @@ fun DefaultTextInputField(
         },
         keyboardActions = rKeyboardActions ?: KeyboardActions(
             onDone = { focusManager.clearFocus() },
-            onNext = { focusManager.moveFocus(FocusDirection.Next) },
-            onSearch = { focusManager.clearFocus() }
+            onNext = { focusManager.moveFocus(FocusDirection.Down) },
+            onSearch = { focusManager.clearFocus() },
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = rKeyboardType,
@@ -199,7 +199,7 @@ fun DefaultPasswordInputField(
         },
         keyboardActions = rKeyboardActions ?: KeyboardActions(
             onDone = { focusManager.clearFocus() },
-            onNext = { focusManager.moveFocus(FocusDirection.Next) }
+            onNext = { focusManager.moveFocus(FocusDirection.Down) }
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.NumberPassword,

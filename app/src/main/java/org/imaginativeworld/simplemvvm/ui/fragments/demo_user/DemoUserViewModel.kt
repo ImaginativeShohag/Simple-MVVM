@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
@@ -11,6 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
+@HiltViewModel
 class DemoUserViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {

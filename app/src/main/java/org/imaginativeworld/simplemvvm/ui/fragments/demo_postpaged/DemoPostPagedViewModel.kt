@@ -5,11 +5,13 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
+@HiltViewModel
 class DemoPostPagedViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {

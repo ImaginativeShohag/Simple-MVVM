@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
@@ -29,8 +29,7 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
 
     private lateinit var binding: DemoFragmentPostPagedBinding
 
-    @Inject
-    lateinit var viewModel: DemoPostPagedViewModel
+    private val viewModel: DemoPostPagedViewModel by viewModels()
 
     private lateinit var adapter: DemoPostPagedListAdapter
 

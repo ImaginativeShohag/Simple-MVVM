@@ -1,15 +1,24 @@
 package org.imaginativeworld.simplemvvm.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import org.imaginativeworld.simplemvvm.utils.calculatePaletteInImage
+import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
+import timber.log.Timber
 
 class DemoPostPagedListAdapter(
     private val listener: OnObjectListInteractionListener<DemoPostResult>
@@ -20,11 +29,17 @@ class DemoPostPagedListAdapter(
 
         private val DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<DemoPostResult>() {
-            override fun areItemsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+            override fun areItemsTheSame(
+                oldItem: DemoPostResult,
+                newItem: DemoPostResult
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+            override fun areContentsTheSame(
+                oldItem: DemoPostResult,
+                newItem: DemoPostResult
+            ): Boolean {
                 return oldItem == newItem
             }
 
@@ -68,12 +83,51 @@ class DemoPostPagedListAdapter(
                 binding.post = _item
                 binding.executePendingBindings()
 
+                // Image
+                val imageUrl = "https://picsum.photos/200?$bindingAdapterPosition"
+                binding.img.load(imageUrl) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(8.dpToPx().toFloat()))
+                }
+
+                binding.root.setBackgroundColor(
+                    Color.parseColor("#ffffff")
+                )
+                binding.tvTitle.setTextColor(
+                    Color.parseColor("#000000")
+                )
+                binding.tvBody.setTextColor(
+                    Color.parseColor("#000000")
+                )
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    val position = bindingAdapterPosition
+                    calculatePaletteInImage(
+                        context = binding.root.context,
+                        imageUrl = imageUrl
+                    )?.let { swatch ->
+                        Timber.e("position: $position | bindingAdapterPosition: $bindingAdapterPosition")
+
+                        if (position == bindingAdapterPosition) {
+                            binding.root.setBackgroundColor(
+                                swatch.rgb
+                            )
+                            binding.tvTitle.setTextColor(
+                                swatch.titleTextColor
+                            )
+                            binding.tvBody.setTextColor(
+                                swatch.bodyTextColor
+                            )
+                        }
+                    }
+                }
+
                 binding.root.setOnClickListener {
-                    listener.onClick(adapterPosition, _item)
+                    listener.onClick(bindingAdapterPosition, _item)
                 }
 
                 binding.root.setOnLongClickListener {
-                    listener.onLongClick(adapterPosition, _item)
+                    listener.onLongClick(bindingAdapterPosition, _item)
                     true
                 }
             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.network.ApiException
@@ -11,6 +12,7 @@ import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import java.net.HttpURLConnection
 import javax.inject.Inject
 
+@HiltViewModel
 class DemoPostViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {

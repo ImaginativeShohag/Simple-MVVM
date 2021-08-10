@@ -4,7 +4,7 @@ A simple Android MVVM pattern example and template.
 
 ## Android Studio Version
 
-- Android Studio Arctic Fox | 2020.3.1 Beta 5
+- Android Studio Arctic Fox | 2020.3.1 RC 1
 
 ## Used Components/Libraries
 
@@ -30,12 +30,32 @@ A simple Android MVVM pattern example and template.
 - Custom Snackbar
 - Dark Mode
 
+## Extension Functions (see `utils/extensions`)
+
+- DateTime
+- Dialog
+- Dimension
+- Flow
+- General Spinner
+- Miscellaneous: show/hide keyboard, download file, open permission settings, open url, send mail
+  etc.
+- Retrofit
+- Snackbar
+- String
+- Toast
+
 ## Common Binding Adapters
 
 - RecyclerView
 - Spinner
 - ImageView
 - TextView (for Date() to formatted date-time)
+
+# Utilities
+
+- `SharedPref`
+- `AlarmUtils`
+- `LocationProviderUtilClient`
 
 ## Todo
 
@@ -45,7 +65,6 @@ A simple Android MVVM pattern example and template.
 - Migrate to Paging 3
 - OneSignal integration
 - Splash (Introduced in Android S)
-- Jetpack Compose Integration
 - Testing
 - Example of LocationProviderUtilClient
 - AdUtils from Ticket Sheba

@@ -14,7 +14,6 @@ import org.imaginativeworld.simplemvvm.network.ApiInterface
 @Module
 class AppModule {
 
-
     @Provides
     fun provideApiInterface(): ApiInterface {
         return ApiClient.getClient()
@@ -24,4 +23,9 @@ class AppModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return AppDatabase(context)
     }
+
+//    @Provides
+//    fun provideSharedPref(@ApplicationContext context: Context): SharedPref {
+//        return SharedPref(context)
+//    }
 }

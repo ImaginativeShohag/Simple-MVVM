@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
@@ -17,7 +18,6 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackbar
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DemoHomeFragment : Fragment(), CommonFunctions {
@@ -26,8 +26,7 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
     private lateinit var binding: DemoFragmentHomeBinding
 
-    @Inject
-    lateinit var viewModel: DemoHomeViewModel
+    private val viewModel: DemoHomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")

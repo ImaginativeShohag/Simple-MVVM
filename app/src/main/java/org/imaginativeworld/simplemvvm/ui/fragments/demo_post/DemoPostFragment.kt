@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,6 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DemoPostFragment :
@@ -31,8 +31,7 @@ class DemoPostFragment :
 
     private lateinit var binding: DemoFragmentPostBinding
 
-    @Inject
-    lateinit var viewModel: DemoPostViewModel
+    private val viewModel: DemoPostViewModel by viewModels()
 
     private lateinit var adapter: DemoPostListAdapter
 

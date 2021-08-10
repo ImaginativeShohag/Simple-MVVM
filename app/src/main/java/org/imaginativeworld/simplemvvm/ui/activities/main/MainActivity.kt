@@ -3,6 +3,7 @@ package org.imaginativeworld.simplemvvm.ui.activities.main
 import android.animation.Animator
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -15,6 +16,7 @@ import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
@@ -32,7 +34,9 @@ class MainActivity :
     private lateinit var binding: ActivityMainBinding
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var sharedPref: SharedPref
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class MainActivity :
 
         initViews()
         initListeners()
+
+        sharedPref.isUserLoggedIn()
     }
 
     // todo Add this to onResume

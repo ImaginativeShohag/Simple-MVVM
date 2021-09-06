@@ -10,21 +10,13 @@
 package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.imaginativeworld.simplemvvm.datasource.PostPagedDataSourceFactory
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResponse
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class AppRepository @Inject constructor(
@@ -68,55 +60,24 @@ class AppRepository @Inject constructor(
     // Post
     // ----------------------------------------------------------------
 
-    suspend fun getPosts(
-        format: String,
-        accessToken: String
-    ): DemoPostResponse {
-        return withContext(Dispatchers.IO) {
+    suspend fun getPosts() = withContext(Dispatchers.IO) {
 
-            SafeApiRequest.apiRequest(context) {
-                api.getPosts(
-                    format,
-                    accessToken
-                )
-            }
-
+        SafeApiRequest.apiRequest(context) {
+            api.getPosts()
         }
+
     }
 
-    fun getPostsPaged(
-        format: String,
-        accessToken: String,
-        listener: OnDataSourceErrorListener
-    ): LiveData<PagedList<DemoPostResult>> {
+    suspend fun getPostsPaged(
+        page: Int,
+    ) = withContext(Dispatchers.IO) {
 
-        val config = PagedList.Config.Builder()
-            .run {
-                setEnablePlaceholders(false)
-                setPrefetchDistance(4)
-                build()
-            }
-
-        val executor = Executors.newFixedThreadPool(4)
-
-        return PostPagedDataSourceFactory(
-            context,
-            format,
-            accessToken,
-            api,
-            listener
-        ).let {
-
-            LivePagedListBuilder(
-                it,
-                config
+        SafeApiRequest.apiRequest(context) {
+            api.getPostsPaged(
+                page
             )
-                .setFetchExecutor(executor)
-                .build()
-
         }
 
     }
-
 
 }

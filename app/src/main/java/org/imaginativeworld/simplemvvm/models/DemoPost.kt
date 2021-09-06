@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class DemoPostResult(
+data class DemoPost(
     @Json(name = "body")
     val body: String,
     @Json(name = "id")

@@ -1,13 +1,15 @@
 package org.imaginativeworld.simplemvvm.ui.fragments.demo_postpaged
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import kotlinx.coroutines.flow.Flow
+import org.imaginativeworld.simplemvvm.datasource.PostPagingSource
+import org.imaginativeworld.simplemvvm.models.DemoPost
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import javax.inject.Inject
 
@@ -16,55 +18,14 @@ class DemoPostPagedViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 
-    private val _eventShowMessage: MutableLiveData<String?> by lazy {
-        MutableLiveData<String?>()
-    }
-
-    val eventShowMessage: LiveData<String?>
-        get() = _eventShowMessage
-
-    // ----------------------------------------------------------------
-
-    private val _eventShowLoading: MutableLiveData<Boolean?> by lazy {
-        MutableLiveData<Boolean?>()
-    }
-
-    val eventShowLoading: LiveData<Boolean?>
-        get() = _eventShowLoading
-
-    // ----------------------------------------------------------------
-
-    private val _postItems: MediatorLiveData<PagedList<DemoPostResult>> by lazy {
-        MediatorLiveData<PagedList<DemoPostResult>>()
-    }
-
-    val postItems: LiveData<PagedList<DemoPostResult>?>
-        get() = _postItems
-
-    // ----------------------------------------------------------------
-
-    fun getPostsPaged(
-        format: String,
-        accessToken: String,
-        listener: OnDataSourceErrorListener
-    ) {
-
-        _eventShowLoading.value = true
-
-        val result = repository.getPostsPaged(
-            format,
-            accessToken,
-            listener
-        )
-
-        _postItems.addSource(result) {
-
-            _postItems.value = it
-
-            _eventShowLoading.value = false
-
+    fun getPostsPaged(): Flow<PagingData<DemoPost>> {
+        return Pager(
+            PagingConfig(pageSize = 20)
+        ) {
+            PostPagingSource(repository)
         }
-
+            .flow
+            .cachedIn(viewModelScope)
     }
 
 }

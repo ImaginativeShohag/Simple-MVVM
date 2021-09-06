@@ -5,24 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPostResult>
-) : ListAdapter<DemoPostResult, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
-    BindableAdapter<List<DemoPostResult>> {
+    private val listener: OnObjectListInteractionListener<DemoPost>
+) : ListAdapter<DemoPost, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<DemoPost>> {
 
     companion object {
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPostResult>() {
-            override fun areItemsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
+            override fun areItemsTheSame(oldItem: DemoPost, newItem: DemoPost): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+            override fun areContentsTheSame(oldItem: DemoPost, newItem: DemoPost): Boolean {
                 return oldItem == newItem
             }
         }
@@ -38,7 +41,7 @@ class DemoPostListAdapter(
         holder.bind(item)
     }
 
-    override fun setItems(data: List<DemoPostResult>?) {
+    override fun setItems(data: List<DemoPost>?) {
         submitList(data) {
             data?.apply {
                 checkEmptiness()
@@ -56,19 +59,26 @@ class DemoPostListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPostResult>
+        private val listener: OnObjectListInteractionListener<DemoPost>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DemoPostResult) {
+        fun bind(item: DemoPost) {
             binding.post = item
             binding.executePendingBindings()
 
+            // Image
+            val imageUrl = "https://picsum.photos/seed/${item.id}/128"
+            binding.img.load(imageUrl) {
+                crossfade(true)
+                transformations(RoundedCornersTransformation(8.dpToPx().toFloat()))
+            }
+
             binding.root.setOnClickListener {
-                listener.onClick(adapterPosition, item)
+                listener.onClick(bindingAdapterPosition, item)
             }
 
             binding.root.setOnLongClickListener {
-                listener.onLongClick(adapterPosition, item)
+                listener.onLongClick(bindingAdapterPosition, item)
                 true
             }
         }
@@ -76,7 +86,7 @@ class DemoPostListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPostResult>
+                listener: OnObjectListInteractionListener<DemoPost>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)

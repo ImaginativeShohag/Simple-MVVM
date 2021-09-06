@@ -17,15 +17,14 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
-import org.imaginativeworld.simplemvvm.utils.Constants
+import org.imaginativeworld.simplemvvm.models.DemoPost
 import timber.log.Timber
 
 @AndroidEntryPoint
 class DemoPostFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoPostResult> {
+    OnObjectListInteractionListener<DemoPost> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -75,10 +74,7 @@ class DemoPostFragment :
     }
 
     private fun load() {
-        viewModel.getPosts(
-            Constants.SERVER_FORMAT,
-            Constants.SERVER_TOKEN
-        )
+        viewModel.getPosts()
     }
 
     override fun onPause() {
@@ -151,7 +147,7 @@ class DemoPostFragment :
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: DemoPostResult) {
+    override fun onClick(position: Int, dataObject: DemoPost) {
 
         this.context?.apply {
             AlertDialog.Builder(this)
@@ -161,7 +157,7 @@ class DemoPostFragment :
         }
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoPostResult) {
+    override fun onLongClick(position: Int, dataObject: DemoPost) {
     }
 
     override fun showEmptyView() {

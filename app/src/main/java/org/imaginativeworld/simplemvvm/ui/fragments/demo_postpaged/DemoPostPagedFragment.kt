@@ -5,25 +5,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedListAdapter
+import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedLoadStateAdapter
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
-import org.imaginativeworld.simplemvvm.utils.Constants
+import org.imaginativeworld.simplemvvm.models.DemoPost
 
 @AndroidEntryPoint
 class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
-    OnObjectListInteractionListener<DemoPostResult> {
+    OnObjectListInteractionListener<DemoPost> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -36,18 +41,15 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initObservers()
-
         adapter = DemoPostPagedListAdapter(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DemoFragmentPostPagedBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
-        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -61,20 +63,8 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
         initViews()
 
         initListeners()
-    }
 
-    override fun onResume() {
-        super.onResume()
-
-        load()
-    }
-
-    private fun load() {
-        viewModel.getPostsPaged(
-            Constants.SERVER_FORMAT,
-            Constants.SERVER_TOKEN,
-            this
-        )
+        initAdapterObserver()
     }
 
     override fun onAttach(context: Context) {
@@ -104,27 +94,33 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter.withLoadStateFooter(
+            DemoPostPagedLoadStateAdapter { adapter.retry() }
+        )
 
+        // Add paging data
+        val pagingData = viewModel.getPostsPaged().distinctUntilChanged()
+
+        lifecycleScope.launch {
+            pagingData.collect {
+                adapter.submitData(it)
+            }
+        }
     }
 
-    override fun initObservers() {
+    private fun initAdapterObserver() {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect { loadState ->
 
-        viewModel.eventShowMessage
-            .observe(this, Observer {
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                val isLoading = loadState.refresh is LoadState.Loading
 
-                it?.run {
+                binding.emptyView.root.isVisible = isListEmpty
+                binding.loadingView.isVisible = isLoading
 
-                    listener?.showSnackbar(this, "Retry") {
-
-                        load()
-
-                    }
-
-                }
-
-            })
-
+            }
+        }
     }
 
     override fun onDataSourceError(exception: Exception) {
@@ -135,11 +131,11 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
         }
     }
 
-    override fun onClick(position: Int, dataObject: DemoPostResult) {
+    override fun onClick(position: Int, dataObject: DemoPost) {
 
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoPostResult) {
+    override fun onLongClick(position: Int, dataObject: DemoPost) {
 
     }
 

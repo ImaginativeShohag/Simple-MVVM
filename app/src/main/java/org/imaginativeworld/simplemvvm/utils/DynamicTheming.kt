@@ -35,7 +35,8 @@ suspend fun calculatePaletteInImage(
     val r = ImageRequest.Builder(context)
         .data(imageUrl)
         // We scale the image to cover 128px x 128px (i.e. min dimension == 128px)
-        .size(128).scale(Scale.FILL)
+        // Note: For speeding things up we using 32px.
+        .size(32).scale(Scale.FILL)
         // Disable hardware bitmaps, since Palette uses Bitmap.getPixels()
         .allowHardware(false)
         .build()

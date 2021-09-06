@@ -4,7 +4,7 @@ A simple Android MVVM pattern example and template.
 
 ## Android Studio Version
 
-- Android Studio Arctic Fox | 2020.3.1 RC 1
+- Android Studio Arctic Fox | 2020.3.1 Patch 2
 
 ## Used Components/Libraries
 
@@ -20,8 +20,8 @@ A simple Android MVVM pattern example and template.
 - Timber (https://github.com/JakeWharton/timber)
 - Custom Fonts (https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml)
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
-- Dagger-Hilt (https://github.com/google/dagger)
-- Paging (https://developer.android.com/topic/libraries/architecture/paging)
+- Hilt (https://dagger.dev/hilt/)
+- Paging 3 (https://developer.android.com/topic/libraries/architecture/paging)
 - Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**
 
 ## Others
@@ -56,13 +56,13 @@ A simple Android MVVM pattern example and template.
 - `SharedPref`
 - `AlarmUtils`
 - `LocationProviderUtilClient`
+- `Event` Class
 
 ## Todo
 
 - Add New Post
 - Demo Login
 - Demo Registration
-- Migrate to Paging 3
 - OneSignal integration
 - Splash (Introduced in Android S)
 - Testing

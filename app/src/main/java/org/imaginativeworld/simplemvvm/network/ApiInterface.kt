@@ -20,16 +20,9 @@ interface ApiInterface {
     // Posts
     // ----------------------------------------------------------------
 
-    @GET("posts")
-    suspend fun getPosts(
-        @Query("_format") format: String,
-        @Query("access-token") accessToken: String
-    ): Response<DemoPostResponse>
+    @GET("v1/posts")
+    suspend fun getPosts(): Response<DemoPostResponse>
 
-    @GET("posts")
-    suspend fun getPostsPaged(
-        @Query("_format") format: String,
-        @Query("access-token") accessToken: String,
-        @Query("page") page: Long
-    ): Response<DemoPostResponse>
+    @GET("v1/posts")
+    suspend fun getPostsPaged(@Query("page") page: Int): Response<DemoPostResponse>
 }

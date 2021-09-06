@@ -7,8 +7,6 @@ import com.squareup.moshi.JsonClass
 @Keep
 @JsonClass(generateAdapter = true)
 data class DemoPostResponse(
-    @Json(name = "code")
-    val code: Int,
     @Json(name = "data")
-    val result: List<DemoPostResult>
+    val data: List<DemoPost>?
 )

@@ -12,6 +12,7 @@ package org.imaginativeworld.simplemvvm.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.models.User
 import timber.log.Timber
@@ -20,7 +21,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SharedPref @Inject constructor(
-    context: Context
+   @ApplicationContext context: Context
 ) {
 
     companion object {

@@ -1,30 +1,41 @@
 package org.imaginativeworld.simplemvvm.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
-import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPostResult
+import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.utils.calculatePaletteInImage
+import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostPagedListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPostResult>
-) : PagedListAdapter<DemoPostResult, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK),
-    BindableAdapter<PagedList<DemoPostResult>> {
+    private val listener: OnObjectListInteractionListener<DemoPost>
+) : PagingDataAdapter<DemoPost, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
 
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<DemoPostResult>() {
-            override fun areItemsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+            DiffUtil.ItemCallback<DemoPost>() {
+            override fun areItemsTheSame(
+                oldItem: DemoPost,
+                newItem: DemoPost
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: DemoPostResult, newItem: DemoPostResult): Boolean {
+            override fun areContentsTheSame(
+                oldItem: DemoPost,
+                newItem: DemoPost
+            ): Boolean {
                 return oldItem == newItem
             }
 
@@ -41,39 +52,59 @@ class DemoPostPagedListAdapter(
         holder.bind(item)
     }
 
-    override fun setItems(data: PagedList<DemoPostResult>?) {
-        submitList(data) {
-            data?.apply {
-                checkEmptiness()
-            }
-        }
-    }
-
-    private fun checkEmptiness() {
-        if (itemCount > 0) {
-            listener.hideEmptyView()
-        } else {
-            listener.showEmptyView()
-        }
-    }
-
-
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPostResult>
+        private val listener: OnObjectListInteractionListener<DemoPost>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DemoPostResult?) {
+        fun bind(item: DemoPost?) {
             item?.also { _item ->
                 binding.post = _item
                 binding.executePendingBindings()
 
+                // Image
+                val imageUrl = "https://picsum.photos/seed/${_item.id}/128"
+                binding.img.load(imageUrl) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(8.dpToPx().toFloat()))
+                }
+
+                binding.root.setBackgroundColor(
+                    Color.parseColor("#ffffff")
+                )
+                binding.tvTitle.setTextColor(
+                    Color.parseColor("#000000")
+                )
+                binding.tvBody.setTextColor(
+                    Color.parseColor("#000000")
+                )
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    val position = bindingAdapterPosition
+                    calculatePaletteInImage(
+                        context = binding.root.context,
+                        imageUrl = imageUrl
+                    )?.let { swatch ->
+                        if (position == bindingAdapterPosition) {
+                            binding.root.setBackgroundColor(
+                                swatch.rgb
+                            )
+                            binding.tvTitle.setTextColor(
+                                swatch.titleTextColor
+                            )
+                            binding.tvBody.setTextColor(
+                                swatch.bodyTextColor
+                            )
+                        }
+                    }
+                }
+
                 binding.root.setOnClickListener {
-                    listener.onClick(adapterPosition, _item)
+                    listener.onClick(bindingAdapterPosition, _item)
                 }
 
                 binding.root.setOnLongClickListener {
-                    listener.onLongClick(adapterPosition, _item)
+                    listener.onLongClick(bindingAdapterPosition, _item)
                     true
                 }
             }
@@ -82,11 +113,11 @@ class DemoPostPagedListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPostResult>
-            ): DemoPostPagedListAdapter.ListViewHolder {
+                listener: OnObjectListInteractionListener<DemoPost>
+            ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)
-                return DemoPostPagedListAdapter.ListViewHolder(binding, listener)
+                return ListViewHolder(binding, listener)
             }
         }
 

@@ -10,19 +10,18 @@
 package org.imaginativeworld.simplemvvm
 
 import android.app.Application
-import org.imaginativeworld.simplemvvm.di.AppModule
-import org.imaginativeworld.simplemvvm.di.ApplicationGraph
-import org.imaginativeworld.simplemvvm.di.DaggerApplicationGraph
+import com.onesignal.OneSignal
+import dagger.hilt.android.HiltAndroidApp
+import org.imaginativeworld.simplemvvm.utils.onesignal.MyNotificationOpenedHandler
+import org.imaginativeworld.simplemvvm.utils.onesignal.MyNotificationWillShowInForegroundHandler
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
+@HiltAndroidApp
 class MyApplication : Application() {
 
-    val appGraph: ApplicationGraph by lazy {
-        DaggerApplicationGraph
-            .builder()
-            .appModule(AppModule(this))
-            .build()
+    companion object {
+        private const val ONESIGNAL_APP_ID = "4b51d526-b5e1-433a-87d6-f07c2490e0e9"
     }
 
     override fun onCreate() {
@@ -31,5 +30,14 @@ class MyApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(this)
+        OneSignal.setAppId(ONESIGNAL_APP_ID)
+        OneSignal.setNotificationWillShowInForegroundHandler(
+            MyNotificationWillShowInForegroundHandler(this)
+        )
+        OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
+        OneSignal.setNotificationOpenedHandler(MyNotificationOpenedHandler(this))
     }
 }

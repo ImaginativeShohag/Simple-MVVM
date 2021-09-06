@@ -21,6 +21,14 @@
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>
 
+    <style name="Theme.Splash" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+
+        <item name="android:fontFamily">@font/titillium_web</item>
+    </style>
+
     <!-- Dialog Styles -->
     <style name="AppTheme.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/colorPrimary</item>

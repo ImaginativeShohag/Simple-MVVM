@@ -66,10 +66,10 @@ class DemoUserListAdapter(
             binding.user = item
             binding.executePendingBindings()
             binding.root.setOnClickListener {
-                listener.onClick(adapterPosition, item)
+                listener.onClick(bindingAdapterPosition, item)
             }
             binding.root.setOnLongClickListener {
-                listener.onLongClick(adapterPosition, item)
+                listener.onLongClick(bindingAdapterPosition, item)
 
                 true
             }

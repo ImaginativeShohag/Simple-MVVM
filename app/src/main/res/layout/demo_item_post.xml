@@ -7,7 +7,7 @@
 
         <variable
             name="post"
-            type="org.imaginativeworld.simplemvvm.models.DemoPostResult" />
+            type="org.imaginativeworld.simplemvvm.models.DemoPost" />
 
     </data>
 
@@ -21,16 +21,29 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@{post.title}"
             android:textColor="?attr/colorOnSurface"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem[5]" />
 
@@ -38,13 +51,14 @@
             android:id="@+id/tv_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:maxLines="3"
             android:text="@{post.body}"
             android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="@tools:sample/lorem[20]" />
 

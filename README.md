@@ -1,6 +1,10 @@
 # Simple MVVM
 
-A simple Android MVVM pattern example and template
+A simple Android MVVM pattern example and template.
+
+## Android Studio Version
+
+- Android Studio Arctic Fox | 2020.3.1 Patch 2
 
 ## Used Components/Libraries
 
@@ -16,15 +20,29 @@ A simple Android MVVM pattern example and template
 - Timber (https://github.com/JakeWharton/timber)
 - Custom Fonts (https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml)
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
-- Dagger (https://github.com/google/dagger)
-- Paging (https://developer.android.com/topic/libraries/architecture/paging)
+- Hilt (https://dagger.dev/hilt/)
+- Paging 3 (https://developer.android.com/topic/libraries/architecture/paging)
 - Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**
 
 ## Others
 
 - Build variant (https://developer.android.com/studio/build/build-variants)
 - Custom Snackbar
-- Dark Mode (Initially Implemented)
+- Dark Mode
+
+## Extension Functions (see `utils/extensions`)
+
+- DateTime
+- Dialog
+- Dimension
+- Flow
+- General Spinner
+- Miscellaneous: show/hide keyboard, download file, open permission settings, open url, send mail
+  etc.
+- Retrofit
+- Snackbar
+- String
+- Toast
 
 ## Common Binding Adapters
 
@@ -33,10 +51,20 @@ A simple Android MVVM pattern example and template
 - ImageView
 - TextView (for Date() to formatted date-time)
 
+# Utilities
+
+- `SharedPref`
+- `AlarmUtils`
+- `LocationProviderUtilClient`
+- `Event` Class
+
 ## Todo
 
 - Add New Post
-- Login
-- Registration
-- Migrate to Hilt
-- Migrate to Paging 3
+- Demo Login
+- Demo Registration
+- OneSignal integration
+- Splash (Introduced in Android S)
+- Testing
+- Example of LocationProviderUtilClient
+- AdUtils from Ticket Sheba

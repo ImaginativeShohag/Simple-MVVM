@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.fragments.demo_home.DemoHomeFragment">
+    tools:context=".ui.fragments.demo_home.DemoHomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_container"

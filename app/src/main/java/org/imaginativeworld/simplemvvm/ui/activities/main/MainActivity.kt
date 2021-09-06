@@ -16,10 +16,12 @@ import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.models.Event
 import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,6 +52,13 @@ class MainActivity :
         initListeners()
 
         sharedPref.isUserLoggedIn()
+
+        val v1 = Event("v1")
+        val v2 = Event("v2")
+        val v3 = Event("v3")
+        val v4 = Event("v4")
+
+        Timber.e("$v1, $v2, $v3, $v4")
     }
 
     // todo Add this to onResume

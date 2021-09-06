@@ -19,9 +19,12 @@ package org.imaginativeworld.simplemvvm.models
  */
 data class Event<out T>(
     val value: T,
-    val id: Int = ++lastId,
+    private val id: Int = if (lastId == Int.MAX_VALUE) {
+        lastId = Int.MIN_VALUE
+        Int.MAX_VALUE
+    } else lastId++,
 ) {
     companion object {
-        private var lastId = 0
+        private var lastId = Int.MAX_VALUE
     }
 }

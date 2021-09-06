@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DialogMonthPickerBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogSingleInputBinding
+import org.imaginativeworld.simplemvvm.databinding.DialogTimePickerBinding
 import java.util.*
 
 /**
@@ -220,6 +221,95 @@ fun Int.getMonthName(): String {
         return "Error"
     }
 }
+
+interface TimePickerListener {
+    fun onSuccess(hour: Int, min: Int)
+}
+
+/**
+ * Show a time picker with interval 30 minutes.
+ *
+ *                           AM                  |                         PM                      |  AM
+ * 12 Hrs: 12  1  2  3  4  5  6  7  8  9  10  11 |  12   1   2   3   4   5   6   7   8   9  10  11 |  12
+ * 24 Hrs:  0  1  2  3  4  5  6  7  8  9  10  11 |  12  13  14  15  16  17  18  19  20  21  22  23 |   0
+ * MOD 12:  0  1  2  3  4  5  6  7  8  9  10  11 |   0   1   2   3   4   5   6   7   8   9  10  11 |   0
+ */
+fun Context.showTimePickerDialog(
+    currentHour: Int = 0,
+    currentMin: Int = 1,
+    listener: TimePickerListener
+) {
+    val hours = (1..12).map { "%02d".format(it) }.toTypedArray()
+    val minutes = arrayOf("00", "30")
+    val amPm = arrayOf("AM", "PM")
+
+    val binding = DialogTimePickerBinding.inflate(LayoutInflater.from(this))
+
+    val builder = AlertDialog.Builder(this, R.style.AppTheme_AlertDialog)
+        .setView(binding.root)
+        .setPositiveButton("Ok") { _, _ ->
+            val hour = if (binding.pickerAmPm.value == 1) { // PM
+                if (binding.pickerHour.value < 12)
+                    binding.pickerHour.value + 12
+                else binding.pickerHour.value
+            } else if (binding.pickerHour.value == 12) // AM
+                0
+            else binding.pickerHour.value
+
+            listener.onSuccess(
+                hour,
+                minutes[binding.pickerMinute.value].toInt()
+            )
+        }
+        .setNegativeButton("Cancel") { _, _ ->
+            // ...
+        }
+
+    val alertDialog = builder.create()
+
+    binding.pickerHour.minValue = 1
+    binding.pickerHour.maxValue = 12
+    binding.pickerHour.displayedValues = hours
+
+    binding.pickerMinute.minValue = 0
+    binding.pickerMinute.maxValue = 1
+    binding.pickerMinute.displayedValues = minutes
+
+    binding.pickerAmPm.minValue = 0
+    binding.pickerAmPm.maxValue = 1
+    binding.pickerAmPm.displayedValues = amPm
+
+    // We will select the next hour
+    val nextHour = currentHour + 1
+    val currentHourMod12 = nextHour % 12
+    binding.pickerHour.value = if (currentHourMod12 == 0) 12 else currentHourMod12
+
+    binding.pickerAmPm.value = if (nextHour <= 11) 0 else 1
+
+    // Select minute
+    binding.pickerMinute.value = if (currentMin >= 30) 1 else 0
+
+    alertDialog.show()
+}
+
+/*
+// TODO: add sample usage
+
+    private void showTimePicker() {
+        int mHour = myCalendar.get(Calendar.HOUR_OF_DAY);
+        int mMinute = myCalendar.get(Calendar.MINUTE);
+        int mDayOfYear = myCalendar.get(Calendar.DAY_OF_YEAR);
+
+        ExtDialogKt.showTimePickerDialog(
+                this,
+                mHour,
+                mMinute,
+                (hour, minutes) -> {
+                    Timber.e("hour: " + hour + " | minutes: " + minutes);
+                }
+        );
+    }
+ */
 
 /**
  * Ask to open a url.

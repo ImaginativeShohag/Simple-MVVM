@@ -21,13 +21,12 @@ import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedListAdapter
 import org.imaginativeworld.simplemvvm.adapters.DemoPostPagedLoadStateAdapter
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.interfaces.OnDataSourceErrorListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
 import org.imaginativeworld.simplemvvm.models.DemoPost
 
 @AndroidEntryPoint
-class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorListener,
+class DemoPostPagedFragment : Fragment(), CommonFunctions,
     OnObjectListInteractionListener<DemoPost> {
 
     private var listener: OnFragmentInteractionListener? = null
@@ -120,14 +119,6 @@ class DemoPostPagedFragment : Fragment(), CommonFunctions, OnDataSourceErrorList
                 binding.loadingView.isVisible = isLoading
 
             }
-        }
-    }
-
-    override fun onDataSourceError(exception: Exception) {
-        activity?.runOnUiThread {
-            listener?.hideLoading()
-
-            listener?.showSnackbar(exception.message ?: "Unknown Error!")
         }
     }
 

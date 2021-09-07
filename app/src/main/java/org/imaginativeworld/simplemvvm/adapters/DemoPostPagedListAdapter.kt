@@ -23,8 +23,7 @@ class DemoPostPagedListAdapter(
 
     companion object {
 
-        private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<DemoPost>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
             override fun areItemsTheSame(
                 oldItem: DemoPost,
                 newItem: DemoPost
@@ -38,7 +37,6 @@ class DemoPostPagedListAdapter(
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
 
     }

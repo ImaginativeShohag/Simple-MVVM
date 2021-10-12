@@ -56,6 +56,11 @@ class PostPagingSource(
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+
+            // For cursor paging use this:
+            // https://stackoverflow.com/questions/67691903/how-to-implement-pagingsource-getrefreshkey-for-cursor-based-pagination-androi
+            // val anchorPageIndex = state.pages.indexOf(state.closestPageToPosition(anchorPosition))
+            // state.pages.getOrNull(anchorPageIndex + 1)?.prevKey ?: state.pages.getOrNull(anchorPageIndex - 1)?.nextKey
         }
     }
 }

@@ -35,59 +35,84 @@
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
+            <!-- ================================================================ -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_dark_mode"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="Toggle Dark Mode"
+                app:icon="@drawable/ic_round_invert_colors_24" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_user"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:text="@string/title_users"
                 app:icon="@drawable/ic_account_box_24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_post"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:text="@string/title_posts"
                 app:icon="@drawable/ic_chat_24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_post_paged"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:text="@string/title_posts_paged"
                 app:icon="@drawable/ic_chat_24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_custom_snackbar"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:text="Custom Snackbar"
                 app:icon="@drawable/ic_perm_device_information_24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_carousel"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:text="Why Not! Image Carousel!"
                 app:icon="@drawable/ic_perm_device_information_24dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_dark_mode"
+                android:id="@+id/btn_latex"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Toggle Dark Mode"
-                app:icon="@drawable/ic_round_invert_colors_24" />
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="Latex View"
+                app:icon="@drawable/ic_baseline_functions_24" />
 
         </LinearLayout>
 

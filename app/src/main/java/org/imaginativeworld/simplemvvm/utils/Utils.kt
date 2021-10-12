@@ -19,10 +19,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Patterns
 import androidx.core.app.NotificationCompat
-import com.squareup.moshi.Moshi
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.network.ApiClient
-import java.util.*
 
 object Utils {
 
@@ -54,15 +51,6 @@ object Utils {
         } else {
             Patterns.EMAIL_ADDRESS.matcher(target).matches()
         }
-    }
-
-    /**
-     * Get an instance of Moshi.
-     */
-    fun getMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(Date::class.java, ApiClient.DateJsonAdapter())
-            .build()
     }
 
     /**

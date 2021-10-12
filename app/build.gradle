@@ -76,8 +76,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
-        dataBinding = true
+        viewBinding true
+        dataBinding true
 
         // Disable unused AGP features
         // buildConfig false
@@ -92,7 +92,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -116,7 +116,7 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Kotlin Coroutines
@@ -174,16 +174,28 @@ dependencies {
     implementation 'org.imaginativeworld.oopsnointernet:oopsnointernet:2.0.0'
 
     // Image Carousel
-    implementation "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.2"
+    implementation "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.5"
 
     // OneSignal SDK
-    implementation 'com.onesignal:OneSignal:4.5.1'
+    implementation 'com.onesignal:OneSignal:4.6.0'
 
     // Coil
     implementation("io.coil-kt:coil:1.3.2")
 
     // Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
+
+    // Markdown
+    implementation "io.noties.markwon:core:$markwon_version"
+    implementation "io.noties.markwon:ext-latex:$markwon_version"
+    implementation "io.noties.markwon:inline-parser:$markwon_version"
+
+    // Latex
+    implementation "ru.noties:jlatexmath-android:$jlatexmath_version"
+    // for Cyrillic symbols
+    implementation "ru.noties:jlatexmath-android-font-cyrillic:$jlatexmath_version"
+    // for Greek symbols
+    implementation "ru.noties:jlatexmath-android-font-greek:$jlatexmath_version"
 }
 
 // Workaround for OneSignal from:

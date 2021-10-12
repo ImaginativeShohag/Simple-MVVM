@@ -75,22 +75,18 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
     override fun initListeners() {
 
         binding.btnUser.setOnClickListener {
-
             listener?.gotoFragment(R.id.userFragment)
         }
 
         binding.btnPost.setOnClickListener {
-
             listener?.gotoFragment(R.id.postFragment)
         }
 
         binding.btnPostPaged.setOnClickListener {
-
             listener?.gotoFragment(R.id.postPagedFragment)
         }
 
         binding.btnCustomSnackbar.setOnClickListener {
-
             CustomSnackbar.make(
                 binding.root,
                 "Hi! I am a custom Snackbar!",
@@ -101,7 +97,6 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnCarousel.setOnClickListener {
-
             listener?.gotoFragment(R.id.demoCarouselFragment)
         }
 
@@ -115,6 +110,10 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
                 Configuration.UI_MODE_NIGHT_NO ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
+        }
+
+        binding.btnLatex.setOnClickListener {
+            listener?.gotoFragment(R.id.demoLatexFragment)
         }
     }
 

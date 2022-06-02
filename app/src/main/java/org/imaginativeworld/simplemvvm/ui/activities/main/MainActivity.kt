@@ -18,6 +18,7 @@ import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInt
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.models.Event
 import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.utils.Utils.ignoreCrash
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
@@ -59,9 +60,13 @@ class MainActivity :
         val v4 = Event("v4")
 
         Timber.e("$v1, $v2, $v3, $v4")
+
+        ignoreCrash {
+            // Do things that may crash.
+        }
     }
 
-    // todo Add this to onResume
+    // TODO: Add this to onResume
     private fun updateOneSignalId() {
         // this can also be used to observer:
         // https://documentation.onesignal.com/docs/android-native-sdk#addsubscriptionobserver

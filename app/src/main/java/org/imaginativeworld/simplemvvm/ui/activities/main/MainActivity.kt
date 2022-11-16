@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
+import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -64,6 +65,8 @@ class MainActivity :
         ignoreCrash {
             // Do things that may crash.
         }
+
+        Timber.e("baseUrl: ${BuildConfig.BASE_URL}")
     }
 
     // TODO: Add this to onResume

@@ -241,10 +241,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     }
 }
 
-// Load properties from configuration file.
+/**
+ * Load properties from configuration file.
+ */
 def loadConfigurationProperties(buildType, String fileLocation) {
     Properties properties = new Properties()
     properties.load(project.rootProject.file(fileLocation).newDataInputStream())
 
-    buildType.buildConfigField "String", "BASE_URL", "\"${properties.getProperty("hostUrl")}\""
+    buildType.buildConfigField "String", "BASE_URL", "\"${properties.getProperty("baseUrl")}\""
 }

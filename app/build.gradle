@@ -67,7 +67,7 @@ android {
 
             loadConfigurationProperties it, "config/staging.properties"
 
-            matchingFallbacks = ['debug']
+            matchingFallbacks = ['release']
         }
 
         release { // Production

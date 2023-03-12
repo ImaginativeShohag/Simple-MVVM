@@ -11,6 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.DemoPostListAdapter
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
@@ -98,35 +102,29 @@ class DemoPostFragment :
     }
 
     override fun initObservers() {
-
         viewModel.eventShowMessage
             .observe(
-                this,
-                {
-
-                    it?.run {
-
-                        listener?.showSnackbar(this, "Retry") {
-
-                            load()
-                        }
+                this
+            ) {
+                it?.run {
+                    listener?.showSnackbar(this, "Retry") {
+                        load()
                     }
                 }
-            )
+            }
 
         viewModel.eventShowLoading
             .observe(
-                this,
-                {
-                    it?.run {
-                        if (this) {
-                            listener?.showLoading()
-                        } else {
-                            listener?.hideLoading()
-                        }
+                this
+            ) {
+                it?.run {
+                    if (this) {
+                        listener?.showLoading()
+                    } else {
+                        listener?.hideLoading()
                     }
                 }
-            )
+            }
     }
 
     override fun onAttach(context: Context) {

@@ -83,7 +83,6 @@ object Utils {
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
 
-
         targetIntent?.also {
             val pendingIntent = PendingIntent.getActivity(
                 context, 0 /* Request code */, targetIntent,
@@ -92,7 +91,6 @@ object Utils {
 
             notificationBuilder.setContentIntent(pendingIntent)
         }
-
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -117,4 +115,16 @@ object Utils {
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
+    /**
+     * A default try-catch block to handle general crashes.
+     */
+    inline fun ignoreCrash(
+        couldBeCrash: () -> Unit
+    ) {
+        try {
+            couldBeCrash()
+        } catch (e: Exception) {
+            /* no-op */
+        }
+    }
 }

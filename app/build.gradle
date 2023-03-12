@@ -26,25 +26,50 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"
-                ]
+                arguments += ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                              "room.incremental"     : "true",
+                              "room.expandProjection": "true"]
             }
         }
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
-        debug {
+        local { // Local
+            initWith debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            loadConfigurationProperties it, "config/internal.properties"
+
+            matchingFallbacks = ['debug']
+        }
+
+        debug { // Development
             debuggable true
+            minifyEnabled false
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            loadConfigurationProperties it, "config/development.properties"
         }
-        release {
+
+        staging { // Staging
+            initWith debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            loadConfigurationProperties it, "config/staging.properties"
+
+            matchingFallbacks = ['release']
+        }
+
+        release { // Production
+            debuggable false
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            loadConfigurationProperties it, "config/release.properties"
         }
     }
 
@@ -86,6 +111,15 @@ android {
         renderScript false
         resValues false
         shaders false
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
     }
 }
 
@@ -207,4 +241,14 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+/**
+ * Load properties from configuration file.
+ */
+def loadConfigurationProperties(buildType, String fileLocation) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file(fileLocation).newDataInputStream())
+
+    buildType.buildConfigField "String", "BASE_URL", "\"${properties.getProperty("baseUrl")}\""
 }

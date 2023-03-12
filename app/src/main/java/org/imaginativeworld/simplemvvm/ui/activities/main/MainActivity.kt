@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
+import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -19,6 +20,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.models.Event
 import org.imaginativeworld.simplemvvm.utils.EncryptionUtils
 import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.utils.Utils.ignoreCrash
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
@@ -61,13 +63,19 @@ class MainActivity :
 
         Timber.e("$v1, $v2, $v3, $v4")
 
+        ignoreCrash {
+            // Do things that may crash.
+        }
+
         val result = EncryptionUtils.decrypt(("rbr\bk9jlhj\u0001a\n" +
                 "k%\u0001\u0006\u0003g\u0001g\u0016e?jeo\u000Bl\u0017\u0007a'fhsh\u0014|\u000BjI\u000F\brf\u000Erdm%\u0003zsh\tf\u0001\u0006G\u0001oy}\u000Fy\bi.m~\u0003\u0005bp\u001Cp\$ogdg\u0014\u0017\u0019").toByteArray())
 
         Timber.e("decrypt: ${String(result)}")
+
+        Timber.e("baseUrl: ${BuildConfig.BASE_URL}")
     }
 
-    // todo Add this to onResume
+    // TODO: Add this to onResume
     private fun updateOneSignalId() {
         // this can also be used to observer:
         // https://documentation.onesignal.com/docs/android-native-sdk#addsubscriptionobserver

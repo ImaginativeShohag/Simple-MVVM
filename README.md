@@ -22,7 +22,8 @@ A simple Android MVVM pattern example and template.
 
 ## Others
 
-- Build variant (https://developer.android.com/studio/build/build-variants)
+- Custom Build variant (https://developer.android.com/studio/build/build-variants)
+- Environment variable based on Build variant
 - Custom Snackbar
 - Dark Mode
 

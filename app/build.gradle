@@ -10,6 +10,7 @@ plugins {
 }
 
 android {
+    namespace 'org.imaginativeworld.simplemvvm'
     compileSdkVersion 31
     buildToolsVersion "31.0.0"
 

@@ -138,6 +138,31 @@ class DemoUserFragment :
     }
 
     override fun onClick(position: Int, dataObject: DemoUserEntity) {
+        if (dataObject.isFav) {
+            viewModel.removeFromFav(result = { isSuccess ->
+                if (isSuccess) {
+                    dataObject.isFav = false
+                    adapter.notifyItemChanged(position)
+                }
+            })
+        } else {
+            viewModel.addToFav(result = { isSuccess ->
+                if (isSuccess) {
+                    dataObject.isFav = true
+                    adapter.notifyItemChanged(position)
+                }
+            })
+        }
+
+        addToUserList(onSuccess = {
+            // ...
+        })
+    }
+
+    fun addToUserList(onSuccess: (success: Boolean) -> Unit) {
+        // ...
+        onSuccess(true)
+        // ...
     }
 
     override fun onLongClick(position: Int, dataObject: DemoUserEntity) {

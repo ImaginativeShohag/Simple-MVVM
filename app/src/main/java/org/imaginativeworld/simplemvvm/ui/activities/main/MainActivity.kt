@@ -17,6 +17,7 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.MainActivityExtraOnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.models.Event
+import org.imaginativeworld.simplemvvm.utils.EncryptionUtils
 import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
@@ -59,6 +60,11 @@ class MainActivity :
         val v4 = Event("v4")
 
         Timber.e("$v1, $v2, $v3, $v4")
+
+        val result = EncryptionUtils.decrypt(("rbr\bk9jlhj\u0001a\n" +
+                "k%\u0001\u0006\u0003g\u0001g\u0016e?jeo\u000Bl\u0017\u0007a'fhsh\u0014|\u000BjI\u000F\brf\u000Erdm%\u0003zsh\tf\u0001\u0006G\u0001oy}\u000Fy\bi.m~\u0003\u0005bp\u001Cp\$ogdg\u0014\u0017\u0019").toByteArray())
+
+        Timber.e("decrypt: ${String(result)}")
     }
 
     // todo Add this to onResume

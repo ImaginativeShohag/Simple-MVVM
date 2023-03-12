@@ -8,13 +8,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.usecase.UserUseCase
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class DemoUserViewModel @Inject constructor(
-    private val repository: AppRepository
+    private val repository: AppRepository,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
 
     private val totalData = 4
@@ -124,7 +126,7 @@ class DemoUserViewModel @Inject constructor(
 
         _eventShowLoading.value = true
 
-        _userItems.value = repository.getUsers()
+        _userItems.value = userUseCase.getUser(repository)
 
         _eventShowLoading.value = false
 

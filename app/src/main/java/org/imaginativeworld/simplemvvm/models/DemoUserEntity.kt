@@ -10,5 +10,6 @@ data class DemoUserEntity(
 
     var name: String,
     var phone: String,
-    var image: String?
+    var image: String?,
+    var isFav: Boolean = false
 )

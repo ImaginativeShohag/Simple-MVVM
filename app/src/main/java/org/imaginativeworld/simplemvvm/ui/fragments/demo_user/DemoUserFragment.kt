@@ -139,14 +139,14 @@ class DemoUserFragment :
 
     override fun onClick(position: Int, dataObject: DemoUserEntity) {
         if (dataObject.isFav) {
-            viewModel.removeFromFav(result = { isSuccess ->
+            viewModel.removeFromFav(user = dataObject, result = { isSuccess ->
                 if (isSuccess) {
                     dataObject.isFav = false
                     adapter.notifyItemChanged(position)
                 }
             })
         } else {
-            viewModel.addToFav(result = { isSuccess ->
+            viewModel.addToFav(user = dataObject, result = { isSuccess ->
                 if (isSuccess) {
                     dataObject.isFav = true
                     adapter.notifyItemChanged(position)

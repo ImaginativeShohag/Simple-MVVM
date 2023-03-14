@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "25c3d3b313b6c2aaf6ca0d581f9926e8",
+    "identityHash": "57b1ed91726ddfe1883b04ee15d1bb82",
     "entities": [
       {
         "tableName": "tbl_user",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `phone` TEXT NOT NULL, `image` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `phone` TEXT NOT NULL, `image` TEXT, `isFav` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -31,6 +31,12 @@
             "columnName": "image",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isFav",
+            "columnName": "isFav",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -46,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25c3d3b313b6c2aaf6ca0d581f9926e8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57b1ed91726ddfe1883b04ee15d1bb82')"
     ]
   }
 }

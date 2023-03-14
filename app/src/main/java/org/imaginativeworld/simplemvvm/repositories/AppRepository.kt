@@ -33,25 +33,25 @@ class AppRepository @Inject constructor(
         userModel: DemoUserEntity
     ): Long {
         return withContext(Dispatchers.IO) {
-
             db.userDao().addUser(userModel)
-
         }
     }
 
     suspend fun removeAllUsers() {
         return withContext(Dispatchers.IO) {
-
             db.userDao().removeAllUsers()
-
         }
     }
 
     suspend fun getUsers(): List<DemoUserEntity> {
         return withContext(Dispatchers.IO) {
-
             db.userDao().getUsers()
+        }
+    }
 
+    suspend fun updateUser(user: DemoUserEntity) {
+        return withContext(Dispatchers.IO) {
+            db.userDao().updateUser(user)
         }
     }
 

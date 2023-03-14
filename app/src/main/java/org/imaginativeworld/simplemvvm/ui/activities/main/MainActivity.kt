@@ -67,8 +67,10 @@ class MainActivity :
             // Do things that may crash.
         }
 
-        val result = EncryptionUtils.decrypt(("rbr\bk9jlhj\u0001a\n" +
-                "k%\u0001\u0006\u0003g\u0001g\u0016e?jeo\u000Bl\u0017\u0007a'fhsh\u0014|\u000BjI\u000F\brf\u000Erdm%\u0003zsh\tf\u0001\u0006G\u0001oy}\u000Fy\bi.m~\u0003\u0005bp\u001Cp\$ogdg\u0014\u0017\u0019").toByteArray())
+        val result = EncryptionUtils.decrypt(
+            ("rbr\bk9jlhj\u0001a\n" +
+                    "k%\u0001\u0006\u0003g\u0001g\u0016e?jeo\u000Bl\u0017\u0007a'fhsh\u0014|\u000BjI\u000F\brf\u000Erdm%\u0003zsh\tf\u0001\u0006G\u0001oy}\u000Fy\bi.m~\u0003\u0005bp\u001Cp\$ogdg\u0014\u0017\u0019").toByteArray()
+        )
 
         Timber.e("decrypt: ${String(result)}")
 
@@ -189,17 +191,18 @@ class MainActivity :
                 .alpha(0f)
                 .setDuration(200)
                 .setListener(object : Animator.AnimatorListener {
-                    override fun onAnimationEnd(animation: Animator?) {
+                    override fun onAnimationEnd(animation: Animator) {
                         binding.loadingView.globalLoadingLayout.visibility = View.GONE
                     }
 
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationStart(animation: Animator?) {}
+                    override fun onAnimationRepeat(animation: Animator) {}
+                    override fun onAnimationCancel(animation: Animator) {}
+                    override fun onAnimationStart(animation: Animator) {}
                 })
 
-            loadingAnimation?.start()
+            loadingAnimation.start()
         } catch (e: Exception) {
+            /* no-op */
         }
     }
 

@@ -10,18 +10,22 @@
 package org.imaginativeworld.simplemvvm.components
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
-import android.provider.Settings
+import androidx.activity.result.IntentSenderRequest
+import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
 
 /**
@@ -39,45 +43,48 @@ import timber.log.Timber
  * - stop()
  * - enable()
  * - disable()
- * - Variable: askOnceForTurnOnLocationService
- * - isLocationServiceOn()
- * - requestForTurnOnLocation()
- * - enableRequestForLocationTurnOn()
- * - Static: getLocationMode()
- * - Static: isLocationPermissionGranted()
  *
- * todo: better documentation
+ * - isLocationServiceOn()
+ * - requestForTurnLocationOn()
+ *
+ * - Static: isLocationProviderGps()
+ * - Static: isLocationPermissionGranted()
  */
+enum class Ask {
+    NONE, ONCE, ALWAYS
+}
+
+data class Options(
+    // Ask user for turn on the location service on start.
+    val askForTurnOnLocationService: Ask = Ask.ONCE,
+
+    // Post location data just once
+    var postOnce: Boolean = false
+)
+
 class LocationProviderUtilClient(
     private val activity: Activity,
     private val lifecycle: Lifecycle,
-    private val locationRequestInterval: Long,
-    private val locationRequestFastestInterval: Long,
+    private val options: Options = Options(),
+    private val locationRequestInterval: Long = 15000,
+    private val locationRequestFastestInterval: Long = 15000,
     private val locationRequestPriority: Int = LocationRequest.PRIORITY_HIGH_ACCURACY,
-) : LifecycleObserver {
+    private val smallestDisplacementInMeter: Float = 50f,
+    var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null
+) : DefaultLifecycleObserver {
 
-    // Callback for giving the locations
-    private val _callback: MutableLiveData<Location> = MutableLiveData()
-    val callback: LiveData<Location>
+    // Callback for posting the locations
+    private val _callback: MutableStateFlow<Location?> = MutableStateFlow(null)
+    val callback: StateFlow<Location?>
         get() = _callback
 
-    // Ask to turn on the location only once
-    var askOnceForTurnOnLocationService = true
-
-    // ----------------------------------------------------------------
-    // Variables
-    // ----------------------------------------------------------------
-    private var askForLocationTurnOn: Boolean = false
-    private var locationSettingsResolutionRequestCode: Int? = null
-
     private var alreadyAsked = false
-
     private var enabled = false
     private var locationUpdatedStarted = false
 
-    private lateinit var locationCallback: LocationCallback
-    private var locationRequest: LocationRequest? = null
-    private var fusedLocationClient: FusedLocationProviderClient
+    private val locationCallback: LocationCallback
+    private val locationRequest: LocationRequest
+    private val fusedLocationClient: FusedLocationProviderClient
 
     init {
         Timber.d("init")
@@ -85,43 +92,114 @@ class LocationProviderUtilClient(
         // Add to the lifecycle owner observer list.
         lifecycle.addObserver(this)
 
-        // Init client and related things.
+        // Init location client
         fusedLocationClient =
             LocationServices.getFusedLocationProviderClient(activity.application)
 
-        initLocationCallback()
-        createLocationRequest()
+        // Set up location request
+        locationRequest = LocationRequest.create().apply {
+            interval = locationRequestInterval
+            fastestInterval = locationRequestFastestInterval
+            priority = locationRequestPriority
+            smallestDisplacement = smallestDisplacementInMeter
+        }
+
+        // Init location callback
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val currentLocation = locationResult.lastLocation
+
+                Timber.d("currentLocation: $currentLocation")
+
+                _callback.value = currentLocation
+
+                if (options.postOnce) {
+                    disable()
+                }
+            }
+        }
     }
+
+    // ----------------------------------------------------------------
+    // Lifecycle events
+    // ----------------------------------------------------------------
+
+    override fun onStart(owner: LifecycleOwner) {
+        Timber.d("onStart")
+
+        start()
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        Timber.d("onStop")
+
+        stop()
+    }
+
+    // ----------------------------------------------------------------
 
     /**
      * Start location update.
      */
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    @SuppressLint("MissingPermission")
     fun start() {
         Timber.d("start")
 
         if (enabled) {
+            // Check and send request for turn on the location service on start.
+            if (options.askForTurnOnLocationService != Ask.NONE) {
+                requestForTurnLocationOn()
+            }
+
             // connect
-            startLocationUpdates()
+            if (!isLocationPermissionGranted(activity)) {
+                throw SecurityException("You does not have permission to access location.")
+            }
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+
+            locationUpdatedStarted = true
+
+            // post last known location
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                _callback.value = location
+            }
         }
     }
 
     /**
      * Stop location update.
      */
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stop() {
         Timber.d("stop")
 
         // disconnect if connected
-        stopLocationUpdate()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+
+        locationUpdatedStarted = false
     }
+
+    // ----------------------------------------------------------------
 
     /**
      * Enable the component.
      */
+    @RequiresPermission(
+        anyOf = [
+            "android.permission.ACCESS_COARSE_LOCATION",
+            "android.permission.ACCESS_FINE_LOCATION"
+        ]
+    )
     fun enable() {
         Timber.d("enable")
+
+        if (!isLocationPermissionGranted(activity)) {
+            throw SecurityException("You does not have permission to access location.")
+        }
 
         enabled = true
 
@@ -129,9 +207,14 @@ class LocationProviderUtilClient(
         alreadyAsked = false
 
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            // connect if not connected
+            // start if not started
             if (!locationUpdatedStarted) {
-                startLocationUpdates()
+                start()
+            }
+
+            // post last known location
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                _callback.value = location
             }
         }
     }
@@ -144,18 +227,19 @@ class LocationProviderUtilClient(
 
         enabled = false
 
-        stopLocationUpdate()
+        stop()
     }
 
+    // ----------------------------------------------------------------
+
     /**
-     * Check is location service on.
+     * Check location service status.
      */
     fun isLocationServiceOn(listener: OnCompleteListener<LocationSettingsResponse>) {
+        Timber.d("isLocationServiceOn")
+
         val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(
-                locationRequest
-                    ?: throw NullPointerException("Location request not initialized yet!")
-            )
+            .addLocationRequest(locationRequest)
 
         LocationServices.getSettingsClient(activity)
             .checkLocationSettings(builder.build())
@@ -163,152 +247,43 @@ class LocationProviderUtilClient(
     }
 
     /**
-     * Check and send request for turn on the location service on start.
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    private fun onStartRequestForTurnOnLocation() {
-        Timber.d("onStartRequestForTurnOnLocation")
-
-        if (!askForLocationTurnOn) {
-            return
-        }
-
-        requestForTurnOnLocation()
-    }
-
-    /**
      * Check and send request for turn on the location service.
      */
-    fun requestForTurnOnLocation() {
-        alreadyAsked = false
-
-        sendRequestForTurnOnLocation()
-    }
-
-    /**
-     * Ask user for turn on the location service.
-     */
-    fun enableRequestForLocationTurnOn(
-        resolutionRequestCode: Int
-    ) {
-        askForLocationTurnOn = true
-        locationSettingsResolutionRequestCode = resolutionRequestCode
-
-        requestForTurnOnLocation()
-    }
-
-    /**
-     * Check and send request for turn on the location service.
-     */
-    private fun sendRequestForTurnOnLocation() {
+    fun requestForTurnLocationOn() {
         Timber.d("requestForTurnOnLocation")
 
+        alreadyAsked = false
+
         val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(
-                locationRequest
-                    ?: throw NullPointerException("Location request not initialized yet!")
-            )
+            .addLocationRequest(locationRequest)
 
         LocationServices.getSettingsClient(activity)
             .checkLocationSettings(builder.build())
             .addOnFailureListener { exception ->
                 // Checking is ask once enabled and is already asked!
-                if (askOnceForTurnOnLocationService && alreadyAsked) {
+                if (options.askForTurnOnLocationService == Ask.ONCE && alreadyAsked) {
                     return@addOnFailureListener
                 }
 
                 alreadyAsked = true
 
                 if (exception is ResolvableApiException) {
-                    try {
-                        exception.startResolutionForResult(
-                            activity,
-                            locationSettingsResolutionRequestCode ?: throw Exception("Resolution request code not provided!")
-                        )
-                    } catch (sendEx: IntentSender.SendIntentException) {
-                        sendEx.printStackTrace()
+                    val intentSenderRequest = IntentSenderRequest.Builder(exception.resolution)
+                        .build()
 
-                        // Ignore the error
-                    }
+                    turnOnLocationCallback?.invoke(intentSenderRequest)
                 }
             }
-    }
-
-    private fun initLocationCallback() {
-        Timber.d("initLocationCallback")
-
-        locationCallback = object : LocationCallback() {
-
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult ?: return
-
-                val currentLocation = locationResult.lastLocation
-
-                Timber.d("currentLocation: $currentLocation")
-
-                _callback.value = currentLocation
-
-                if (askOnceForTurnOnLocationService) {
-                    alreadyAsked = true
-                    disable()
-                }
-            }
-        }
-    }
-
-    private fun createLocationRequest() {
-        Timber.d("createLocationRequest")
-
-        // Set up location request
-        locationRequest = LocationRequest.create().apply {
-            interval = locationRequestInterval
-            fastestInterval = locationRequestFastestInterval
-            priority = locationRequestPriority
-        }
-    }
-
-    private fun startLocationUpdates() {
-        Timber.d("startLocationUpdates")
-
-        if (ActivityCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            throw SecurityException("You does not have permission to access location.")
-        }
-
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-
-        locationUpdatedStarted = true
-    }
-
-    private fun stopLocationUpdate() {
-        Timber.d("stopLocationUpdate")
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-
-        locationUpdatedStarted = false
     }
 
     companion object {
-        fun getLocationMode(activity: Activity): Int {
-            /**
-             * 0 = Settings.Secure.LOCATION_MODE_OFF
-            1 = Settings.Secure.LOCATION_MODE_SENSORS_ONLY
-            2 = Settings.Secure.LOCATION_MODE_BATTERY_SAVING
-            3 = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY
-             */
-            return Settings.Secure.getInt(
-                activity.contentResolver,
-                Settings.Secure.LOCATION_MODE
-            )
+        /**
+         * Check if the location provider is GPS.
+         */
+        fun isLocationProviderGps(context: Context): Boolean {
+            val locationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+            return locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER) == true
         }
 
         /**
@@ -317,10 +292,13 @@ class LocationProviderUtilClient(
          * @return True if permission granted.
          */
         fun isLocationPermissionGranted(context: Context): Boolean {
+            Timber.d("isLocationPermissionGranted")
+
             return ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED

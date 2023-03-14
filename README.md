@@ -2,10 +2,6 @@
 
 A simple Android MVVM pattern example and template.
 
-## Android Studio Version
-
-- Android Studio Arctic Fox | 2020.3.1 Patch 2
-
 ## Used Components/Libraries
 
 - Kotlin
@@ -26,9 +22,13 @@ A simple Android MVVM pattern example and template.
 
 ## Others
 
-- Build variant (https://developer.android.com/studio/build/build-variants)
+- Custom Build variant (https://developer.android.com/studio/build/build-variants)
+- Environment variable based on Build variant
 - Custom Snackbar
 - Dark Mode
+- Awesome module naming example (see `AwesomeModuleConstants`)
+- Dynamic accent color from image (see `calculatePaletteInImage()`)
+- Simple Encryption Utils (see `EncryptionUtils`)
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -56,7 +56,8 @@ A simple Android MVVM pattern example and template.
 - `SharedPref`
 - `AlarmUtils`
 - `LocationProviderUtilClient`
-- `Event` Class
+- `Event` Class: Get notified for identical values in LiveData, Channel, Flow etc.
+- `ignoreCrash { }`: Ignore exceptions for a block.
 
 ## Todo
 

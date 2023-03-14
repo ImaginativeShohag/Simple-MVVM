@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_demoCarouselFragment"
             app:destination="@id/demoCarouselFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_demoLatexFragment"
+            app:destination="@id/demoLatexFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -42,4 +45,8 @@
         android:id="@+id/demoCarouselFragment"
         android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_carousel.DemoCarouselFragment"
         android:label="DemoCarouselFragment" />
+    <fragment
+        android:id="@+id/demoLatexFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_latex.DemoLatexFragment"
+        android:label="DemoLatexFragment" />
 </navigation>

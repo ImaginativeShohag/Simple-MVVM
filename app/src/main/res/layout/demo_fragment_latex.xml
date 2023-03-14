@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.demo_home.DemoHomeFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.imaginativeworld.simplemvvm.ui.fragments.demo_latex.DemoLatexViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:id="@+id/tv_markdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnBackground"
+                tools:text="$$a=b+c$$" />
+
+            <ru.noties.jlatexmath.JLatexMathView
+                android:id="@+id/j_latex_math_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dip"
+                app:jlmv_alignHorizontal="center"
+                app:jlmv_alignVertical="center"
+                app:jlmv_textColor="?attr/colorOnBackground"
+                app:jlmv_textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

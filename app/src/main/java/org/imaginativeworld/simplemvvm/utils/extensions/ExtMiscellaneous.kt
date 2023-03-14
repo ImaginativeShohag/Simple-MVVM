@@ -15,8 +15,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.imaginativeworld.simplemvvm.R
 import timber.log.Timber
@@ -35,7 +35,7 @@ fun Activity.hideKeyboard() {
 /**
  * Show soft keyboard
  */
-fun EditText.showKeyboard() {
+fun View.showKeyboard() {
     this.requestFocus()
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)

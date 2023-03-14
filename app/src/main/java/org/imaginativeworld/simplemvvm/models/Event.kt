@@ -27,4 +27,17 @@ data class Event<out T>(
     companion object {
         private var lastId = Int.MAX_VALUE
     }
+
+    private var valueSent = false
+
+    /**
+     * Get the [value] only once.
+     */
+    fun getValueOnce(): T? {
+        return if (!valueSent) {
+            valueSent = true
+
+            value
+        } else null
+    }
 }

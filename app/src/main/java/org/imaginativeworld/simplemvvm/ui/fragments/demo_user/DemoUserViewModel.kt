@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.usecase.UserUseCase
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class DemoUserViewModel @Inject constructor(
-    private val repository: AppRepository
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
 
     private val totalData = 4
@@ -67,15 +67,13 @@ class DemoUserViewModel @Inject constructor(
     // ----------------------------------------------------------------
 
     fun addUser() {
-
         viewModelScope.launch {
-
             // Create new user
             _eventShowLoading.value = true
 
             val randomIndex = Random.nextInt(totalData)
 
-            val insertUserId = repository.addUser(
+            val insertUserId = userUseCase.addUser(
                 DemoUserEntity(
                     name = names[randomIndex],
                     phone = phones[randomIndex],
@@ -87,25 +85,19 @@ class DemoUserViewModel @Inject constructor(
 
             _eventShowLoading.value = false
 
-
             // Finally reload data
             getUsers()
-
         }
     }
 
     // ----------------------------------------------------------------
 
     fun removeAllUsers() {
-
         viewModelScope.launch {
-
-            repository.removeAllUsers()
+            userUseCase.removeAllUsers()
 
             getUsers()
-
         }
-
     }
 
     // ----------------------------------------------------------------
@@ -121,14 +113,25 @@ class DemoUserViewModel @Inject constructor(
 
 
     fun getUsers() = viewModelScope.launch {
-
         _eventShowLoading.value = true
 
-        _userItems.value = repository.getUsers()
+        _userItems.value = userUseCase.getUsers()
 
         _eventShowLoading.value = false
-
     }
 
+    fun addToFav(user: DemoUserEntity, result: (isSuccess: Boolean) -> Unit) =
+        viewModelScope.launch {
+            userUseCase.updateUser(user)
+
+            result(true)
+        }
+
+    fun removeFromFav(user: DemoUserEntity, result: (isSuccess: Boolean) -> Unit) =
+        viewModelScope.launch {
+            userUseCase.updateUser(user)
+
+            result(true)
+        }
 
 }

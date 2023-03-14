@@ -19,10 +19,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Patterns
 import androidx.core.app.NotificationCompat
-import com.squareup.moshi.Moshi
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.network.ApiClient
-import java.util.*
 
 object Utils {
 
@@ -57,15 +54,6 @@ object Utils {
     }
 
     /**
-     * Get an instance of Moshi.
-     */
-    fun getMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(Date::class.java, ApiClient.DateJsonAdapter())
-            .build()
-    }
-
-    /**
      * Create and show a notification.
      *
      * Usage:
@@ -95,7 +83,6 @@ object Utils {
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
 
-
         targetIntent?.also {
             val pendingIntent = PendingIntent.getActivity(
                 context, 0 /* Request code */, targetIntent,
@@ -104,7 +91,6 @@ object Utils {
 
             notificationBuilder.setContentIntent(pendingIntent)
         }
-
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -129,4 +115,16 @@ object Utils {
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
+    /**
+     * A default try-catch block to handle general crashes.
+     */
+    inline fun ignoreCrash(
+        couldBeCrash: () -> Unit
+    ) {
+        try {
+            couldBeCrash()
+        } catch (e: Exception) {
+            /* no-op */
+        }
+    }
 }

@@ -56,7 +56,8 @@ A simple Android MVVM pattern example and template.
 - `SharedPref`
 - `AlarmUtils`
 - `LocationProviderUtilClient`
-- `Event` Class
+- `Event` Class: Get notified for identical values in LiveData, Channel, Flow etc.
+- `ignoreCrash { }`: Ignore exceptions for a block.
 
 ## Todo
 

@@ -61,14 +61,14 @@ A simple Android MVVM pattern example and template.
 
 ## Todo
 
-- Add New Post
-- Demo Login
-- Demo Registration
-- OneSignal integration
-- Splash (Introduced in Android S)
-- UI/Unit Testing
-- Example of LocationProviderUtilClient
-- AdUtils from Ticket Sheba
+- [ ] Add New Post
+- [ ] Demo Login
+- [ ] Demo Registration
+- [ ] OneSignal integration
+- [ ] Splash (Introduced in Android S)
+- [ ] UI/Unit Testing
+- [ ] Example of LocationProviderUtilClient
+- [ ] AdUtils from Ticket Sheba
 
 # My Other Projects
 

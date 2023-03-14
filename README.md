@@ -26,6 +26,9 @@ A simple Android MVVM pattern example and template.
 - Environment variable based on Build variant
 - Custom Snackbar
 - Dark Mode
+- Awesome module naming example (see `AwesomeModuleConstants`)
+- Dynamic accent color from image (see `calculatePaletteInImage()`)
+- Simple Encryption Utils (see `EncryptionUtils`)
 
 ## Extension Functions (see `utils/extensions`)
 

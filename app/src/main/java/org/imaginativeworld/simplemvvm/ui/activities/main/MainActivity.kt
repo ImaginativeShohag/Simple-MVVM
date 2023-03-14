@@ -180,8 +180,9 @@ class MainActivity :
                     override fun onAnimationRepeat(animation: Animator) {}
                 })
 
-            loadingAnimation?.start()
+            loadingAnimation.start()
         } catch (e: Exception) {
+            /* no-op */
         }
     }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -93,33 +92,23 @@ class DemoUserFragment :
     }
 
     override fun initObservers() {
-
         viewModel.eventShowMessage
-            .observe(
-                this,
-                Observer {
-
-                    it?.run {
-
-                        listener?.showSnackbar(this)
-                    }
+            .observe(this) {
+                it?.run {
+                    listener?.showSnackbar(this)
                 }
-            )
+            }
 
         viewModel.eventShowLoading
-            .observe(
-                this,
-                Observer {
-
-                    it?.apply {
-                        if (it == true) {
-                            listener?.showLoading()
-                        } else {
-                            listener?.hideLoading()
-                        }
+            .observe(this) {
+                it?.apply {
+                    if (it == true) {
+                        listener?.showLoading()
+                    } else {
+                        listener?.hideLoading()
                     }
                 }
-            )
+            }
     }
 
     override fun onAttach(context: Context) {

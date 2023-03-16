@@ -68,7 +68,7 @@ A simple Android MVVM pattern example and template.
 - [ ] Splash (Introduced in Android S)
 - [ ] UI/Unit Testing
 - [ ] Example of LocationProviderUtilClient
-- [ ] AdUtils from Ticket Sheba
+- [ ] Data pass between activities and fragments (on going)
 
 # My Other Projects
 

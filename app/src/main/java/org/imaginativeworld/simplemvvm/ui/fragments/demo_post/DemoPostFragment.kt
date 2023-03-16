@@ -87,7 +87,6 @@ class DemoPostFragment :
     }
 
     override fun initViews() {
-
         // List
         val layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.layoutManager = layoutManager
@@ -103,9 +102,7 @@ class DemoPostFragment :
 
     override fun initObservers() {
         viewModel.eventShowMessage
-            .observe(
-                this
-            ) {
+            .observe(this) {
                 it?.run {
                     listener?.showSnackbar(this, "Retry") {
                         load()
@@ -114,9 +111,7 @@ class DemoPostFragment :
             }
 
         viewModel.eventShowLoading
-            .observe(
-                this
-            ) {
+            .observe(this) {
                 it?.run {
                     if (this) {
                         listener?.showLoading()
@@ -146,7 +141,6 @@ class DemoPostFragment :
     }
 
     override fun onClick(position: Int, dataObject: DemoPost) {
-
         this.context?.apply {
             AlertDialog.Builder(this)
                 .setTitle(dataObject.title)
@@ -156,6 +150,7 @@ class DemoPostFragment :
     }
 
     override fun onLongClick(position: Int, dataObject: DemoPost) {
+        /* no-op */
     }
 
     override fun showEmptyView() {

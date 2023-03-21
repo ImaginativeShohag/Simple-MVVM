@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
@@ -25,7 +26,6 @@ import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
@@ -67,14 +67,19 @@ class MainActivity :
             // Do things that may crash.
         }
 
-        val result = EncryptionUtils.decrypt(
-            ("rbr\bk9jlhj\u0001a\n" +
-                    "k%\u0001\u0006\u0003g\u0001g\u0016e?jeo\u000Bl\u0017\u0007a'fhsh\u0014|\u000BjI\u000F\brf\u000Erdm%\u0003zsh\tf\u0001\u0006G\u0001oy}\u000Fy\bi.m~\u0003\u0005bp\u001Cp\$ogdg\u0014\u0017\u0019").toByteArray()
-        )
-
-        Timber.e("decrypt: ${String(result)}")
+        encryptionUtilsDemo()
 
         Timber.e("baseUrl: ${BuildConfig.BASE_URL}")
+    }
+
+    private fun encryptionUtilsDemo() {
+        val encryptedText = EncryptionUtils.encrypt("Lorem Ipsum Dolor".toByteArray())
+
+        Timber.e("Encrypted Text: ${String(encryptedText)}")
+
+        val decryptedText = EncryptionUtils.decrypt(encryptedText)
+
+        Timber.e("Decrypted Text: ${String(decryptedText)}")
     }
 
     // TODO: Add this to onResume
@@ -110,11 +115,9 @@ class MainActivity :
         hideKeyboard()
 
         if (navController.currentDestination == null) {
-
             showLoading()
             navController.navigate(destinationResId)
         } else {
-
             navController.currentDestination?.let {
                 if (it.id != destinationResId) {
                     showLoading()
@@ -128,11 +131,9 @@ class MainActivity :
         hideKeyboard()
 
         if (navController.currentDestination == null) {
-
             showLoading()
             navController.navigate(destinationResId, data)
         } else {
-
             navController.currentDestination?.let {
                 if (it.id != destinationResId) {
                     showLoading()

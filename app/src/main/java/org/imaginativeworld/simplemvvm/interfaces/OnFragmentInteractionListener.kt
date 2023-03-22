@@ -24,5 +24,4 @@ interface OnFragmentInteractionListener {
     fun showLoading()
 
     fun hideLoading()
-
 }

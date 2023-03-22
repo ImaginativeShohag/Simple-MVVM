@@ -30,6 +30,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="org.imaginativeworld.simplemvvm.ui.activities.activitynav.DemoOneActivity" />
+        <activity android:name="org.imaginativeworld.simplemvvm.ui.activities.activitynav.DemoTwoActivity" />
+
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider

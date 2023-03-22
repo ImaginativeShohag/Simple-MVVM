@@ -29,6 +29,7 @@ A simple Android MVVM pattern example and template.
 - Awesome module naming example (see `AwesomeModuleConstants`)
 - Dynamic accent color from image (see `calculatePaletteInImage()`)
 - Simple Encryption Utils (see `EncryptionUtils`)
+- Data pass example between activities and fragments
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -68,7 +69,6 @@ A simple Android MVVM pattern example and template.
 - [ ] Splash (Introduced in Android S)
 - [ ] UI/Unit Testing
 - [ ] Example of LocationProviderUtilClient
-- [ ] AdUtils from Ticket Sheba
 
 # My Other Projects
 

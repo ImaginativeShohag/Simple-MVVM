@@ -73,7 +73,6 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
     }
 
     override fun initListeners() {
-
         binding.btnUser.setOnClickListener {
             listener?.gotoFragment(R.id.userFragment)
         }
@@ -101,7 +100,6 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnDarkMode.setOnClickListener {
-
             val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
             when (isNightTheme) {
@@ -114,6 +112,14 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
         binding.btnLatex.setOnClickListener {
             listener?.gotoFragment(R.id.demoLatexFragment)
+        }
+
+        binding.btnActivityNav.setOnClickListener {
+            listener?.gotoFragment(R.id.demoActivityNavFragment)
+        }
+
+        binding.btnFragmentNav.setOnClickListener {
+            listener?.gotoFragment(R.id.demoFragmentNavFragment)
         }
     }
 

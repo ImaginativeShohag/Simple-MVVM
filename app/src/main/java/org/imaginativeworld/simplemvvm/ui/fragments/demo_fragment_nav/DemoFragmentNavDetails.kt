@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentDemoFragmentNavDetailsBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -15,7 +15,9 @@ class DemoFragmentNavDetails :
     Fragment(R.layout.fragment_demo_fragment_nav_details),
     CommonFunctions {
 
-    private val parentViewModel: DemoFragmentNavViewModel by activityViewModels()
+    private val parentViewModel: DemoFragmentNavViewModel by viewModels(ownerProducer = {
+        requireParentFragment()
+    })
 
     private lateinit var binding: FragmentDemoFragmentNavDetailsBinding
 

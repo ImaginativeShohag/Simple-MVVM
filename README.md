@@ -29,7 +29,8 @@ A simple Android MVVM pattern example and template.
 - Awesome module naming example (see `AwesomeModuleConstants`)
 - Dynamic accent color from image (see `calculatePaletteInImage()`)
 - Simple Encryption Utils (see `EncryptionUtils`)
-- Data pass example between activities and fragments
+- Data pass and receive example between Activities
+- Data pass and receive example between Fragments
 
 ## Extension Functions (see `utils/extensions`)
 

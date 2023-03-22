@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentDemoFragmentNavListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -15,7 +15,9 @@ import timber.log.Timber
 
 class DemoFragmentNavList : Fragment(R.layout.fragment_demo_fragment_nav_list), CommonFunctions {
 
-    private val parentViewModel: DemoFragmentNavViewModel by activityViewModels()
+    private val parentViewModel: DemoFragmentNavViewModel by viewModels(ownerProducer = {
+        requireParentFragment()
+    })
 
     private lateinit var binding: FragmentDemoFragmentNavListBinding
 

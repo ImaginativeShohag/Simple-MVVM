@@ -73,7 +73,6 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
     }
 
     override fun initListeners() {
-
         binding.btnUser.setOnClickListener {
             listener?.gotoFragment(R.id.userFragment)
         }
@@ -117,6 +116,10 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
         binding.btnActivityNav.setOnClickListener {
             listener?.gotoFragment(R.id.demoActivityNavFragment)
+        }
+
+        binding.btnFragmentNav.setOnClickListener {
+            listener?.gotoFragment(R.id.demoFragmentNavFragment)
         }
     }
 

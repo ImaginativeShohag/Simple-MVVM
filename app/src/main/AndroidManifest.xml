@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,8 +30,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="org.imaginativeworld.simplemvvm.ui.activities.activitynav.DemoOneActivity" />
-        <activity android:name="org.imaginativeworld.simplemvvm.ui.activities.activitynav.DemoTwoActivity" />
+        <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoOneActivity" />
+        <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoTwoActivity" />
 
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->

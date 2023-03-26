@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Intent
 import com.onesignal.OSNotificationOpenedResult
 import com.onesignal.OneSignal.OSNotificationOpenedHandler
-import org.imaginativeworld.simplemvvm.ui.activities.main.MainActivity
+import org.imaginativeworld.simplemvvm.ui.screens.MainActivity
 import org.imaginativeworld.simplemvvm.utils.Constants
 import timber.log.Timber
 

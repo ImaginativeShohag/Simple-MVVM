@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_home.DemoHomeFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_home.DemoHomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/demo_fragment_home" >
         <action
@@ -34,33 +34,33 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_post.DemoPostFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_post.DemoPostFragment"
         android:label="fragment_post"
         tools:layout="@layout/demo_fragment_post" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_user.DemoUserFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_user.DemoUserFragment"
         android:label="fragment_user"
         tools:layout="@layout/demo_fragment_user" />
     <fragment
         android:id="@+id/postPagedFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_postpaged.DemoPostPagedFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_postpaged.DemoPostPagedFragment"
         android:label="fragment_post_paged"
         tools:layout="@layout/demo_fragment_post_paged" />
     <fragment
         android:id="@+id/demoCarouselFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_carousel.DemoCarouselFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_carousel.DemoCarouselFragment"
         android:label="DemoCarouselFragment" />
     <fragment
         android:id="@+id/demoLatexFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_latex.DemoLatexFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_latex.DemoLatexFragment"
         android:label="DemoLatexFragment" />
     <fragment
         android:id="@+id/demoActivityNavFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_activity_nav.DemoActivityNavFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.DemoActivityNavFragment"
         android:label="DemoActivityNavFragment" />
     <fragment
         android:id="@+id/demoFragmentNavFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.fragments.demo_fragment_nav.DemoFragmentNavFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_fragment_nav.DemoFragmentNavFragment"
         android:label="DemoFragmentNavFragment" />
 </navigation>

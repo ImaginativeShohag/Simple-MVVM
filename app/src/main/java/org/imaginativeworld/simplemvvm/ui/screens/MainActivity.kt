@@ -6,9 +6,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,10 +47,11 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
         initViews()
         initListeners()
@@ -111,42 +113,36 @@ class MainActivity :
         setTitle(title)
     }
 
-    override fun gotoFragment(@IdRes destinationResId: Int) {
+    override fun navigate(@IdRes destinationResId: Int) {
         hideKeyboard()
 
         if (navController.currentDestination == null) {
-            showLoading()
             navController.navigate(destinationResId)
         } else {
             navController.currentDestination?.let {
                 if (it.id != destinationResId) {
-                    showLoading()
                     navController.navigate(destinationResId)
                 }
             }
         }
     }
 
-    override fun gotoFragment(@IdRes destinationResId: Int, data: Bundle) {
+    override fun navigate(@IdRes destinationResId: Int, data: Bundle) {
         hideKeyboard()
 
         if (navController.currentDestination == null) {
-            showLoading()
             navController.navigate(destinationResId, data)
         } else {
             navController.currentDestination?.let {
                 if (it.id != destinationResId) {
-                    showLoading()
                     navController.navigate(destinationResId, data)
                 }
             }
         }
     }
 
-    override fun gotoFragment(navDirections: NavDirections) {
+    override fun navigate(navDirections: NavDirections) {
         hideKeyboard()
-
-        showLoading()
 
         navController.navigate(navDirections)
     }

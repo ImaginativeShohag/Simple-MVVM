@@ -19,7 +19,6 @@ class DemoPostListAdapter(
     BindableAdapter<List<DemoPost>> {
 
     companion object {
-
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
             override fun areItemsTheSame(oldItem: DemoPost, newItem: DemoPost): Boolean {
                 return oldItem.id == newItem.id
@@ -29,7 +28,6 @@ class DemoPostListAdapter(
                 return oldItem == newItem
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -93,7 +91,5 @@ class DemoPostListAdapter(
                 return ListViewHolder(binding, listener)
             }
         }
-
     }
-
 }

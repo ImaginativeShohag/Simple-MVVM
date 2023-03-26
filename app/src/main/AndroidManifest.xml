@@ -32,7 +32,7 @@
 
         <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoOneActivity" />
         <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoTwoActivity" />
-
+        <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity" />
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider

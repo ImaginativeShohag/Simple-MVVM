@@ -11,13 +11,13 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
-import javax.inject.Inject
 
 class AppRepository @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -55,29 +55,33 @@ class AppRepository @Inject constructor(
         }
     }
 
-
     // ----------------------------------------------------------------
     // Post
     // ----------------------------------------------------------------
 
     suspend fun getPosts() = withContext(Dispatchers.IO) {
-
         SafeApiRequest.apiRequest(context) {
             api.getPosts()
         }
-
     }
 
     suspend fun getPostsPaged(
-        page: Int,
+        page: Int
     ) = withContext(Dispatchers.IO) {
-
         SafeApiRequest.apiRequest(context) {
             api.getPostsPaged(
                 page
             )
         }
-
     }
 
+    // ----------------------------------------------------------------
+    // Post
+    // ----------------------------------------------------------------
+
+    suspend fun getTodos() = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getTodos()
+        }
+    }
 }

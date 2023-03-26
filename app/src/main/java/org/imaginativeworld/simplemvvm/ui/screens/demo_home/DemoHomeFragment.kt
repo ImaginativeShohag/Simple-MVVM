@@ -74,15 +74,15 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
     override fun initListeners() {
         binding.btnUser.setOnClickListener {
-            listener?.gotoFragment(R.id.userFragment)
+            listener?.navigate(R.id.userFragment)
         }
 
         binding.btnPost.setOnClickListener {
-            listener?.gotoFragment(R.id.postFragment)
+            listener?.navigate(R.id.postFragment)
         }
 
         binding.btnPostPaged.setOnClickListener {
-            listener?.gotoFragment(R.id.postPagedFragment)
+            listener?.navigate(R.id.postPagedFragment)
         }
 
         binding.btnCustomSnackbar.setOnClickListener {
@@ -96,7 +96,7 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnCarousel.setOnClickListener {
-            listener?.gotoFragment(R.id.demoCarouselFragment)
+            listener?.navigate(R.id.demoCarouselFragment)
         }
 
         binding.btnDarkMode.setOnClickListener {
@@ -111,15 +111,19 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnLatex.setOnClickListener {
-            listener?.gotoFragment(R.id.demoLatexFragment)
+            listener?.navigate(R.id.demoLatexFragment)
         }
 
         binding.btnActivityNav.setOnClickListener {
-            listener?.gotoFragment(R.id.demoActivityNavFragment)
+            listener?.navigate(R.id.demoActivityNavFragment)
         }
 
         binding.btnFragmentNav.setOnClickListener {
-            listener?.gotoFragment(R.id.demoFragmentNavFragment)
+            listener?.navigate(R.id.demoFragmentNavFragment)
+        }
+
+        binding.btnTodosApp.setOnClickListener {
+            listener?.navigate(R.id.awesomeTodosMainActivity)
         }
     }
 

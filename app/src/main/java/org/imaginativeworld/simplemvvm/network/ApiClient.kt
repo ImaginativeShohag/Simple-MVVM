@@ -13,13 +13,13 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
+import java.text.SimpleDateFormat
+import java.util.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.imaginativeworld.simplemvvm.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ApiClient {
     companion object {
@@ -67,7 +67,6 @@ class ApiClient {
 
         @Synchronized
         fun getClient(): ApiInterface {
-
             return apiInterface ?: synchronized(this) {
                 apiInterface = getRetrofit().create(ApiInterface::class.java)
 

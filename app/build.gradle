@@ -95,7 +95,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-Xallow-jvm-ir-dependencies"
         // Enable experimental coroutines APIs, including Flow
         freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
     }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 
@@ -82,6 +83,12 @@ class AppRepository @Inject constructor(
     suspend fun getTodos() = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.getTodos()
+        }
+    }
+
+    suspend fun addTodo(todo: TodoItem) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.addTodo(todo)
         }
     }
 }

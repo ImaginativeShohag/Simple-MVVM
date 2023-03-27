@@ -12,7 +12,9 @@ package org.imaginativeworld.simplemvvm.network
 import org.imaginativeworld.simplemvvm.models.DemoPostResponse
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiInterface {
@@ -31,6 +33,9 @@ interface ApiInterface {
     // Posts
     // ----------------------------------------------------------------
 
-    @GET("v2/todos")
+    @GET("todos")
     suspend fun getTodos(): Response<List<TodoItem>>
+
+    @POST("todos")
+    suspend fun addTodo(@Body todo: TodoItem): Response<TodoItem>
 }

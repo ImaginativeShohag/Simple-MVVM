@@ -23,17 +23,13 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/tv_due_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="1 Jan 2025" />
+                android:textColor="?android:textColorPrimary"
+                tools:text="@tools:sample/lorem[15]" />
 
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="match_parent"
+                android:textColor="?android:textColorSecondary"
                 android:layout_height="wrap_content"
                 tools:text="Pending" />
 

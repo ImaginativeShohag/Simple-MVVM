@@ -27,7 +27,10 @@ object SafeApiRequest {
 
             val response = call.invoke()
 
-            if (response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK) {
+            if (response.isSuccessful &&
+                response.code() >= HttpURLConnection.HTTP_OK &&
+                response.code() < HttpURLConnection.HTTP_MULT_CHOICE
+            ) {
                 return response.body()!!
             } else {
                 val error = response.errorBody()?.string()

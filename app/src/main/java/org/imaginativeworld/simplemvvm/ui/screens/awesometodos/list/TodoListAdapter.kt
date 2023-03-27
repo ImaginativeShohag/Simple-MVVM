@@ -28,8 +28,7 @@ class TodoListAdapter(
 
         fun bind(item: TodoItem) {
             binding.tvTitle.text = item.title
-            binding.tvDueDate.text = item.dueOn
-            binding.tvStatus.text = item.status
+            binding.tvStatus.text = if (item.completed) "Completed" else "Pending"
 
             binding.root.setOnClickListener {
                 onClick(item)

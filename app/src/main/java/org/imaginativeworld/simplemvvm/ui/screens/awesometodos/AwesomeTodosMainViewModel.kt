@@ -16,6 +16,8 @@ class AwesomeTodosMainViewModel @Inject constructor() : ViewModel() {
     val navigate: LiveData<Class<out Fragment>?>
         get() = _navigate
 
+    // ----------------------------------------------------------------
+
     fun navigate(fragmentClass: Class<out Fragment>) {
         _navigate.postValue(fragmentClass)
     }

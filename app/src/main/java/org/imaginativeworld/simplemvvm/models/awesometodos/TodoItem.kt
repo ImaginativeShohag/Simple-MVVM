@@ -7,14 +7,12 @@ import com.squareup.moshi.JsonClass
 @Keep
 @JsonClass(generateAdapter = true)
 data class TodoItem(
-    @Json(name = "due_on")
-    val dueOn: String,
     @Json(name = "id")
-    val id: Int,
-    @Json(name = "status")
-    val status: String,
+    val id: Int? = null,
     @Json(name = "title")
     val title: String,
-    @Json(name = "user_id")
+    @Json(name = "completed")
+    val completed: Boolean,
+    @Json(name = "userId")
     val userId: Int
 )

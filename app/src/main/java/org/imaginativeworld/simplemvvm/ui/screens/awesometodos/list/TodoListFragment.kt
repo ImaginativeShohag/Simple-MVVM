@@ -2,8 +2,8 @@ package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,7 +12,9 @@ import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosListBindi
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.add.TodoAddFragment
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.details.TodoDetailsFragment
 
 @AndroidEntryPoint
 class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonFunctions {
@@ -81,11 +83,22 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
 
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
-            parentViewModel.navigate(TodoAddFragment::class.java)
+            parentViewModel.navigate(
+                NavDestination(
+                    TodoAddFragment::class.java
+                )
+            )
         }
     }
 
     private fun adapterOnClick(todo: TodoItem) {
-        // TODO: Go to details screen.
+        val args = bundleOf(TodoDetailsFragment.ARG_TODO_ID to todo.id)
+
+        parentViewModel.navigate(
+            NavDestination(
+                TodoDetailsFragment::class.java,
+                args
+            )
+        )
     }
 }

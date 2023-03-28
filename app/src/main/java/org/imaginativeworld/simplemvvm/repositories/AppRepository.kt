@@ -91,4 +91,10 @@ class AppRepository @Inject constructor(
             api.addTodo(todo)
         }
     }
+
+    suspend fun getTodoDetails(postId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getTodoDetails(postId)
+        }
+    }
 }

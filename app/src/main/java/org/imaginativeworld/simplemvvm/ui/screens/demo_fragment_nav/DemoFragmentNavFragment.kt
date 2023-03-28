@@ -48,7 +48,7 @@ class DemoFragmentNavFragment : Fragment(), CommonFunctions {
 
         // Init fragment programmatically
         if (savedInstanceState == null) {
-            val bundle = bundleOf(DemoFragmentNavDetails.PARAM_EMPTY_TEXT to "Nothing selected!")
+            val bundle = bundleOf(DemoFragmentNavDetails.ARG_EMPTY_TEXT to "Nothing selected!")
 
             childFragmentManager.commit {
                 setReorderingAllowed(true)

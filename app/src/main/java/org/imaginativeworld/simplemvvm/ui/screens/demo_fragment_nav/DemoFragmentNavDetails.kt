@@ -23,12 +23,16 @@ class DemoFragmentNavDetails :
 
     private var emptyText: String = ""
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentDemoFragmentNavDetailsBinding.bind(view)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         arguments?.apply {
-            emptyText = getString(PARAM_EMPTY_TEXT, "")
+            emptyText = getString(ARG_EMPTY_TEXT, "")
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentDemoFragmentNavDetailsBinding.bind(view)
 
         initObservers()
 
@@ -60,6 +64,6 @@ class DemoFragmentNavDetails :
     }
 
     companion object {
-        const val PARAM_EMPTY_TEXT = "empty_text"
+        const val ARG_EMPTY_TEXT = "empty_text"
     }
 }

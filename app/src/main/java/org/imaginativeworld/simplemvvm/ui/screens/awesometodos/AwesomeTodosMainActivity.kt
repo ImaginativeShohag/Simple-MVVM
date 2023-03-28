@@ -3,7 +3,6 @@ package org.imaginativeworld.simplemvvm.ui.screens.awesometodos
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
@@ -50,7 +49,7 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
         /* no-op */
     }
 
-    private fun navigate(fragmentClass: Class<out Fragment>) {
+    private fun navigate(destination: NavDestination) {
         supportFragmentManager.commit {
             setCustomAnimations(
                 R.anim.slide_in,
@@ -58,7 +57,7 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
                 R.anim.fade_in,
                 R.anim.slide_out
             )
-            add(binding.navHostFragment.id, fragmentClass, null)
+            replace(binding.navHostFragment.id, destination.fragmentClass, destination.args)
             setReorderingAllowed(true)
             addToBackStack(null)
         }

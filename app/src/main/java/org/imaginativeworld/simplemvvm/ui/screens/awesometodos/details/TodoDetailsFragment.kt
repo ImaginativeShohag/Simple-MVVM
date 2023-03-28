@@ -70,10 +70,18 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
                 }
             }
         }
+
+        viewModel.eventDeleteSuccess.observe(this) { isSuccess ->
+            if (isSuccess == true) {
+                parentFragmentManager.popBackStack()
+            }
+        }
     }
 
     override fun initViews() {
-        /* no-op */
+        binding.btnDelete.setOnClickListener {
+            viewModel.deleteTodo(todoId)
+        }
     }
 
     private fun getDetails() {

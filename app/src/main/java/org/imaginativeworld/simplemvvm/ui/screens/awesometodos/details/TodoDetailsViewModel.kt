@@ -43,6 +43,15 @@ class TodoDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
+    private val _eventDeleteSuccess: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
+    }
+
+    val eventDeleteSuccess: LiveData<Boolean?>
+        get() = _eventDeleteSuccess
+
+    // ----------------------------------------------------------------
+
     fun getDetails(todoId: Int) = viewModelScope.launch {
         _eventShowLoading.value = true
 
@@ -50,6 +59,20 @@ class TodoDetailsViewModel @Inject constructor(
             val todo = repository.getTodoDetails(todoId)
 
             _todo.postValue(todo)
+        } catch (e: ApiException) {
+            _eventShowMessage.value = e.message
+        }
+
+        _eventShowLoading.value = false
+    }
+
+    fun deleteTodo(todoId: Int) = viewModelScope.launch {
+        _eventShowLoading.value = true
+
+        try {
+            repository.deleteTodo(todoId)
+
+            _eventDeleteSuccess.postValue(true)
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }

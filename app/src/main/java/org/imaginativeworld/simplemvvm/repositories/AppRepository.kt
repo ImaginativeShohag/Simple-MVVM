@@ -97,4 +97,16 @@ class AppRepository @Inject constructor(
             api.getTodoDetails(postId)
         }
     }
+
+    suspend fun deleteTodo(postId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.deleteTodo(postId)
+        }
+    }
+
+    suspend fun updateTodo(todo: TodoItem) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.updateTodo(todo)
+        }
+    }
 }

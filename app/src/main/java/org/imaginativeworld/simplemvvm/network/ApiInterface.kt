@@ -49,5 +49,5 @@ interface ApiInterface {
     suspend fun deleteTodo(@Path("id") id: Int): Response<Unit>
 
     @PUT("todos/{id}")
-    suspend fun updateTodo(@Body todo: TodoItem): Response<TodoItem>
+    suspend fun updateTodo(@Path("id") id: Int, @Body todo: TodoItem): Response<TodoItem>
 }

@@ -104,9 +104,9 @@ class AppRepository @Inject constructor(
         }
     }
 
-    suspend fun updateTodo(todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun updateTodo(id: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
-            api.updateTodo(todo)
+            api.updateTodo(id, todo)
         }
     }
 }

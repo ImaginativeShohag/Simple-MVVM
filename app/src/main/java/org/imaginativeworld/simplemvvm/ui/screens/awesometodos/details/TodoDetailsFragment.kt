@@ -4,18 +4,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosDetailsBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.edit.TodoEditFragment
 
 @AndroidEntryPoint
 class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), CommonFunctions {
     private lateinit var binding: FragmentAwesomeTodosDetailsBinding
 
     private val viewModel: TodoDetailsViewModel by viewModels()
+    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+        requireActivity()
+    })
 
     private var todoId: Int = 0
 
@@ -81,6 +88,17 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
     override fun initViews() {
         binding.btnDelete.setOnClickListener {
             viewModel.deleteTodo(todoId)
+        }
+
+        binding.btnEdit.setOnClickListener {
+            val args = bundleOf(TodoEditFragment.ARG_TODO_ID to todoId)
+
+            parentViewModel.navigate(
+                NavDestination(
+                    TodoEditFragment::class.java,
+                    args
+                )
+            )
         }
     }
 

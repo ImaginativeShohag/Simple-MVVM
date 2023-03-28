@@ -1,4 +1,4 @@
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.details
+package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 
 @HiltViewModel
-class TodoDetailsViewModel @Inject constructor(
+class TodoEditViewModel @Inject constructor(
     private val repository: AppRepository
 ) : ViewModel() {
 
@@ -25,11 +25,11 @@ class TodoDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _eventShowLoading: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+    private val _eventShowLoading: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
     }
 
-    val eventShowLoading: LiveData<Boolean>
+    val eventShowLoading: LiveData<Boolean?>
         get() = _eventShowLoading
 
     // ----------------------------------------------------------------
@@ -43,12 +43,12 @@ class TodoDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _eventDeleteSuccess: MutableLiveData<Boolean?> by lazy {
-        MutableLiveData<Boolean?>()
+    private val _eventUpdateSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
     }
 
-    val eventDeleteSuccess: LiveData<Boolean?>
-        get() = _eventDeleteSuccess
+    val eventUpdateSuccess: LiveData<Boolean>
+        get() = _eventUpdateSuccess
 
     // ----------------------------------------------------------------
 
@@ -66,13 +66,43 @@ class TodoDetailsViewModel @Inject constructor(
         _eventShowLoading.value = false
     }
 
-    fun deleteTodo(todoId: Int) = viewModelScope.launch {
+    // ----------------------------------------------------------------
+
+    fun isValid(
+        title: String,
+        status: String
+    ): Boolean {
+        if (title.isBlank()) {
+            _eventShowMessage.postValue("Please enter title!")
+            return false
+        }
+
+        if (status.isBlank()) {
+            _eventShowMessage.postValue("Please select status!")
+            return false
+        }
+
+        return true
+    }
+
+    fun update(
+        todoId: Int,
+        title: String,
+        status: String
+    ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {
-            repository.deleteTodo(todoId)
+            repository.updateTodo(
+                todoId,
+                TodoItem(
+                    title = title,
+                    completed = status == "completed",
+                    userId = 1
+                )
+            )
 
-            _eventDeleteSuccess.postValue(true)
+            _eventUpdateSuccess.postValue(true)
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }

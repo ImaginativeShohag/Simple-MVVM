@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:elevation="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +30,8 @@
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="match_parent"
-                android:textColor="?android:textColorSecondary"
                 android:layout_height="wrap_content"
+                android:textColor="?android:textColorSecondary"
                 tools:text="Pending" />
 
         </LinearLayout>

@@ -66,15 +66,16 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
         viewModel.todo.observe(this) { todo ->
             todo?.let {
                 binding.tvTitle.text = todo.title
-                binding.tvStatus.text = if (todo.completed) "Completed" else "Pending"
+                binding.tvStatus.text = todo.getStatusLabel()
                 context?.let { context ->
                     binding.tvStatus.setTextColor(
                         ContextCompat.getColor(
                             context,
-                            if (todo.completed) R.color.flat_awesome_green_2 else R.color.flat_red_2
+                            todo.getStatusColor()
                         )
                     )
                 }
+                binding.tvDueDate.text = "Due: ${todo.getDueDate()}"
             }
         }
 

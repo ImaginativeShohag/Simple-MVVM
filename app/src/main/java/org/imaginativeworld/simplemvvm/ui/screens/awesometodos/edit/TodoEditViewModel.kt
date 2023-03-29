@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
@@ -70,6 +71,7 @@ class TodoEditViewModel @Inject constructor(
 
     fun isValid(
         title: String,
+        dueDate: Date?,
         status: String
     ): Boolean {
         if (title.isBlank()) {
@@ -82,12 +84,18 @@ class TodoEditViewModel @Inject constructor(
             return false
         }
 
+        if (dueDate == null) {
+            _eventShowMessage.postValue("Please select due date!")
+            return false
+        }
+
         return true
     }
 
     fun update(
         todoId: Int,
         title: String,
+        dueDate: Date,
         status: String
     ) = viewModelScope.launch {
         _eventShowLoading.value = true
@@ -97,8 +105,8 @@ class TodoEditViewModel @Inject constructor(
                 todoId,
                 TodoItem(
                     title = title,
-                    completed = status == "completed",
-                    userId = 1
+                    dueOn = dueDate,
+                    status = status.lowercase()
                 )
             )
 

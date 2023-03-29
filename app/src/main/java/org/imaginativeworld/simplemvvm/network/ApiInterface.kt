@@ -23,7 +23,7 @@ import retrofit2.http.Query
 interface ApiInterface {
 
     // ----------------------------------------------------------------
-    // Posts
+    // Post
     // ----------------------------------------------------------------
 
     @GET("v1/posts")
@@ -33,21 +33,21 @@ interface ApiInterface {
     suspend fun getPostsPaged(@Query("page") page: Int): Response<DemoPostResponse>
 
     // ----------------------------------------------------------------
-    // Posts
+    // Todos
     // ----------------------------------------------------------------
 
-    @GET("todos")
+    @GET("v2/todos")
     suspend fun getTodos(): Response<List<TodoItem>>
 
-    @POST("todos")
+    @POST("v2/todos")
     suspend fun addTodo(@Body todo: TodoItem): Response<TodoItem>
 
-    @GET("todos/{id}")
+    @GET("v2/todos/{id}")
     suspend fun getTodoDetails(@Path("id") id: Int): Response<TodoItem>
 
-    @DELETE("todos/{id}")
+    @DELETE("v2/todos/{id}")
     suspend fun deleteTodo(@Path("id") id: Int): Response<Unit>
 
-    @PUT("todos/{id}")
+    @PUT("v2/todos/{id}")
     suspend fun updateTodo(@Path("id") id: Int, @Body todo: TodoItem): Response<TodoItem>
 }

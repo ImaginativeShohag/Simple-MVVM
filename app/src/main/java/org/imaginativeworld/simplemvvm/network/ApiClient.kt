@@ -13,6 +13,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.internal.NullSafeJsonAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 import okhttp3.OkHttpClient
@@ -54,7 +55,7 @@ class ApiClient {
             return retrofit ?: synchronized(this) {
                 val moshi = Moshi.Builder()
                     // Note: To automatically convert date string to Date object use this:
-                    .add(Date::class.java, DateJsonAdapter())
+                    .add(Date::class.java, NullSafeJsonAdapter(DateJsonAdapter()))
                     .build()
 
                 retrofit = Retrofit.Builder()
@@ -78,21 +79,29 @@ class ApiClient {
     }
 
     class DateJsonAdapter : JsonAdapter<Date>() {
-
-        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        private val dateFormat =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
 
         override fun fromJson(reader: JsonReader): Date? {
+            if (reader.peek() == JsonReader.Token.NULL) {
+                reader.nextNull<Date>()
+                return null
+            }
+
             return try {
                 val dateAsString = reader.nextString()
                 dateFormat.parse(dateAsString)
             } catch (e: Exception) {
                 e.printStackTrace()
+                reader.nextNull<Date>()
                 null
             }
         }
 
         override fun toJson(writer: JsonWriter, value: Date?) {
-            if (value != null) {
+            if (value == null) {
+                writer.nullValue()
+            } else {
                 writer.value(dateFormat.format(value))
             }
         }

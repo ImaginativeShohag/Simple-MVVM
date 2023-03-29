@@ -49,7 +49,7 @@ class DemoPostViewModel @Inject constructor(
         try {
             val postResponse = repository.getPosts()
 
-            _postItems.value = postResponse.data
+            _postItems.value = postResponse?.data
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }

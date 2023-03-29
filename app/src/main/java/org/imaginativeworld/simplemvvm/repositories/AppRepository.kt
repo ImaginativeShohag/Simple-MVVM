@@ -77,7 +77,7 @@ class AppRepository @Inject constructor(
     }
 
     // ----------------------------------------------------------------
-    // Post
+    // Todos
     // ----------------------------------------------------------------
 
     suspend fun getTodos() = withContext(Dispatchers.IO) {

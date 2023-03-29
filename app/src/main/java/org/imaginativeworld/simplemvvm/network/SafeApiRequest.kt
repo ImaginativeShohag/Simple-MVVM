@@ -19,7 +19,7 @@ import timber.log.Timber
 
 object SafeApiRequest {
 
-    suspend fun <T : Any> apiRequest(context: Context, call: suspend () -> Response<T>): T {
+    suspend fun <T : Any?> apiRequest(context: Context, call: suspend () -> Response<T>): T? {
         try {
             if (!NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
                 throw ApiException("No internet connection!")
@@ -31,7 +31,7 @@ object SafeApiRequest {
                 response.code() >= HttpURLConnection.HTTP_OK &&
                 response.code() < HttpURLConnection.HTTP_MULT_CHOICE
             ) {
-                return response.body()!!
+                return response.body()
             } else {
                 val error = response.errorBody()?.string()
 

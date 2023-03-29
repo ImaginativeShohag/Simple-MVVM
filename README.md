@@ -71,8 +71,37 @@ A simple Android MVVM pattern example and template.
 - [ ] UI/Unit Testing
 - [ ] Example of LocationProviderUtilClient
 
+## Setup
+
+### Map API Key
+
+Open the `local.properties` in your project level directory, and then add the following code.
+Replace `YOUR_API_KEY` with your [Go REST](https://gorest.co.in) API key.
+
+```groovy
+API_KEY=YOUR_API_KEY
+```
+
 # My Other Projects
 
 - [Oops! No Internet!](https://github.com/ImaginativeShohag/Oops-No-Internet) - A simple no Internet dialog and snackbar, which will automatically appear and disappear based on Internet connectivity status.
 - [Why Not! Image Carousel!](https://github.com/ImaginativeShohag/Why-Not-Image-Carousel) - An easy, super simple and customizable image carousel view for Android.
 - [Why Not Compose!](https://github.com/ImaginativeShohag/Why-Not-Compose) - A collection of animations, compositions, UIs using Jetpack Compose. You can say Jetpack Compose cookbook or play-ground if you want!
+
+## Licence
+
+```
+Copyright 2023 Md. Mahmudul Hasan Shohagm
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

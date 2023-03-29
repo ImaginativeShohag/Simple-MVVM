@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -40,6 +41,7 @@ class ApiClient {
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()
                         .addHeader("Accept", "application/json")
+                        .addHeader("Authorization", "Bearer ${BuildConfig.API_KEY}")
                         .build()
 
                     chain.proceed(request)

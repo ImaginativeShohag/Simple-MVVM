@@ -32,6 +32,12 @@ android {
             }
         }
         signingConfig signingConfigs.debug
+
+        // Constants
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty('API_KEY')}\""
     }
 
     buildTypes {
@@ -132,7 +138,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Fragment
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.5.6"
 
     // Material Design
     implementation 'com.google.android.material:material:1.8.0'

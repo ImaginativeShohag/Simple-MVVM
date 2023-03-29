@@ -13,6 +13,7 @@ import java.util.Date
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosAddBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.getYYYYMMDD
 
 @AndroidEntryPoint
@@ -20,6 +21,9 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
     private lateinit var binding: FragmentAwesomeTodosAddBinding
 
     private val viewModel: TodoAddViewModel by viewModels()
+    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+        requireActivity()
+    })
 
     private var selectedDueDate: Date? = null
 
@@ -45,13 +49,13 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
         }
 
         viewModel.eventShowLoading.observe(this) {
-//            it?.run {
-//                if (this) {
-//                    listener?.showLoading()
-//                } else {
-//                    listener?.hideLoading()
-//                }
-//            }
+            it?.run {
+                if (this) {
+                    parentViewModel.showLoading()
+                } else {
+                    parentViewModel.hideLoading()
+                }
+            }
         }
 
         viewModel.eventSuccess.observe(this) { isSuccess ->

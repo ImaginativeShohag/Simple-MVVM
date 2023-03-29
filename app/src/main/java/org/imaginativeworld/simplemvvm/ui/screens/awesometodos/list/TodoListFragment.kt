@@ -2,6 +2,7 @@ package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -54,20 +55,18 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     override fun initObservers() {
         viewModel.eventShowMessage.observe(this) {
             it?.run {
-//                listener?.showSnackbar(this, "Retry") {
-//                    load()
-//                }
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         }
 
         viewModel.eventShowLoading.observe(this) {
-//            it?.run {
-//                if (this) {
-//                    listener?.showLoading()
-//                } else {
-//                    listener?.hideLoading()
-//                }
-//            }
+            it?.run {
+                if (this) {
+                    parentViewModel.showLoading()
+                } else {
+                    parentViewModel.hideLoading()
+                }
+            }
         }
 
         viewModel.todoItems.observe(this) { todoItems ->

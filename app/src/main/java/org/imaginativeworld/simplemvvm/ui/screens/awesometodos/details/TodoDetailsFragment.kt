@@ -54,13 +54,13 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
         }
 
         viewModel.eventShowLoading.observe(this) {
-//            it?.run {
-//                if (this) {
-//                    listener?.showLoading()
-//                } else {
-//                    listener?.hideLoading()
-//                }
-//            }
+            it?.run {
+                if (this) {
+                    parentViewModel.showLoading()
+                } else {
+                    parentViewModel.hideLoading()
+                }
+            }
         }
 
         viewModel.todo.observe(this) { todo ->

@@ -1,6 +1,7 @@
 package org.imaginativeworld.simplemvvm.ui.screens.awesometodos
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -38,6 +39,10 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
     override fun initObservers() {
         viewModel.navigate.observe(this) { fragmentClass ->
             fragmentClass?.let { navigate(it) }
+        }
+
+        viewModel.isLoadingVisible.observe(this) { isLoadingVisible ->
+            binding.loadingView.root.visibility = if (isLoadingVisible) View.VISIBLE else View.GONE
         }
     }
 

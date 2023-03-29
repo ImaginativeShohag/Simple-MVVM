@@ -19,8 +19,26 @@ class AwesomeTodosMainViewModel @Inject constructor() : ViewModel() {
 
     // ----------------------------------------------------------------
 
+    private val _isLoadingVisible: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+    val isLoadingVisible: LiveData<Boolean>
+        get() = _isLoadingVisible
+
+    // ----------------------------------------------------------------
+
     fun navigate(destination: NavDestination) {
         _navigate.postValue(destination)
+    }
+
+    // ----------------------------------------------------------------
+
+    fun showLoading() {
+        _isLoadingVisible.postValue(true)
+    }
+
+    fun hideLoading() {
+        _isLoadingVisible.postValue(false)
     }
 }
 

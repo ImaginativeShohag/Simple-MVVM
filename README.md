@@ -34,7 +34,7 @@ A simple Android MVVM pattern example and template.
 - Simple Encryption Utils (see `EncryptionUtils`)
 - Data pass and receive example between Activities
 - Data pass and receive example between Fragments
-- Simple Todo app example
+- Simple Todo app example using [Go REST](https://gorest.co.in) API. 
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -67,9 +67,6 @@ A simple Android MVVM pattern example and template.
 
 ## Todo
 
-- [ ] Add New Post
-- [ ] Demo Login
-- [ ] Demo Registration
 - [ ] OneSignal integration
 - [ ] Splash (Introduced in Android S)
 - [ ] UI/Unit Testing

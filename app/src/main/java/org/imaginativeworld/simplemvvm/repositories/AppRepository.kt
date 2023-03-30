@@ -81,6 +81,12 @@ class AppRepository @Inject constructor(
     // User
     // ----------------------------------------------------------------
 
+    suspend fun getUser(userId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getUser(userId)
+        }
+    }
+
     suspend fun signIn(user: User) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.signIn(user)
@@ -91,15 +97,15 @@ class AppRepository @Inject constructor(
     // Todos
     // ----------------------------------------------------------------
 
-    suspend fun getTodos() = withContext(Dispatchers.IO) {
+    suspend fun getTodos(userId: Int) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
-            api.getTodos()
+            api.getTodos(userId)
         }
     }
 
-    suspend fun addTodo(todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun addTodo(userId: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
-            api.addTodo(todo)
+            api.addTodo(userId, todo)
         }
     }
 

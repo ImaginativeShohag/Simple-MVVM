@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityAwesomeTodosMainBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list.TodoListFragment
+import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.splash.TodoSplashFragment
 
 @AndroidEntryPoint
 class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
@@ -27,7 +27,7 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(binding.navHostFragment.id, TodoListFragment::class.java, null)
+                add(binding.navHostFragment.id, TodoSplashFragment::class.java, null, "splash")
             }
         }
 
@@ -64,7 +64,11 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
             )
             replace(binding.navHostFragment.id, destination.fragmentClass, destination.args)
             setReorderingAllowed(true)
-            addToBackStack(null)
+
+            // Ensuring that the splash fragment gets replaced by the destination fragment.
+            if (supportFragmentManager.findFragmentByTag("splash") == null) {
+                addToBackStack(null)
+            }
         }
     }
 }

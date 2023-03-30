@@ -37,18 +37,21 @@ interface ApiInterface {
     // User
     // ----------------------------------------------------------------
 
+    @GET("v2/users/{id}")
+    suspend fun getUser(@Path("id") userId: Int): Response<User>
+
     @POST("v2/users")
-    suspend fun signIn(user: User): Response<User>
+    suspend fun signIn(@Body user: User): Response<User>
 
     // ----------------------------------------------------------------
     // Todos
     // ----------------------------------------------------------------
 
-    @GET("v2/todos")
-    suspend fun getTodos(): Response<List<TodoItem>>
+    @GET("v2/users/{userId}/todos")
+    suspend fun getTodos(@Path("userId") userId: Int): Response<List<TodoItem>>
 
-    @POST("v2/todos")
-    suspend fun addTodo(@Body todo: TodoItem): Response<TodoItem>
+    @POST("v2/users/{userId}/todos")
+    suspend fun addTodo(@Path("userId") userId: Int, @Body todo: TodoItem): Response<TodoItem>
 
     @GET("v2/todos/{id}")
     suspend fun getTodoDetails(@Path("id") id: Int): Response<TodoItem>

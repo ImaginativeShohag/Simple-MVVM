@@ -11,10 +11,12 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.utils.SharedPref
 
 @HiltViewModel
 class TodoAddViewModel @Inject constructor(
-    private val repository: AppRepository
+    private val repository: AppRepository,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -74,8 +76,11 @@ class TodoAddViewModel @Inject constructor(
     ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
+        val user = sharedPref.getUser() ?: return@launch
+
         try {
             repository.addTodo(
+                user.id,
                 TodoItem(
                     title = title,
                     dueOn = dueDate,

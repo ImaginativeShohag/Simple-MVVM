@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.ApiInterface
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 
@@ -73,6 +74,16 @@ class AppRepository @Inject constructor(
             api.getPostsPaged(
                 page
             )
+        }
+    }
+
+    // ----------------------------------------------------------------
+    // User
+    // ----------------------------------------------------------------
+
+    suspend fun signIn(user: User) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.signIn(user)
         }
     }
 

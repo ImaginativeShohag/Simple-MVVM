@@ -11,6 +11,7 @@ package org.imaginativeworld.simplemvvm.network
 
 import org.imaginativeworld.simplemvvm.models.DemoPostResponse
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -31,6 +32,13 @@ interface ApiInterface {
 
     @GET("v1/posts")
     suspend fun getPostsPaged(@Query("page") page: Int): Response<DemoPostResponse>
+
+    // ----------------------------------------------------------------
+    // User
+    // ----------------------------------------------------------------
+
+    @POST("v2/users")
+    suspend fun signIn(user: User): Response<User>
 
     // ----------------------------------------------------------------
     // Todos

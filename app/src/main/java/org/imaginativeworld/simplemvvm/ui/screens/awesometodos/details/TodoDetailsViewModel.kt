@@ -52,7 +52,9 @@ class TodoDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getDetails(todoId: Int) = viewModelScope.launch {
+    fun getDetails(
+        todoId: Int
+    ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {

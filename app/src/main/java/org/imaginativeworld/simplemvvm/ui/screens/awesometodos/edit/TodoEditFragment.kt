@@ -27,12 +27,14 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
 
     private var selectedDueDate: Date? = null
 
+    private var userId: Int = 0
     private var todoId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.apply {
+            userId = getInt(ARG_USER_ID)
             todoId = getInt(ARG_TODO_ID)
         }
 
@@ -111,19 +113,13 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
         }
 
         binding.btnUpdate.setOnClickListener {
-            if (viewModel.isValid(
-                    binding.etTitle.text.toString(),
-                    selectedDueDate,
-                    binding.tvStatus.text?.toString() ?: ""
-                )
-            ) {
-                viewModel.update(
-                    todoId,
-                    binding.etTitle.text.toString(),
-                    selectedDueDate!!,
-                    binding.tvStatus.text?.toString() ?: ""
-                )
-            }
+            viewModel.update(
+                userId,
+                todoId,
+                binding.etTitle.text.toString(),
+                selectedDueDate!!,
+                binding.tvStatus.text?.toString() ?: ""
+            )
         }
     }
 
@@ -133,5 +129,6 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
 
     companion object {
         const val ARG_TODO_ID = "todo_id"
+        const val ARG_USER_ID = "user_id"
     }
 }

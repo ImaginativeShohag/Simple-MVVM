@@ -69,7 +69,7 @@ class TodoEditViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun isValid(
+    private fun isValid(
         title: String,
         dueDate: Date?,
         status: String
@@ -93,17 +93,23 @@ class TodoEditViewModel @Inject constructor(
     }
 
     fun update(
+        userId: Int,
         todoId: Int,
         title: String,
         dueDate: Date,
         status: String
     ) = viewModelScope.launch {
+        if (!isValid(title, dueDate, status)) {
+            return@launch
+        }
+
         _eventShowLoading.value = true
 
         try {
             repository.updateTodo(
                 todoId,
                 TodoItem(
+                    userId = userId,
                     title = title,
                     dueOn = dueDate,
                     status = status.lowercase()

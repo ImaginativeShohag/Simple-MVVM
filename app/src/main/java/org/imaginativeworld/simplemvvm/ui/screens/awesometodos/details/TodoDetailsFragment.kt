@@ -24,12 +24,14 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
         requireActivity()
     })
 
+    private var userId: Int = 0
     private var todoId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.apply {
+            userId = getInt(ARG_USER_ID)
             todoId = getInt(ARG_TODO_ID)
         }
 
@@ -92,7 +94,10 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
         }
 
         binding.btnEdit.setOnClickListener {
-            val args = bundleOf(TodoEditFragment.ARG_TODO_ID to todoId)
+            val args = bundleOf(
+                ARG_TODO_ID to todoId,
+                ARG_USER_ID to userId
+            )
 
             parentViewModel.navigate(
                 NavDestination(
@@ -109,5 +114,6 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
 
     companion object {
         const val ARG_TODO_ID = "todo_id"
+        const val ARG_USER_ID = "user_id"
     }
 }

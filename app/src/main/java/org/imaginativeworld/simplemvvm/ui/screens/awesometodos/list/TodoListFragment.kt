@@ -91,7 +91,10 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     }
 
     private fun adapterOnClick(todo: TodoItem) {
-        val args = bundleOf(TodoDetailsFragment.ARG_TODO_ID to todo.id)
+        val args = bundleOf(
+            TodoDetailsFragment.ARG_TODO_ID to todo.id,
+            TodoDetailsFragment.ARG_USER_ID to todo.userId
+        )
 
         parentViewModel.navigate(
             NavDestination(

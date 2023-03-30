@@ -13,22 +13,21 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.imaginativeworld.simplemvvm.BuildConfig
-import org.imaginativeworld.simplemvvm.models.User
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.imaginativeworld.simplemvvm.BuildConfig
+import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import timber.log.Timber
 
 @Singleton
 class SharedPref @Inject constructor(
-   @ApplicationContext context: Context
+    @ApplicationContext context: Context
 ) {
-
     companion object {
         private const val PREF_TOKEN = "token"
         private const val PREF_USER = "user"
+        private const val PREF_USER_ID = "user_id"
     }
-
 
     private val context: Context = context.applicationContext
 
@@ -109,6 +108,4 @@ class SharedPref @Inject constructor(
     fun isUserLoggedIn(): Boolean {
         return getUser() != null
     }
-
-
 }

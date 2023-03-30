@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -16,6 +17,7 @@ import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainV
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.add.TodoAddFragment
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.details.TodoDetailsFragment
+import org.imaginativeworld.simplemvvm.utils.SharedPref
 
 @AndroidEntryPoint
 class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonFunctions {
@@ -25,6 +27,9 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     private lateinit var adapter: TodoListAdapter
 
@@ -90,6 +95,12 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
                     TodoAddFragment::class.java
                 )
             )
+        }
+
+        binding.btnSignOut.setOnClickListener {
+            sharedPref.reset()
+
+            requireActivity().finish()
         }
     }
 

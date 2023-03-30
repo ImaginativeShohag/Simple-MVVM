@@ -2,6 +2,9 @@
 
 A simple Android MVVM pattern example and template.
 
+[![Developer](https://img.shields.io/badge/Maintainer-ImaginativeShohag-green)](https://github.com/ImaginativeShohag)
+[![Developer](https://img.shields.io/badge/-buy_me_a_coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/ImShohag)
+
 ## Used Components/Libraries
 
 - Kotlin
@@ -31,6 +34,7 @@ A simple Android MVVM pattern example and template.
 - Simple Encryption Utils (see `EncryptionUtils`)
 - Data pass and receive example between Activities
 - Data pass and receive example between Fragments
+- Simple Todo app example
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -73,7 +77,7 @@ A simple Android MVVM pattern example and template.
 
 ## Setup
 
-### Map API Key
+### Go REST API Key
 
 Open the `local.properties` in your project level directory, and then add the following code.
 Replace `YOUR_API_KEY` with your [Go REST](https://gorest.co.in) API key.
@@ -87,6 +91,7 @@ API_KEY=YOUR_API_KEY
 - [Oops! No Internet!](https://github.com/ImaginativeShohag/Oops-No-Internet) - A simple no Internet dialog and snackbar, which will automatically appear and disappear based on Internet connectivity status.
 - [Why Not! Image Carousel!](https://github.com/ImaginativeShohag/Why-Not-Image-Carousel) - An easy, super simple and customizable image carousel view for Android.
 - [Why Not Compose!](https://github.com/ImaginativeShohag/Why-Not-Compose) - A collection of animations, compositions, UIs using Jetpack Compose. You can say Jetpack Compose cookbook or play-ground if you want!
+- [Why Not SwiftUI!](https://github.com/ImaginativeShohag/Why-Not-SwiftUI) - A collection of Swift, SwiftUI and iOS goodies.
 
 ## Licence
 

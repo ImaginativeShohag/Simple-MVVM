@@ -94,7 +94,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
             datePicker.show(parentFragmentManager, null)
         }
 
-        binding.btnSave.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             if (viewModel.isValid(
                     binding.etTitle.text.toString(),
                     selectedDueDate,

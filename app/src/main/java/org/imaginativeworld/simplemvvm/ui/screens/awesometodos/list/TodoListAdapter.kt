@@ -2,6 +2,7 @@ package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,14 @@ class TodoListAdapter(
             binding.tvTitle.text = item.title
             binding.tvDueDate.text = "Due: ${item.getDueDate()}"
             binding.tvStatus.text = item.getStatusLabel()
+            binding.root.context?.let { context ->
+                binding.tvStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        item.getStatusColor()
+                    )
+                )
+            }
 
             binding.root.setOnClickListener {
                 onClick(item)

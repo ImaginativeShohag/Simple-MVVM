@@ -70,6 +70,9 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         }
 
         viewModel.todoItems.observe(this) { todoItems ->
+            binding.tvEmpty.visibility =
+                if (todoItems?.isEmpty() == true) View.VISIBLE else View.GONE
+
             adapter.submitList(todoItems)
         }
     }

@@ -70,7 +70,7 @@ A simple Android MVVM pattern example and template.
 - [ ] OneSignal integration
 - [ ] Splash (Introduced in Android S)
 - [ ] UI/Unit Testing
-- [ ] Example of LocationProviderUtilClient
+- [ ] Example of `LocationProviderUtilClient`
 
 ## Setup
 

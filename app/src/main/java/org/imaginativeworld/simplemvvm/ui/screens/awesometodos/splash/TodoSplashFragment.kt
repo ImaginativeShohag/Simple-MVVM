@@ -82,7 +82,7 @@ class TodoSplashFragment : Fragment(R.layout.fragment_awesome_todos_splash), Com
         lifecycleScope.launch {
             delay(2000)
 
-            viewModel.authenticate()
+            viewModel.checkAuthentication()
         }
     }
 }

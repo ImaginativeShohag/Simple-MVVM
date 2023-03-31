@@ -20,7 +20,7 @@ import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackb
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DemoHomeFragment : Fragment(), CommonFunctions {
+class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -42,21 +42,18 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         Timber.d("onCreateView")
-
-        binding = DemoFragmentHomeBinding.inflate(inflater)
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        binding.viewModel = viewModel
-
-        NoInternetSnackbarFire.Builder(binding.mainContainer, viewLifecycleOwner.lifecycle).build()
-
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+
+        binding = DemoFragmentHomeBinding.bind(view)
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.viewModel = viewModel
 
         listener?.setAppTitle(getString(R.string.app_name))
 
@@ -65,6 +62,10 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         initViews()
 
         initListeners()
+    }
+
+    override fun initViews() {
+        NoInternetSnackbarFire.Builder(binding.mainContainer, viewLifecycleOwner.lifecycle).build()
     }
 
     override fun onResume() {

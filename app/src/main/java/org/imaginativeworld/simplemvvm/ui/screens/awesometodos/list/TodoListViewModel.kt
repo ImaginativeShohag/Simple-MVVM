@@ -45,6 +45,15 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
+    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    val eventSignOutSuccess: LiveData<Boolean>
+        get() = _eventSignOutSuccess
+
+    // ----------------------------------------------------------------
+
     fun getTodos() = viewModelScope.launch {
         _eventShowLoading.value = true
 
@@ -59,5 +68,12 @@ class TodoListViewModel @Inject constructor(
         }
 
         _eventShowLoading.value = false
+    }
+
+    fun signOut() = viewModelScope.launch {
+        repository.signOut()
+        sharedPref.reset()
+
+        _eventSignOutSuccess.postValue(true)
     }
 }

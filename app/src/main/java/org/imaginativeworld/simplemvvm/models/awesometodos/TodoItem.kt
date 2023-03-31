@@ -14,7 +14,7 @@ import org.imaginativeworld.simplemvvm.utils.extensions.toLower
 @JsonClass(generateAdapter = true)
 data class TodoItem(
     @Json(name = "id")
-    val id: Int? = null,
+    val id: Int = 0,
     @Json(name = "title")
     val title: String,
     @Json(name = "due_on")
@@ -43,3 +43,11 @@ data class TodoItem(
         }
     }
 }
+
+fun TodoItem.asEntity() = TodoEntity(
+    id = id,
+    title = title,
+    dueOn = dueOn,
+    status = status,
+    userId = userId
+)

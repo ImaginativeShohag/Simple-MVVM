@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
 
@@ -44,25 +43,13 @@ class TodoSplashViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun authenticate() = viewModelScope.launch {
+    fun checkAuthentication() = viewModelScope.launch {
         val existingUser = sharedPref.getUser()
 
         if (existingUser == null) {
             _eventAuthSuccess.postValue(false)
-            return@launch
+        } else {
+            _eventAuthSuccess.postValue(true)
         }
-
-        try {
-            val user = repository.getUser(existingUser.id)
-
-            if (user != null) {
-                _eventAuthSuccess.postValue(true)
-                return@launch
-            }
-        } catch (e: ApiException) {
-            /* no-op */
-        }
-
-        _eventAuthSuccess.postValue(false)
     }
 }

@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosListBinding
@@ -99,7 +100,13 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         }
 
         binding.btnSignOut.setOnClickListener {
-            viewModel.signOut()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Are you sure you want to sign out?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes") { _, _ ->
+                    viewModel.signOut()
+                }
+                .show()
         }
     }
 

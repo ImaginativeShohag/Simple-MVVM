@@ -66,7 +66,9 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
             setReorderingAllowed(true)
 
             // Ensuring that the splash fragment gets replaced by the destination fragment.
-            if (supportFragmentManager.findFragmentByTag("splash") == null) {
+            if (supportFragmentManager.findFragmentByTag("splash") == null &&
+                destination.addToBackStack
+            ) {
                 addToBackStack(null)
             }
         }

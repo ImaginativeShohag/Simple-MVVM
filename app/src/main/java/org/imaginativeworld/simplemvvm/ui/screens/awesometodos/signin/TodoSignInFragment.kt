@@ -57,7 +57,8 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
         viewModel.eventSignInSuccess.observe(this) {
             parentViewModel.navigate(
                 NavDestination(
-                    TodoListFragment::class.java
+                    fragmentClass = TodoListFragment::class.java,
+                    addToBackStack = false
                 )
             )
         }

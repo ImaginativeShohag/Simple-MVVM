@@ -42,7 +42,10 @@
                 android:id="@+id/tv_due_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                tools:ignore="KeyboardInaccessibleWidget" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

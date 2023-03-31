@@ -13,6 +13,7 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list.TodoListFragment
+import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
 class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), CommonFunctions {
@@ -74,6 +75,8 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
 
     override fun initListeners() {
         binding.btnSignIn.setOnClickListener {
+            binding.root.hideKeyboard()
+
             viewModel.signIn(
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),

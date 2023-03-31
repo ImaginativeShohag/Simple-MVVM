@@ -15,6 +15,7 @@ import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosAddBindin
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.getYYYYMMDD
+import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
 class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFunctions {
@@ -76,37 +77,40 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
 
     override fun initListeners() {
         binding.btnSelectDueDate.setOnClickListener {
-            val constraintsBuilder = CalendarConstraints.Builder()
-            constraintsBuilder.setStart(System.currentTimeMillis() - 1000L)
-            constraintsBuilder.setEnd(System.currentTimeMillis() + 365L * 24L * 60L * 60L * 1000L)
+            showDatePicker()
+        }
 
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Due Date")
-                .setCalendarConstraints(constraintsBuilder.build())
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
-
-            datePicker.addOnPositiveButtonClickListener { selection ->
-                selectedDueDate = Date(selection)
-                binding.tvDueDate.setText(selectedDueDate.getYYYYMMDD())
-            }
-
-            datePicker.show(parentFragmentManager, null)
+        binding.tvDueDate.setOnClickListener {
+            showDatePicker()
         }
 
         binding.btnAdd.setOnClickListener {
-            if (viewModel.isValid(
-                    binding.etTitle.text.toString(),
-                    selectedDueDate,
-                    binding.tvStatus.text?.toString() ?: ""
-                )
-            ) {
-                viewModel.add(
-                    binding.etTitle.text.toString(),
-                    selectedDueDate!!,
-                    binding.tvStatus.text?.toString() ?: ""
-                )
-            }
+            binding.root.hideKeyboard()
+
+            viewModel.add(
+                binding.etTitle.text.toString(),
+                selectedDueDate!!,
+                binding.tvStatus.text?.toString() ?: ""
+            )
         }
+    }
+
+    private fun showDatePicker() {
+        val constraintsBuilder = CalendarConstraints.Builder()
+        constraintsBuilder.setStart(System.currentTimeMillis() - 1000L)
+        constraintsBuilder.setEnd(System.currentTimeMillis() + 365L * 24L * 60L * 60L * 1000L)
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Due Date")
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            selectedDueDate = Date(selection)
+            binding.tvDueDate.setText(selectedDueDate.getYYYYMMDD())
+        }
+
+        datePicker.show(parentFragmentManager, null)
     }
 }

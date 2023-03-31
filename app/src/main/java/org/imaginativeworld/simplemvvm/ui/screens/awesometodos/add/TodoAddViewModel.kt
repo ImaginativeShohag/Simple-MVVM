@@ -46,7 +46,7 @@ class TodoAddViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun isValid(
+    private fun isValid(
         title: String,
         dueDate: Date?,
         status: String
@@ -74,6 +74,10 @@ class TodoAddViewModel @Inject constructor(
         dueDate: Date,
         status: String
     ) = viewModelScope.launch {
+        if (!isValid(title, dueDate, status)) {
+            return@launch
+        }
+
         _eventShowLoading.value = true
 
         val user = sharedPref.getUser() ?: return@launch

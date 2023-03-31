@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosDetailsBinding
@@ -90,7 +91,12 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
 
     override fun initViews() {
         binding.btnDelete.setOnClickListener {
-            viewModel.deleteTodo(todoId)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Are you sure you want to delete this todo?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes") { _, _ ->
+                    viewModel.deleteTodo(todoId)
+                }
         }
 
         binding.btnEdit.setOnClickListener {

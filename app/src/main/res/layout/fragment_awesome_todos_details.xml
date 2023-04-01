@@ -8,6 +8,10 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText">
 
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/awesome_todos_app_action_bar" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +72,6 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_delete"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

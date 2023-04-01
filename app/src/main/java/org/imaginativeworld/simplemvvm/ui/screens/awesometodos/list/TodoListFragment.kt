@@ -17,6 +17,7 @@ import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainV
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.add.TodoAddFragment
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.details.TodoDetailsFragment
+import org.imaginativeworld.simplemvvm.utils.extensions.hide
 
 @AndroidEntryPoint
 class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonFunctions {
@@ -88,6 +89,8 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         val layoutManager = LinearLayoutManager(activity)
         binding.list.layoutManager = layoutManager
         binding.list.adapter = adapter
+
+        binding.actionBar.btnBack.hide()
     }
 
     override fun initListeners() {

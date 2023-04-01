@@ -90,6 +90,10 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
     }
 
     override fun initViews() {
+        binding.actionBar.tvActionTitle.text = "Todo Details"
+    }
+
+    override fun initListeners() {
         binding.btnDelete.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Are you sure you want to delete this todo?")
@@ -112,6 +116,10 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
                     args
                 )
             )
+        }
+
+        binding.actionBar.btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 

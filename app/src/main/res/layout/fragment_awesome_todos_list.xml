@@ -7,10 +7,17 @@
     android:background="?android:colorBackground"
     tools:ignore="HardcodedText">
 
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/awesome_todos_app_action_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"
         tools:listitem="@layout/awesome_todos_todo_item" />
 
     <TextView

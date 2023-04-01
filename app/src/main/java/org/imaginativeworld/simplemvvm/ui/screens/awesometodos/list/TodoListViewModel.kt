@@ -64,6 +64,8 @@ class TodoListViewModel @Inject constructor(
 
             _todoItems.value = response
         } catch (e: ApiException) {
+            _todoItems.value = listOf()
+
             _eventShowMessage.value = e.message
         }
 

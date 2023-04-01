@@ -33,7 +33,12 @@ A simple Android MVVM pattern example and template.
 - Dynamic accent color from image (see `calculatePaletteInImage()`)
 - Simple Encryption Utils (see `EncryptionUtils`)
 - Data pass and receive example between Activities
+  - Pass data on `Activity` start (`startActivity()`)
+  - Start `Activity` for result (`registerForActivityResult()`)
 - Data pass and receive example between Fragments
+  - Pass data between child `Fragment` using parent `ViewModel`
+  - Pass data between child `Fragment` using `FragmentResultListener`
+  - Pass data on `Fragment` transaction
 - Simple Todo app (for beginner)
   - Single Activity approach
   - Used [Go REST](https://gorest.co.in) API

@@ -22,4 +22,7 @@ interface TodoDao {
 
     @Query("SELECT * FROM todos")
     suspend fun getAll(): List<TodoEntity>
+
+    @Query("SELECT * FROM todos WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): TodoEntity?
 }

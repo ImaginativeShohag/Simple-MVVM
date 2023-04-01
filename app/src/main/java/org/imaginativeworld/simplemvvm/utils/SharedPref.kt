@@ -26,7 +26,6 @@ class SharedPref @Inject constructor(
     companion object {
         private const val PREF_TOKEN = "token"
         private const val PREF_USER = "user"
-        private const val PREF_USER_ID = "user_id"
     }
 
     private val context: Context = context.applicationContext

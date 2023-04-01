@@ -136,9 +136,21 @@ class AppRepository @Inject constructor(
         newTodo
     }
 
-    suspend fun getTodoDetails(postId: Int) = withContext(Dispatchers.IO) {
-        SafeApiRequest.apiRequest(context) {
-            api.getTodoDetails(postId)
+    suspend fun getTodoDetails(todoId: Int) = withContext(Dispatchers.IO) {
+        if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
+            // Online
+            val todoItem = SafeApiRequest.apiRequest(context) {
+                api.getTodoDetails(todoId)
+            }
+
+            todoItem?.let {
+                db.todoDao().update(todoItem.asEntity())
+            }
+
+            todoItem
+        } else {
+            // Offline
+            db.todoDao().getById(todoId)?.asModel()
         }
     }
 

@@ -38,6 +38,7 @@ A simple Android MVVM pattern example and template.
   - Single Activity approach
   - Used [Go REST](https://gorest.co.in) API
   - Offline support
+- Splash Screen (Introduced in Android 12)
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -71,7 +72,6 @@ A simple Android MVVM pattern example and template.
 ## Todo
 
 - [ ] OneSignal integration
-- [ ] Splash (Introduced in Android S)
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
 

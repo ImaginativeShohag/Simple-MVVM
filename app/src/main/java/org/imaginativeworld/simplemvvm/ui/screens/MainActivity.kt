@@ -1,11 +1,16 @@
 package org.imaginativeworld.simplemvvm.ui.screens
 
 import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -38,6 +43,7 @@ class MainActivity :
     private lateinit var navController: NavController
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var splashScreen: SplashScreen
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -45,6 +51,7 @@ class MainActivity :
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -55,6 +62,7 @@ class MainActivity :
 
         initViews()
         initListeners()
+        splashScreenOnExitAnimaiton()
 
         sharedPref.isUserLoggedIn()
 
@@ -72,6 +80,28 @@ class MainActivity :
         encryptionUtilsDemo()
 
         Timber.e("baseUrl: ${BuildConfig.BASE_URL}")
+    }
+
+    private fun splashScreenOnExitAnimaiton() {
+        // Add a callback that's called when the splash screen is animating to the
+        // app content.
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            // Create your custom animation.
+            val slideUp = ObjectAnimator.ofFloat(
+                splashScreenView.view,
+                View.TRANSLATION_Y,
+                0f,
+                -splashScreenView.view.height.toFloat()
+            )
+            slideUp.interpolator = AnticipateInterpolator()
+            slideUp.duration = 1000L
+
+            // Call SplashScreenView.remove at the end of your custom animation.
+            slideUp.doOnEnd { splashScreenView.remove() }
+
+            // Run your animation.
+            slideUp.start()
+        }
     }
 
     private fun encryptionUtilsDemo() {

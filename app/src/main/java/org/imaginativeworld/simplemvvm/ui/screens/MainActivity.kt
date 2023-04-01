@@ -62,7 +62,8 @@ class MainActivity :
 
         initViews()
         initListeners()
-        splashScreenOnExitAnimaiton()
+        splashScreenOnExitAnimation()
+        updateOneSignalId()
 
         sharedPref.isUserLoggedIn()
 
@@ -82,7 +83,7 @@ class MainActivity :
         Timber.e("baseUrl: ${BuildConfig.BASE_URL}")
     }
 
-    private fun splashScreenOnExitAnimaiton() {
+    private fun splashScreenOnExitAnimation() {
         // Add a callback that's called when the splash screen is animating to the
         // app content.
         splashScreen.setOnExitAnimationListener { splashScreenView ->
@@ -120,6 +121,8 @@ class MainActivity :
         // https://documentation.onesignal.com/docs/android-native-sdk#addsubscriptionobserver
         if (OneSignal.getDeviceState() != null && OneSignal.getDeviceState()!!.isSubscribed) {
             val userId = OneSignal.getDeviceState()!!.userId
+
+            Timber.d("OneSignal User Id: $userId")
 
 //            if (UserDataManager.isUserLoggedIn()
 //                && (UserDataManager.getOneSignalPlayerId() == null || !UserDataManager.getOneSignalPlayerId()
@@ -180,7 +183,7 @@ class MainActivity :
     override fun goBack() {
         hideKeyboard()
 
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
     }
 
     override fun showSnackbar(message: String) {

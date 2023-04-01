@@ -71,7 +71,7 @@ class TodoAddViewModel @Inject constructor(
 
     fun add(
         title: String,
-        dueDate: Date,
+        dueDate: Date?,
         status: String
     ) = viewModelScope.launch {
         if (!isValid(title, dueDate, status)) {

@@ -89,7 +89,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
 
             viewModel.add(
                 binding.etTitle.text.toString(),
-                selectedDueDate!!,
+                selectedDueDate,
                 binding.tvStatus.text?.toString() ?: ""
             )
         }

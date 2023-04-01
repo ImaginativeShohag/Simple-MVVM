@@ -97,6 +97,7 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
                 .setPositiveButton("Yes") { _, _ ->
                     viewModel.deleteTodo(todoId)
                 }
+                .show()
         }
 
         binding.btnEdit.setOnClickListener {

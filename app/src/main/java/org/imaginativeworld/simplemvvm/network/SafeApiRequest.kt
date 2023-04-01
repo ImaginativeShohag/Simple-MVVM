@@ -10,38 +10,37 @@
 package org.imaginativeworld.simplemvvm.network
 
 import android.content.Context
+import java.net.HttpURLConnection
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
 import timber.log.Timber
-import java.net.HttpURLConnection
 
 object SafeApiRequest {
 
-    suspend fun <T : Any> apiRequest(context: Context, call: suspend () -> Response<T>): T {
-
+    suspend fun <T : Any?> apiRequest(context: Context, call: suspend () -> Response<T>): T? {
         try {
-
             if (!NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
                 throw ApiException("No internet connection!")
             }
 
             val response = call.invoke()
 
-            if (response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK) {
-
-                return response.body()!!
+            if (response.isSuccessful &&
+                response.code() >= HttpURLConnection.HTTP_OK &&
+                response.code() < HttpURLConnection.HTTP_MULT_CHOICE
+            ) {
+                return response.body()
             } else {
-
                 val error = response.errorBody()?.string()
 
                 val message = StringBuilder()
                 error?.let {
-
                     try {
                         message.append(JSONObject(it).getString("message"))
                     } catch (e: JSONException) {
+                        /* no-op */
                     }
 
                     message.append("\n")
@@ -54,7 +53,6 @@ object SafeApiRequest {
                 throw ApiException(message.toString())
             }
         } catch (e: Exception) {
-
             e.printStackTrace()
 
             throw ApiException(e.message ?: "Unknown Error!")

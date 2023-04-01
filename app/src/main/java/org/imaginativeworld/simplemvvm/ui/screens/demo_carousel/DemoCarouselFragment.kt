@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlin.random.Random
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentCarouselBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -46,22 +47,22 @@ class DemoCarouselFragment : Fragment(), CommonFunctions {
 
         list.add(
             CarouselItem(
-                imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
-                caption = "Photo by Aaron Wu on Unsplash"
+                imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
+                caption = "Awesome first photo"
             )
         )
 
         list.add(
             CarouselItem(
-                imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
-                caption = "Photo by Aaron Wu on Unsplash"
+                imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
+                caption = "Beautiful second photo"
             )
         )
 
         list.add(
             CarouselItem(
-                imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
-                caption = "Photo by Aaron Wu on Unsplash"
+                imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
+                caption = "Cool third photo"
             )
         )
 

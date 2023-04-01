@@ -22,7 +22,7 @@ class PostPagingSource(
                 pagePosition
             )
 
-            val result = response.data
+            val result = response?.data
 
             if (result == null) {
                 LoadResult.Error(ApiException("No data returned!"))

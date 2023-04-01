@@ -1,7 +1,6 @@
 package org.imaginativeworld.simplemvvm.interfaces
 
 interface CommonFunctions {
-
     fun initViews() {}
 
     fun initListeners() {}
@@ -9,5 +8,4 @@ interface CommonFunctions {
     fun initObservers() {}
 
     fun isValidInputs(): Boolean = true
-
 }

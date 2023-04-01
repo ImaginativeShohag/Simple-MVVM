@@ -11,10 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.adapters.DemoPostListAdapter
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding

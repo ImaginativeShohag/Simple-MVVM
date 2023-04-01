@@ -9,11 +9,11 @@ interface OnFragmentInteractionListener {
 
     fun setAppTitle(title: String)
 
-    fun gotoFragment(@IdRes destinationResId: Int)
+    fun navigate(@IdRes destinationResId: Int)
 
-    fun gotoFragment(@IdRes destinationResId: Int, data: Bundle)
+    fun navigate(@IdRes destinationResId: Int, data: Bundle)
 
-    fun gotoFragment(navDirections: NavDirections)
+    fun navigate(navDirections: NavDirections)
 
     fun goBack()
 

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.random.Random
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.usecase.UserUseCase
 import timber.log.Timber
-import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class DemoUserViewModel @Inject constructor(
@@ -31,13 +31,6 @@ class DemoUserViewModel @Inject constructor(
         "02222222222",
         "03333333333",
         "04444444444"
-    )
-
-    private val images = listOf(
-        "http://teamshunno.com/wp-content/uploads/2018/07/Sohag-278x300.jpg",
-        "http://teamshunno.com/wp-content/uploads/2018/07/Rakib-1-283x300.jpg",
-        "http://teamshunno.com/wp-content/uploads/2018/07/Shafee_new-3-300x300.png",
-        "http://teamshunno.com/wp-content/uploads/2018/07/imran-1-285x300.jpg"
     )
 
     // ----------------------------------------------------------------
@@ -77,7 +70,7 @@ class DemoUserViewModel @Inject constructor(
                 DemoUserEntity(
                     name = names[randomIndex],
                     phone = phones[randomIndex],
-                    image = images[randomIndex]
+                    image = "https://picsum.photos/300/300?${Random.nextInt()}"
                 )
             )
 
@@ -111,7 +104,6 @@ class DemoUserViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-
     fun getUsers() = viewModelScope.launch {
         _eventShowLoading.value = true
 
@@ -133,5 +125,4 @@ class DemoUserViewModel @Inject constructor(
 
             result(true)
         }
-
 }

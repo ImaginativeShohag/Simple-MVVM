@@ -20,7 +20,7 @@ import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackb
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DemoHomeFragment : Fragment(), CommonFunctions {
+class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -42,21 +42,18 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         Timber.d("onCreateView")
-
-        binding = DemoFragmentHomeBinding.inflate(inflater)
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        binding.viewModel = viewModel
-
-        NoInternetSnackbarFire.Builder(binding.mainContainer, viewLifecycleOwner.lifecycle).build()
-
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+
+        binding = DemoFragmentHomeBinding.bind(view)
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.viewModel = viewModel
 
         listener?.setAppTitle(getString(R.string.app_name))
 
@@ -67,6 +64,10 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         initListeners()
     }
 
+    override fun initViews() {
+        NoInternetSnackbarFire.Builder(binding.mainContainer, viewLifecycleOwner.lifecycle).build()
+    }
+
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
@@ -74,15 +75,15 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
 
     override fun initListeners() {
         binding.btnUser.setOnClickListener {
-            listener?.gotoFragment(R.id.userFragment)
+            listener?.navigate(R.id.userFragment)
         }
 
         binding.btnPost.setOnClickListener {
-            listener?.gotoFragment(R.id.postFragment)
+            listener?.navigate(R.id.postFragment)
         }
 
         binding.btnPostPaged.setOnClickListener {
-            listener?.gotoFragment(R.id.postPagedFragment)
+            listener?.navigate(R.id.postPagedFragment)
         }
 
         binding.btnCustomSnackbar.setOnClickListener {
@@ -96,7 +97,7 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnCarousel.setOnClickListener {
-            listener?.gotoFragment(R.id.demoCarouselFragment)
+            listener?.navigate(R.id.demoCarouselFragment)
         }
 
         binding.btnDarkMode.setOnClickListener {
@@ -111,15 +112,19 @@ class DemoHomeFragment : Fragment(), CommonFunctions {
         }
 
         binding.btnLatex.setOnClickListener {
-            listener?.gotoFragment(R.id.demoLatexFragment)
+            listener?.navigate(R.id.demoLatexFragment)
         }
 
         binding.btnActivityNav.setOnClickListener {
-            listener?.gotoFragment(R.id.demoActivityNavFragment)
+            listener?.navigate(R.id.demoActivityNavFragment)
         }
 
         binding.btnFragmentNav.setOnClickListener {
-            listener?.gotoFragment(R.id.demoFragmentNavFragment)
+            listener?.navigate(R.id.demoFragmentNavFragment)
+        }
+
+        binding.btnTodosApp.setOnClickListener {
+            listener?.navigate(R.id.awesomeTodosMainActivity)
         }
     }
 

@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoPost
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.AppRepository
-import javax.inject.Inject
 
 @HiltViewModel
 class DemoPostViewModel @Inject constructor(
@@ -44,20 +44,16 @@ class DemoPostViewModel @Inject constructor(
     // ----------------------------------------------------------------
 
     fun getPosts() = viewModelScope.launch {
-
         _eventShowLoading.value = true
 
         try {
             val postResponse = repository.getPosts()
 
-            _postItems.value = postResponse.data
+            _postItems.value = postResponse?.data
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
-
     }
-
-
 }

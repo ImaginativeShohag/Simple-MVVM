@@ -19,11 +19,11 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
+import java.util.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DialogMonthPickerBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogSingleInputBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogTimePickerBinding
-import java.util.*
 
 /**
  * Fix the dialog height.
@@ -92,7 +92,6 @@ fun Activity.showDialogSingleInput(
     negativeListener: () -> Unit,
     inputFieldCustomization: (editText: TextInputEditText) -> Unit
 ): AlertDialog? {
-
     if (this.isFinishing) return null
 
     val dialogBinding = DialogSingleInputBinding.inflate(LayoutInflater.from(this))
@@ -114,23 +113,19 @@ fun Activity.showDialogSingleInput(
 
     // Listener
     dialogBinding.btnNegative.setOnClickListener {
-
         negativeListener()
 
         alertDialog.dismiss()
     }
 
     dialogBinding.btnPositive.setOnClickListener {
-
         dialogBinding.etInput.error = null
 
         if (!dialogBinding.etInput.text.isNullOrBlank()) {
-
             positiveListener(dialogBinding.etInput.text.toString())
 
             alertDialog.dismiss()
         } else {
-
             dialogBinding.etInput.error = emptyInputText
             dialogBinding.etInput.requestFocus()
         }
@@ -151,7 +146,6 @@ fun Context.showMonthPickerDialog(
     year: Int = -1,
     listener: (year: Int, month: Int) -> Unit
 ) {
-
     val binding = DialogMonthPickerBinding.inflate(LayoutInflater.from(this))
 
     val builder = AlertDialog.Builder(this, R.style.AppTheme_AlertDialog)
@@ -249,12 +243,17 @@ fun Context.showTimePickerDialog(
         .setView(binding.root)
         .setPositiveButton("Ok") { _, _ ->
             val hour = if (binding.pickerAmPm.value == 1) { // PM
-                if (binding.pickerHour.value < 12)
+                if (binding.pickerHour.value < 12) {
                     binding.pickerHour.value + 12
-                else binding.pickerHour.value
-            } else if (binding.pickerHour.value == 12) // AM
+                } else {
+                    binding.pickerHour.value
+                }
+            } else if (binding.pickerHour.value == 12) {
+                // AM
                 0
-            else binding.pickerHour.value
+            } else {
+                binding.pickerHour.value
+            }
 
             listener.onSuccess(
                 hour,

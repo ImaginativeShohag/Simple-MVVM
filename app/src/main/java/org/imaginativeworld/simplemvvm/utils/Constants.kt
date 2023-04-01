@@ -15,7 +15,7 @@ object Constants {
     /**
      * Server endpoint without end slash.
      */
-//        const val SERVER_ENDPOINT = "http://jsonplaceholder.typicode.com"
+    // const val SERVER_ENDPOINT = "http://jsonplaceholder.typicode.com"
     const val SERVER_ENDPOINT = "https://gorest.co.in/public"
 
     /**

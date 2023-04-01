@@ -25,12 +25,6 @@
         <action
             android:id="@+id/action_homeFragment_to_demoLatexFragment"
             app:destination="@id/demoLatexFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_demoActivityNavFragment"
-            app:destination="@id/demoActivityNavFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_demoFragmentNavFragment"
-            app:destination="@id/demoFragmentNavFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -63,4 +57,8 @@
         android:id="@+id/demoFragmentNavFragment"
         android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_fragment_nav.DemoFragmentNavFragment"
         android:label="DemoFragmentNavFragment" />
+    <activity
+        android:id="@+id/awesomeTodosMainActivity"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"
+        android:label="AwesomeTodosMainActivity" />
 </navigation>

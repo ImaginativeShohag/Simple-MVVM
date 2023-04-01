@@ -18,7 +18,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.Starting"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:name=".ui.screens.MainActivity"
@@ -30,9 +30,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoOneActivity" />
-        <activity android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoTwoActivity" />
-
+        <activity
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoOneActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoTwoActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"
+            android:theme="@style/AppTheme" />
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider

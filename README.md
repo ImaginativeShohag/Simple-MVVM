@@ -118,7 +118,7 @@ API_KEY=YOUR_API_KEY
 ## Licence
 
 ```
-Copyright 2023 Md. Mahmudul Hasan Shohagm
+Copyright 2023 Md. Mahmudul Hasan Shohag
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

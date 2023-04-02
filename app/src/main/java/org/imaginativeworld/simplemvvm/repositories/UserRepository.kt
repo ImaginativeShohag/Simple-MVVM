@@ -63,28 +63,28 @@ class UserRepository @Inject constructor(
     // ----------------------------------------------------------------
 
     suspend fun saveUserInDB(
-        userModel: DemoUserEntity,
+        userModel: DemoUserEntity
     ): Long {
         return withContext(Dispatchers.IO) {
-            db.userDao().insertUser(userModel)
+            db.userDao().insert(userModel)
         }
     }
 
     suspend fun removeAllUsersFromDB() {
         return withContext(Dispatchers.IO) {
-            db.userDao().removeAllUsers()
+            db.userDao().removeAll()
         }
     }
 
     suspend fun getUsersFromDB(): List<DemoUserEntity> {
         return withContext(Dispatchers.IO) {
-            db.userDao().getUsers()
+            db.userDao().getAll()
         }
     }
 
     suspend fun updateUserToDB(user: DemoUserEntity) {
         return withContext(Dispatchers.IO) {
-            db.userDao().updateUser(user)
+            db.userDao().update(user)
         }
     }
 }

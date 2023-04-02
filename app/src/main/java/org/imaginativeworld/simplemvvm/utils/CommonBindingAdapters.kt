@@ -1,16 +1,38 @@
 /*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
  * Developed by: @ImaginativeShohag
  *
  * Md. Mahmudul Hasan Shohag
  * imaginativeshohag@gmail.com
  *
- * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
 package org.imaginativeworld.simplemvvm.utils
 
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.SimpleAdapter
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -57,7 +79,6 @@ fun <T> RecyclerView.items(items: T?) {
     }
 }
 
-
 // ----------------------------------------------------------------
 // Spinner
 // ----------------------------------------------------------------
@@ -69,9 +90,7 @@ fun <T> RecyclerView.items(items: T?) {
  */
 @BindingAdapter("items")
 fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
-
     items?.let {
-
         it.value?.let { listOfType ->
             val finalItems = mutableListOf<Map<String, String>>()
 
@@ -79,8 +98,8 @@ fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
                 finalItems.add(
                     mapOf(
                         Pair("id", item.id.toString()),
-                        Pair("name", item.name)
-                    )
+                        Pair("name", item.name),
+                    ),
                 )
             }
 
@@ -89,16 +108,15 @@ fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
                 finalItems,
                 R.layout.item_spinner_default,
                 arrayOf(
-                    "name"
+                    "name",
                 ),
                 intArrayOf(
-                    android.R.id.text1
-                )
+                    android.R.id.text1,
+                ),
             )
 
             this.adapter = adapter
         }
-
     }
 }
 
@@ -111,9 +129,7 @@ fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
  */
 @BindingAdapter("itemsWithRestoreLastPosition")
 fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerItem>>?) {
-
     items?.let {
-
         Timber.e("last position: selectedItemPosition: ${this.selectedItemPosition}")
 
         it.value?.let { listOfType ->
@@ -123,8 +139,8 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
                 finalItems.add(
                     mapOf(
                         Pair("id", item.id.toString()),
-                        Pair("name", item.name)
-                    )
+                        Pair("name", item.name),
+                    ),
                 )
             }
 
@@ -133,11 +149,11 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
                 finalItems,
                 R.layout.item_spinner_default,
                 arrayOf(
-                    "name"
+                    "name",
                 ),
                 intArrayOf(
-                    android.R.id.text1
-                )
+                    android.R.id.text1,
+                ),
             )
 
             this.adapter = adapter
@@ -146,13 +162,11 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
 
             if (lastPosition != null) {
                 if (lastPosition is Int) {
-
-                    Timber.e("last position: lastPosition: ${lastPosition}")
+                    Timber.e("last position: lastPosition: $lastPosition")
                     this.setSelection(lastPosition)
                 }
             }
         }
-
     }
 }
 
@@ -165,7 +179,6 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
  */
 @BindingAdapter("items")
 fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
-
     items?.let { listOfType ->
         val finalItems = mutableListOf<Map<String, String>>()
 
@@ -173,8 +186,8 @@ fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
             finalItems.add(
                 mapOf(
                     Pair("id", item.id.toString()),
-                    Pair("name", item.name)
-                )
+                    Pair("name", item.name),
+                ),
             )
         }
 
@@ -183,18 +196,16 @@ fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
             finalItems,
             R.layout.item_spinner_default,
             arrayOf(
-                "name"
+                "name",
             ),
             intArrayOf(
-                android.R.id.text1
-            )
+                android.R.id.text1,
+            ),
         )
 
         this.adapter = adapter
     }
-
 }
-
 
 // ----------------------------------------------------------------
 // ImageView
@@ -211,11 +222,9 @@ fun ImageView.setProfileImageFromUrl(url: String) {
         .into(this)
 }
 
-
 // ----------------------------------------------------------------
 // View
 // ----------------------------------------------------------------
-
 
 /**
  * Update view visibility.
@@ -230,7 +239,6 @@ fun View.setVisibility(visible: Boolean?) {
         }
     }
 }
-
 
 // ----------------------------------------------------------------
 // TextView
@@ -271,7 +279,6 @@ fun TextView.setDateTimeFromDate(date: Date?) {
     }
 }
 
-
 // ----------------------------------------------------------------
 // TextInput
 // ----------------------------------------------------------------
@@ -288,7 +295,7 @@ fun <T> AutoCompleteTextView.setItems(items: LiveData<T>?) {
             val arrayAdapter = ArrayAdapter(
                 this@setItems.context,
                 R.layout.item_dropdown_menu_popup_default,
-                (items.value as List<*>)
+                (items.value as List<*>),
             )
 
             this@setItems.setAdapter(arrayAdapter)

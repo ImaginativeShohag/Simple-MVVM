@@ -1,3 +1,29 @@
+/*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.adapters
 
 import android.graphics.Color
@@ -18,7 +44,7 @@ import org.imaginativeworld.simplemvvm.utils.calculatePaletteInImage
 import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostPagedListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPost>
+    private val listener: OnObjectListInteractionListener<DemoPost>,
 ) : PagingDataAdapter<DemoPost, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -26,19 +52,18 @@ class DemoPostPagedListAdapter(
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
             override fun areItemsTheSame(
                 oldItem: DemoPost,
-                newItem: DemoPost
+                newItem: DemoPost,
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: DemoPost,
-                newItem: DemoPost
+                newItem: DemoPost,
             ): Boolean {
                 return oldItem == newItem
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -52,7 +77,7 @@ class DemoPostPagedListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPost>
+        private val listener: OnObjectListInteractionListener<DemoPost>,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DemoPost?) {
@@ -68,30 +93,30 @@ class DemoPostPagedListAdapter(
                 }
 
                 binding.root.setBackgroundColor(
-                    Color.parseColor("#ffffff")
+                    Color.parseColor("#ffffff"),
                 )
                 binding.tvTitle.setTextColor(
-                    Color.parseColor("#000000")
+                    Color.parseColor("#000000"),
                 )
                 binding.tvBody.setTextColor(
-                    Color.parseColor("#000000")
+                    Color.parseColor("#000000"),
                 )
 
                 CoroutineScope(Dispatchers.Main).launch {
                     val position = bindingAdapterPosition
                     calculatePaletteInImage(
                         context = binding.root.context,
-                        imageUrl = imageUrl
+                        imageUrl = imageUrl,
                     )?.let { swatch ->
                         if (position == bindingAdapterPosition) {
                             binding.root.setBackgroundColor(
-                                swatch.rgb
+                                swatch.rgb,
                             )
                             binding.tvTitle.setTextColor(
-                                swatch.titleTextColor
+                                swatch.titleTextColor,
                             )
                             binding.tvBody.setTextColor(
-                                swatch.bodyTextColor
+                                swatch.bodyTextColor,
                             )
                         }
                     }
@@ -111,14 +136,12 @@ class DemoPostPagedListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPost>
+                listener: OnObjectListInteractionListener<DemoPost>,
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)
                 return ListViewHolder(binding, listener)
             }
         }
-
     }
-
 }

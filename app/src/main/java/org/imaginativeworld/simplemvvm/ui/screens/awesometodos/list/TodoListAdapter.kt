@@ -1,3 +1,29 @@
+/*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
 
 import android.view.LayoutInflater
@@ -10,7 +36,7 @@ import org.imaginativeworld.simplemvvm.databinding.AwesomeTodosTodoItemBinding
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 
 class TodoListAdapter(
-    private val onClick: (TodoItem) -> Unit
+    private val onClick: (TodoItem) -> Unit,
 ) : ListAdapter<TodoItem, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -24,7 +50,7 @@ class TodoListAdapter(
 
     class TodoViewHolder private constructor(
         private val binding: AwesomeTodosTodoItemBinding,
-        private val onClick: (TodoItem) -> Unit
+        private val onClick: (TodoItem) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TodoItem) {
@@ -35,8 +61,8 @@ class TodoListAdapter(
                 binding.tvStatus.setTextColor(
                     ContextCompat.getColor(
                         context,
-                        item.getStatusColor()
-                    )
+                        item.getStatusColor(),
+                    ),
                 )
             }
 
@@ -48,7 +74,7 @@ class TodoListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                onClick: (TodoItem) -> Unit
+                onClick: (TodoItem) -> Unit,
             ): TodoViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = AwesomeTodosTodoItemBinding.inflate(layoutInflater, parent, false)

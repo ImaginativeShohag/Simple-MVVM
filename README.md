@@ -80,6 +80,23 @@ A simple Android MVVM pattern example and template.
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
 
+# Note
+
+- For dependency version check I am currently
+  using [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin#using-a-gradle-init-script)
+  . I added this in the Gradle init script and can check versions using the following commend.
+
+```bash
+./gradlew dependencyUpdates
+```
+
+- The project using [spotless](https://github.com/diffplug/spotless/tree/main/plugin-gradle)
+  with [klint](https://github.com/pinterest/ktlint). Apply spotless using the following command.
+
+```bash
+./gradlew spotlessApply
+```
+
 ## Setup
 
 ### Go REST API Key

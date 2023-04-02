@@ -1,10 +1,27 @@
 /*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
  * Developed by: @ImaginativeShohag
  *
  * Md. Mahmudul Hasan Shohag
  * imaginativeshohag@gmail.com
  *
- * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
 package org.imaginativeworld.simplemvvm.utils
@@ -71,9 +88,8 @@ object Utils {
         context: Context,
         messageTitle: String?,
         messageBody: String,
-        targetIntent: Intent?
+        targetIntent: Intent?,
     ) {
-
         val channelId = context.getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
@@ -85,8 +101,10 @@ object Utils {
 
         targetIntent?.also {
             val pendingIntent = PendingIntent.getActivity(
-                context, 0 /* Request code */, targetIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                context,
+                0 /* Request code */,
+                targetIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT,
             )
 
             notificationBuilder.setContentIntent(pendingIntent)
@@ -100,7 +118,7 @@ object Utils {
             val channel = NotificationChannel(
                 channelId,
                 "General notification",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_DEFAULT,
             )
             channel.description = "All general notifications"
             notificationManager.createNotificationChannel(channel)
@@ -119,7 +137,7 @@ object Utils {
      * A default try-catch block to handle general crashes.
      */
     inline fun ignoreCrash(
-        couldBeCrash: () -> Unit
+        couldBeCrash: () -> Unit,
     ) {
         try {
             couldBeCrash()

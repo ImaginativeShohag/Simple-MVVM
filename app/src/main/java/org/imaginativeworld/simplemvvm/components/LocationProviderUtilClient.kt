@@ -1,10 +1,27 @@
 /*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
  * Developed by: @ImaginativeShohag
  *
  * Md. Mahmudul Hasan Shohag
  * imaginativeshohag@gmail.com
  *
- * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
 package org.imaginativeworld.simplemvvm.components
@@ -20,9 +37,17 @@ import android.os.Looper
 import androidx.activity.result.IntentSenderRequest
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsResponse
 import com.google.android.gms.tasks.OnCompleteListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -59,7 +84,7 @@ data class Options(
     val askForTurnOnLocationService: Ask = Ask.ONCE,
 
     // Post location data just once
-    var postOnce: Boolean = false
+    var postOnce: Boolean = false,
 )
 
 class LocationProviderUtilClient(
@@ -70,7 +95,7 @@ class LocationProviderUtilClient(
     private val locationRequestFastestInterval: Long = 15000,
     private val locationRequestPriority: Int = LocationRequest.PRIORITY_HIGH_ACCURACY,
     private val smallestDisplacementInMeter: Float = 50f,
-    var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null
+    var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null,
 ) : DefaultLifecycleObserver {
 
     // Callback for posting the locations
@@ -159,7 +184,7 @@ class LocationProviderUtilClient(
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
-                Looper.getMainLooper()
+                Looper.getMainLooper(),
             )
 
             locationUpdatedStarted = true
@@ -191,8 +216,8 @@ class LocationProviderUtilClient(
     @RequiresPermission(
         anyOf = [
             "android.permission.ACCESS_COARSE_LOCATION",
-            "android.permission.ACCESS_FINE_LOCATION"
-        ]
+            "android.permission.ACCESS_FINE_LOCATION",
+        ],
     )
     fun enable() {
         Timber.d("enable")
@@ -296,12 +321,12 @@ class LocationProviderUtilClient(
 
             return ActivityCompat.checkSelfPermission(
                 context,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION,
             ) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+                    context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ) == PackageManager.PERMISSION_GRANTED
         }
     }
 }

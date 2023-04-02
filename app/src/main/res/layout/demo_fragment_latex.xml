@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.demo_home.DemoHomeFragment">
+    tools:context=".ui.screens.home.DemoHomeFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="org.imaginativeworld.simplemvvm.ui.screens.demo_latex.DemoLatexViewModel" />
+            type="org.imaginativeworld.simplemvvm.ui.screens.latex.DemoLatexViewModel" />
 
     </data>
 

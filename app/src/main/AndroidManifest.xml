@@ -31,10 +31,10 @@
         </activity>
 
         <activity
-            android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoOneActivity"
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.activityNav.activities.DemoOneActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="org.imaginativeworld.simplemvvm.ui.screens.demo_activity_nav.activities.DemoTwoActivity"
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.activityNav.activities.DemoTwoActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"

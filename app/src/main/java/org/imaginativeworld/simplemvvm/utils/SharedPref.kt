@@ -1,10 +1,27 @@
 /*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
  * Developed by: @ImaginativeShohag
  *
  * Md. Mahmudul Hasan Shohag
  * imaginativeshohag@gmail.com
  *
- * MVVM Pattern Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
 package org.imaginativeworld.simplemvvm.utils
@@ -13,15 +30,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class SharedPref @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext context: Context,
 ) {
     companion object {
         private const val PREF_TOKEN = "token"
@@ -40,7 +57,7 @@ class SharedPref @Inject constructor(
         return sharedPref ?: synchronized(this) {
             context.getSharedPreferences(
                 "${BuildConfig.APPLICATION_ID}.main",
-                Context.MODE_PRIVATE
+                Context.MODE_PRIVATE,
             )
         }
     }

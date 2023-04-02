@@ -1,3 +1,29 @@
+/*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.signin
 
 import androidx.lifecycle.LiveData
@@ -5,18 +31,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.AppRepository
+import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
+import javax.inject.Inject
 
 @HiltViewModel
 class TodoSignInViewModel @Inject constructor(
-    private val repository: AppRepository,
-    private val sharedPref: SharedPref
+    private val repository: UserRepository,
+    private val sharedPref: SharedPref,
 ) : ViewModel() {
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
         MutableLiveData<String?>()
@@ -48,7 +74,7 @@ class TodoSignInViewModel @Inject constructor(
     private fun isValid(
         name: String,
         email: String,
-        gender: String
+        gender: String,
     ): Boolean {
         if (name.isBlank()) {
             _eventShowMessage.postValue("Please enter your name!")
@@ -76,7 +102,7 @@ class TodoSignInViewModel @Inject constructor(
     fun signIn(
         name: String,
         email: String,
-        gender: String
+        gender: String,
     ) = viewModelScope.launch {
         if (!isValid(name, email, gender)) {
             return@launch
@@ -91,8 +117,8 @@ class TodoSignInViewModel @Inject constructor(
                     name,
                     email,
                     gender,
-                    "active"
-                )
+                    "active",
+                ),
             )
 
             if (newUser != null) {

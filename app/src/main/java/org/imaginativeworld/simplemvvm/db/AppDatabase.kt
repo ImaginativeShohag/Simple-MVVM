@@ -1,3 +1,29 @@
+/*
+ * Copyright 2023 Md. Mahmudul Hasan Shohag
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * Project: Simple MVVM
+ * Developed by: @ImaginativeShohag
+ *
+ * Md. Mahmudul Hasan Shohag
+ * imaginativeshohag@gmail.com
+ *
+ * Source: https://github.com/ImaginativeShohag/Simple-MVVM
+ */
+
 package org.imaginativeworld.simplemvvm.db
 
 import android.content.Context
@@ -6,18 +32,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import java.util.Date
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
-
-// Help: https://android.jlelse.eu/android-room-using-kotlin-f6cc0a05bf23
+import java.util.Date
 
 @Database(
     entities = [
         DemoUserEntity::class,
-        TodoEntity::class
+        TodoEntity::class,
     ],
-    version = 2
+    version = 2,
 )
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -35,20 +59,12 @@ abstract class AppDatabase : RoomDatabase() {
 //            }
 //        }
 
-        @Volatile
-        private var instance: AppDatabase? = null
-        private val LOCK = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: buildDatabase(context).also {
-                instance = it
-            }
-        }
+        operator fun invoke(context: Context) = buildDatabase(context)
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            "MyDatabase.db"
+            "MyDatabase.db",
         )
 //            .addMigrations(MIGRATION_1_2) // Note: Migration example
             .fallbackToDestructiveMigration() // Note: Mostly for debug

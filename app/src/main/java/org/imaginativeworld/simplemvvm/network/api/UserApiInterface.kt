@@ -34,6 +34,9 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface UserApiInterface {
+    @GET("v2/users/")
+    suspend fun getUsers(): Response<List<User>>
+
     @GET("v2/users/{id}")
     suspend fun getUser(@Path("id") userId: Int): Response<User>
 

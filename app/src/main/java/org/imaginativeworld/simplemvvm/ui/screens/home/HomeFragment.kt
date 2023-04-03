@@ -46,13 +46,13 @@ import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackb
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
+class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
 
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var binding: DemoFragmentHomeBinding
 
-    private val viewModel: DemoHomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
@@ -67,7 +67,7 @@ class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         Timber.d("onCreateView")
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -116,7 +116,7 @@ class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions 
             CustomSnackbar.make(
                 binding.root,
                 "Hi! I am a custom Snackbar!",
-                Snackbar.LENGTH_INDEFINITE,
+                Snackbar.LENGTH_INDEFINITE
             )
                 .setAction("Ok", View.OnClickListener {})
                 .show()
@@ -151,6 +151,10 @@ class DemoHomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions 
 
         binding.btnTodosApp.setOnClickListener {
             listener?.navigate(R.id.awesomeTodosMainActivity)
+        }
+
+        binding.btnCmsApp.setOnClickListener {
+            listener?.navigate(R.id.cmsApp)
         }
     }
 

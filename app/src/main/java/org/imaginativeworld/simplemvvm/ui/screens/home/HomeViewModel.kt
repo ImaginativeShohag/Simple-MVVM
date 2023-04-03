@@ -24,34 +24,11 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.db
+package org.imaginativeworld.simplemvvm.ui.screens.home
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-@Dao
-interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(userModel: DemoUserEntity): Long
-
-    @Update
-    suspend fun update(userModel: DemoUserEntity)
-
-    @Delete
-    suspend fun delete(userModel: DemoUserEntity)
-
-    @Query("DELETE FROM users")
-    suspend fun removeAll()
-
-    @Query("SELECT * FROM users")
-    suspend fun getAll(): List<DemoUserEntity>
-
-    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    suspend fun getById(id: Int): DemoUserEntity?
-}
+@HiltViewModel
+class HomeViewModel @Inject constructor() : ViewModel()

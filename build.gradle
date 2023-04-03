@@ -41,6 +41,7 @@ subprojects {
             targetExclude("bin/**/*.kt")
 
             ktlint("0.48.2")
+                    .userData(["disabled_rules": "trailing-comma-on-declaration-site"])
             licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
         }
     }

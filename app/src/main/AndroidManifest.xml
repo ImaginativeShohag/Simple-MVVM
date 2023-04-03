@@ -39,6 +39,9 @@
         <activity
             android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
+            android:theme="@style/AppTheme" />
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider

@@ -36,7 +36,7 @@ import org.imaginativeworld.simplemvvm.databinding.CmsUserItemBinding
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 
 class UserListAdapter(
-    private val onClick: (User) -> Unit
+    private val onClick: (User) -> Unit,
 ) : ListAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -50,7 +50,7 @@ class UserListAdapter(
 
     class UserViewHolder private constructor(
         private val binding: CmsUserItemBinding,
-        private val onClick: (User) -> Unit
+        private val onClick: (User) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: User) {
@@ -63,8 +63,8 @@ class UserListAdapter(
                 binding.tvStatus.setTextColor(
                     ContextCompat.getColor(
                         context,
-                        item.getStatusColor()
-                    )
+                        item.getStatusColor(),
+                    ),
                 )
             }
 
@@ -76,7 +76,7 @@ class UserListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                onClick: (User) -> Unit
+                onClick: (User) -> Unit,
             ): UserViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CmsUserItemBinding.inflate(layoutInflater, parent, false)

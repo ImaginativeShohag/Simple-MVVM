@@ -28,7 +28,6 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
@@ -36,11 +35,12 @@ import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
+import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: UserApiInterface,
-    private val db: AppDatabase
+    private val db: AppDatabase,
 ) {
     suspend fun getUsers() = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
@@ -69,7 +69,7 @@ class UserRepository @Inject constructor(
     // ----------------------------------------------------------------
 
     suspend fun saveUserInDB(
-        userModel: DemoUserEntity
+        userModel: DemoUserEntity,
     ): Long {
         return withContext(Dispatchers.IO) {
             db.userDao().insert(userModel)

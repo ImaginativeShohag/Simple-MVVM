@@ -33,7 +33,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
 
 @Dao
 interface UserDao {

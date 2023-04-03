@@ -88,7 +88,7 @@ object Utils {
         context: Context,
         messageTitle: String?,
         messageBody: String,
-        targetIntent: Intent?
+        targetIntent: Intent?,
     ) {
         val channelId = context.getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -104,7 +104,7 @@ object Utils {
                 context,
                 0, /* Request code */
                 targetIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_UPDATE_CURRENT,
             )
 
             notificationBuilder.setContentIntent(pendingIntent)
@@ -118,7 +118,7 @@ object Utils {
             val channel = NotificationChannel(
                 channelId,
                 "General notification",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_DEFAULT,
             )
             channel.description = "All general notifications"
             notificationManager.createNotificationChannel(channel)
@@ -137,7 +137,7 @@ object Utils {
      * A default try-catch block to handle general crashes.
      */
     inline fun ignoreCrash(
-        couldBeCrash: () -> Unit
+        couldBeCrash: () -> Unit,
     ) {
         try {
             couldBeCrash()

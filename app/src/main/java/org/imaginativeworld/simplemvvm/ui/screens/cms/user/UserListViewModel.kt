@@ -31,15 +31,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
+import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {

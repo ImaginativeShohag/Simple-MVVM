@@ -30,16 +30,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
-import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import org.imaginativeworld.simplemvvm.datasource.UserPagingSource
+import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.repositories.UserRepository
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -60,28 +64,11 @@ class UserListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _userItems: MutableLiveData<List<User>> by lazy {
-        MutableLiveData<List<User>>()
-    }
-
-    val userItems: LiveData<List<User>?>
-        get() = _userItems
-
-    // ----------------------------------------------------------------
-
-    fun getUsers() = viewModelScope.launch {
-        _eventShowLoading.value = true
-
-        try {
-            val users = userRepository.getUsers()
-
-            _userItems.value = users
-        } catch (e: ApiException) {
-            _userItems.value = listOf()
-
-            _eventShowMessage.value = e.message
+    fun getUsers(): Flow<PagingData<User>> {
+        return Pager(PagingConfig(pageSize = 20)) {
+            UserPagingSource(userRepository)
         }
-
-        _eventShowLoading.value = false
+            .flow
+            .cachedIn(viewModelScope)
     }
 }

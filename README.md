@@ -79,6 +79,7 @@ A simple Android MVVM pattern example and template.
 - [ ] OneSignal integration
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
+- [ ] Add spotless to CI/CD
 
 # Note
 

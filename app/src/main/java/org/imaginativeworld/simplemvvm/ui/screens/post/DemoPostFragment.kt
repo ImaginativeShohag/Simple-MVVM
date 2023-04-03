@@ -72,7 +72,7 @@ class DemoPostFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         Timber.d("onCreateView")
 
@@ -115,7 +115,7 @@ class DemoPostFragment :
 
         val dividerItemDecoration = DividerItemDecoration(
             binding.recyclerView.context,
-            layoutManager.orientation,
+            layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 

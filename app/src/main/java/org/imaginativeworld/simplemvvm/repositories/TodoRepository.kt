@@ -28,6 +28,7 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
@@ -37,12 +38,11 @@ import org.imaginativeworld.simplemvvm.models.awesometodos.asEntity
 import org.imaginativeworld.simplemvvm.models.awesometodos.asModel
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.TodoApiInterface
-import javax.inject.Inject
 
 class TodoRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: TodoApiInterface,
-    private val db: AppDatabase,
+    private val db: AppDatabase
 ) {
     suspend fun getTodos(userId: Int) = withContext(Dispatchers.IO) {
         if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {

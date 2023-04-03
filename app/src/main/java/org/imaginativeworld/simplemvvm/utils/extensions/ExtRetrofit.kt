@@ -26,11 +26,11 @@
 
 package org.imaginativeworld.simplemvvm.utils.extensions
 
+import java.io.File
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
 fun String?.toFormRequestBody() = this?.toRequestBody(MultipartBody.FORM)
 
@@ -46,7 +46,7 @@ fun String?.createFormDataFromPath(fieldName: String): MultipartBody.Part? {
         MultipartBody.Part.createFormData(
             fieldName,
             pictureFile.name,
-            requestBody,
+            requestBody
         )
     }
 }

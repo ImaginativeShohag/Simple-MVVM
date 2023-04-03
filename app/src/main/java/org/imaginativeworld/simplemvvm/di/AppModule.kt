@@ -33,6 +33,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.network.ApiClient
 import org.imaginativeworld.simplemvvm.network.api.PostApiInterface
@@ -40,7 +41,6 @@ import org.imaginativeworld.simplemvvm.network.api.TodoApiInterface
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
 import org.imaginativeworld.simplemvvm.utils.extensions.MoshiUtil
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

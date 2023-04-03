@@ -32,10 +32,11 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserApiInterface {
-    @GET("v2/users/")
-    suspend fun getUsers(): Response<List<User>>
+    @GET("v2/users")
+    suspend fun getUsers(@Query("page") page: Long): Response<List<User>>
 
     @GET("v2/users/{id}")
     suspend fun getUser(@Path("id") userId: Int): Response<User>

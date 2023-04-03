@@ -38,12 +38,12 @@ data class TodoEntity(
     val title: String,
     val dueOn: Date?,
     val status: String,
-    val userId: Int = 1,
+    val userId: Int = 1
 )
 fun TodoEntity.asModel() = TodoItem(
     id = id,
     title = title,
     dueOn = dueOn,
     status = status,
-    userId = userId,
+    userId = userId
 )

@@ -32,16 +32,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import java.util.Date
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
-import java.util.Date
 
 @Database(
     entities = [
         DemoUserEntity::class,
-        TodoEntity::class,
+        TodoEntity::class
     ],
-    version = 2,
+    version = 2
 )
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -64,7 +64,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            "MyDatabase.db",
+            "MyDatabase.db"
         )
 //            .addMigrations(MIGRATION_1_2) // Note: Migration example
             .fallbackToDestructiveMigration() // Note: Mostly for debug

@@ -28,15 +28,15 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.PostApiInterface
-import javax.inject.Inject
 
 class PostRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val api: PostApiInterface,
+    private val api: PostApiInterface
 ) {
     suspend fun getPosts() = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
@@ -45,11 +45,11 @@ class PostRepository @Inject constructor(
     }
 
     suspend fun getPostsPaged(
-        page: Int,
+        page: Int
     ) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.getPostsPaged(
-                page,
+                page
             )
         }
     }

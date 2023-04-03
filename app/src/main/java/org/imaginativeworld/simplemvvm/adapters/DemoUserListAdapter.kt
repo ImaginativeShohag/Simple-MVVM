@@ -37,7 +37,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListene
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 
 class DemoUserListAdapter(
-    val listener: OnObjectListInteractionListener<DemoUserEntity>,
+    val listener: OnObjectListInteractionListener<DemoUserEntity>
 ) :
     ListAdapter<DemoUserEntity, DemoUserListAdapter.ListViewHolder>(DIFF_CALLBACK),
     BindableAdapter<List<DemoUserEntity>> {
@@ -45,11 +45,17 @@ class DemoUserListAdapter(
     companion object {
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoUserEntity>() {
-            override fun areItemsTheSame(oldItem: DemoUserEntity, newItem: DemoUserEntity): Boolean {
+            override fun areItemsTheSame(
+                oldItem: DemoUserEntity,
+                newItem: DemoUserEntity
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: DemoUserEntity, newItem: DemoUserEntity): Boolean {
+            override fun areContentsTheSame(
+                oldItem: DemoUserEntity,
+                newItem: DemoUserEntity
+            ): Boolean {
                 return oldItem == newItem
             }
         }
@@ -82,7 +88,7 @@ class DemoUserListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemUserBinding,
-        private val listener: OnObjectListInteractionListener<DemoUserEntity>,
+        private val listener: OnObjectListInteractionListener<DemoUserEntity>
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DemoUserEntity) {
@@ -101,7 +107,7 @@ class DemoUserListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoUserEntity>,
+                listener: OnObjectListInteractionListener<DemoUserEntity>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemUserBinding.inflate(layoutInflater, parent, false)

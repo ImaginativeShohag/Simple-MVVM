@@ -85,8 +85,8 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
             parentViewModel.navigate(
                 NavDestination(
                     fragmentClass = TodoListFragment::class.java,
-                    addToBackStack = false,
-                ),
+                    addToBackStack = false
+                )
             )
         }
     }
@@ -106,7 +106,7 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
             viewModel.signIn(
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),
-                binding.tvGender.text.toString(),
+                binding.tvGender.text.toString()
             )
         }
     }

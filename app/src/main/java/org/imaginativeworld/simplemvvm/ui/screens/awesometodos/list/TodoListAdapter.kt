@@ -36,7 +36,7 @@ import org.imaginativeworld.simplemvvm.databinding.AwesomeTodosTodoItemBinding
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 
 class TodoListAdapter(
-    private val onClick: (TodoItem) -> Unit,
+    private val onClick: (TodoItem) -> Unit
 ) : ListAdapter<TodoItem, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -50,7 +50,7 @@ class TodoListAdapter(
 
     class TodoViewHolder private constructor(
         private val binding: AwesomeTodosTodoItemBinding,
-        private val onClick: (TodoItem) -> Unit,
+        private val onClick: (TodoItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TodoItem) {
@@ -61,8 +61,8 @@ class TodoListAdapter(
                 binding.tvStatus.setTextColor(
                     ContextCompat.getColor(
                         context,
-                        item.getStatusColor(),
-                    ),
+                        item.getStatusColor()
+                    )
                 )
             }
 
@@ -74,7 +74,7 @@ class TodoListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                onClick: (TodoItem) -> Unit,
+                onClick: (TodoItem) -> Unit
             ): TodoViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = AwesomeTodosTodoItemBinding.inflate(layoutInflater, parent, false)

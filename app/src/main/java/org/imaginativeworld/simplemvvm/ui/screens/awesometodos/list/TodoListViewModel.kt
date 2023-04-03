@@ -31,19 +31,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoListViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {

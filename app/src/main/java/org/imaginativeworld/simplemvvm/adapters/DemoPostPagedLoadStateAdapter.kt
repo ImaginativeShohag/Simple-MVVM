@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.DemoLoadStateFooterViewItemBinding
 
 class DemoPostPagedLoadStateAdapter(
-    private val retry: () -> Unit,
+    private val retry: () -> Unit
 ) : LoadStateAdapter<DemoPostPagedLoadStateAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ItemViewHolder {
@@ -48,7 +48,7 @@ class DemoPostPagedLoadStateAdapter(
 
     class ItemViewHolder private constructor(
         private val binding: DemoLoadStateFooterViewItemBinding,
-        retry: () -> Unit,
+        retry: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -67,7 +67,7 @@ class DemoPostPagedLoadStateAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                retry: () -> Unit,
+                retry: () -> Unit
             ): ItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =

@@ -67,7 +67,7 @@ class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         Timber.d("onCreateView")
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -116,7 +116,7 @@ class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
             CustomSnackbar.make(
                 binding.root,
                 "Hi! I am a custom Snackbar!",
-                Snackbar.LENGTH_INDEFINITE,
+                Snackbar.LENGTH_INDEFINITE
             )
                 .setAction("Ok", View.OnClickListener {})
                 .show()

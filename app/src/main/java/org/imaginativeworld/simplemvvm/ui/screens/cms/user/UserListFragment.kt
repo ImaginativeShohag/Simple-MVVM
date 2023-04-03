@@ -29,10 +29,15 @@ package org.imaginativeworld.simplemvvm.ui.screens.cms.user
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -65,14 +70,15 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
         binding = FragmentCmsUserListBinding.bind(view)
 
         initViews()
-
         initListeners()
-
+        initAdapterObserver()
         load()
     }
 
     private fun load() {
-        viewModel.getUsers()
+        lifecycleScope.launch {
+            viewModel.getUsers().collectLatest(adapter::submitData)
+        }
     }
 
     override fun initObservers() {
@@ -90,13 +96,6 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
                     parentViewModel.hideLoading()
                 }
             }
-        }
-
-        viewModel.userItems.observe(this) { todoItems ->
-            binding.tvEmpty.visibility =
-                if (todoItems?.isEmpty() == true) View.VISIBLE else View.GONE
-
-            adapter.submitList(todoItems)
         }
     }
 
@@ -130,5 +129,22 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
 //                args
 //            )
 //        )
+    }
+
+    private fun initAdapterObserver() {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect { loadState ->
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                val isLoading = loadState.refresh is LoadState.Loading
+
+                binding.tvEmpty.isVisible = isListEmpty
+                if (isLoading) {
+                    parentViewModel.showLoading()
+                } else {
+                    parentViewModel.hideLoading()
+                }
+            }
+        }
     }
 }

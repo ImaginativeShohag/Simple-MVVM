@@ -29,15 +29,15 @@ package org.imaginativeworld.simplemvvm.ui.screens.cms.user
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsUserItemBinding
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 
 class UserListAdapter(
-    private val onClick: (User) -> Unit,
-) : ListAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
+    private val onClick: (User) -> Unit
+) : PagingDataAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder.from(parent, onClick)
@@ -50,33 +50,35 @@ class UserListAdapter(
 
     class UserViewHolder private constructor(
         private val binding: CmsUserItemBinding,
-        private val onClick: (User) -> Unit,
+        private val onClick: (User) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: User) {
-            binding.tvId.text = "${item.id}"
-            binding.tvName.text = item.name
-            binding.tvEmail.text = item.email
-            binding.tvGender.text = item.gender
-            binding.tvStatus.text = item.getStatusLabel()
-            binding.root.context?.let { context ->
-                binding.tvStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        item.getStatusColor(),
-                    ),
-                )
-            }
+        fun bind(item: User?) {
+            item?.also {
+                binding.tvId.text = "${item.id}"
+                binding.tvName.text = item.name
+                binding.tvEmail.text = item.email
+                binding.tvGender.text = item.gender
+                binding.tvStatus.text = item.getStatusLabel()
+                binding.root.context?.let { context ->
+                    binding.tvStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            item.getStatusColor()
+                        )
+                    )
+                }
 
-            binding.root.setOnClickListener {
-                onClick(item)
+                binding.root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
 
         companion object {
             fun from(
                 parent: ViewGroup,
-                onClick: (User) -> Unit,
+                onClick: (User) -> Unit
             ): UserViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CmsUserItemBinding.inflate(layoutInflater, parent, false)

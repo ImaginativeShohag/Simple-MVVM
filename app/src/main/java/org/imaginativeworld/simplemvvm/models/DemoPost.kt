@@ -41,7 +41,7 @@ data class DemoPost(
     @Json(name = "body")
     val body: String,
     @Json(name = "user_id")
-    val userId: String,
+    val userId: String
 ) {
     companion object {
         fun getDummies(): List<DemoPost> {
@@ -49,27 +49,38 @@ data class DemoPost(
                 DemoPost(
                     "${Random(0).nextInt()}",
                     "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                    "quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto",
-                    "${Random(0).nextInt()}",
+                    "quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\n" +
+                        "reprehenderit molestiae ut ut quas totam\\n" +
+                        "nostrum rerum est autem sunt rem eveniet architecto",
+                    "${Random(0).nextInt()}"
                 ),
                 DemoPost(
                     "${Random(0).nextInt()}",
                     "qui est esse",
-                    "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-                    "${Random(0).nextInt()}",
+                    "est rerum tempore vitae\n" +
+                        "sequi sint nihil reprehenderit dolor beatae ea dolores neque\n" +
+                        "fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\n" +
+                        "qui aperiam non debitis possimus qui neque nisi nulla",
+                    "${Random(0).nextInt()}"
                 ),
                 DemoPost(
                     "${Random(0).nextInt()}",
                     "eum et est occaecati",
-                    "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
-                    "${Random(0).nextInt()}",
+                    "ullam et saepe reiciendis voluptatem adipisci\n" +
+                        "sit amet autem assumenda provident rerum culpa\n" +
+                        "quis hic commodi nesciunt rem tenetur doloremque ipsam iure\n" +
+                        "quis sunt voluptatem rerum illo velit",
+                    "${Random(0).nextInt()}"
                 ),
                 DemoPost(
                     "${Random(0).nextInt()}",
                     "nesciunt quas odio",
-                    "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque",
-                    "${Random(0).nextInt()}",
-                ),
+                    "repudiandae veniam quaerat sunt sed\n" +
+                        "alias aut fugiat sit autem sed est\n" +
+                        "voluptatem omnis possimus esse voluptatibus quis\n" +
+                        "est aut tenetur dolor neque",
+                    "${Random(0).nextInt()}"
+                )
             )
         }
     }

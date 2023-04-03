@@ -31,18 +31,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoSignInViewModel @Inject constructor(
     private val repository: UserRepository,
-    private val sharedPref: SharedPref,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
         MutableLiveData<String?>()
@@ -74,7 +74,7 @@ class TodoSignInViewModel @Inject constructor(
     private fun isValid(
         name: String,
         email: String,
-        gender: String,
+        gender: String
     ): Boolean {
         if (name.isBlank()) {
             _eventShowMessage.postValue("Please enter your name!")
@@ -102,7 +102,7 @@ class TodoSignInViewModel @Inject constructor(
     fun signIn(
         name: String,
         email: String,
-        gender: String,
+        gender: String
     ) = viewModelScope.launch {
         if (!isValid(name, email, gender)) {
             return@launch
@@ -117,8 +117,8 @@ class TodoSignInViewModel @Inject constructor(
                     name,
                     email,
                     gender,
-                    "active",
-                ),
+                    "active"
+                )
             )
 
             if (newUser != null) {

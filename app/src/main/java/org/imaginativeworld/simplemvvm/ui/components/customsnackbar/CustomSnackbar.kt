@@ -35,8 +35,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import android.widget.FrameLayout
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -45,10 +43,9 @@ import org.imaginativeworld.simplemvvm.R
 
 class CustomSnackbar private constructor(
     parent: ViewGroup,
-    val content: CustomSnackbarContentLayout,
+    val content: CustomSnackbarContentLayout
 ) : BaseTransientBottomBar<CustomSnackbar>(parent, content, content) {
 
-    @Nullable
     private var accessibilityManager: AccessibilityManager? = null
     private var hasAction: Boolean = false
 
@@ -59,8 +56,8 @@ class CustomSnackbar private constructor(
         getView().setBackgroundColor(
             ContextCompat.getColor(
                 view.context,
-                android.R.color.transparent,
-            ),
+                android.R.color.transparent
+            )
         )
         getView().setPadding(0, 0, 0, 0)
 
@@ -87,20 +84,20 @@ class CustomSnackbar private constructor(
          *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
          */
         fun make(
-            @NonNull view: View,
-            @NonNull text: CharSequence,
-            @Duration duration: Int,
+            view: View,
+            text: CharSequence,
+            @Duration duration: Int
         ): CustomSnackbar {
             val parent = view.findSuitableParent()
                 ?: throw IllegalArgumentException(
-                    "No suitable parent found from the given view. Please provide a valid view.",
+                    "No suitable parent found from the given view. Please provide a valid view."
                 )
 
             val inflater = LayoutInflater.from(parent.context)
             val content = inflater.inflate(
                 R.layout.custom_snackbar_layout_inflate,
                 parent,
-                false,
+                false
             ) as CustomSnackbarContentLayout
 
             val snackbar = CustomSnackbar(parent, content)
@@ -126,9 +123,9 @@ class CustomSnackbar private constructor(
          *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
          */
         fun make(
-            @NonNull view: View,
+            view: View,
             @StringRes resId: Int,
-            @Duration duration: Int,
+            @Duration duration: Int
         ): CustomSnackbar {
             return make(view, view.resources.getText(resId), duration)
         }
@@ -182,8 +179,8 @@ class CustomSnackbar private constructor(
      * @param listener callback to be invoked when the action is clicked
      */
     fun setAction(
-        @Nullable text: CharSequence,
-        @Nullable listener: View.OnClickListener?,
+        text: CharSequence?,
+        listener: View.OnClickListener?
     ): CustomSnackbar {
         val actionView = content.actionView
         if (TextUtils.isEmpty(text) || listener == null) {
@@ -211,13 +208,13 @@ class CustomSnackbar private constructor(
      */
     fun setAction(
         @StringRes resId: Int,
-        @Nullable listener: (View) -> Unit,
+        listener: ((View) -> Unit)?
     ): CustomSnackbar {
         return setAction(
             context.getText(resId),
             View.OnClickListener {
-                listener.invoke(view)
-            },
+                listener?.invoke(view)
+            }
         )
     }
 
@@ -228,14 +225,14 @@ class CustomSnackbar private constructor(
      * @param listener callback to be invoked when the action is clicked
      */
     fun setAction(
-        @Nullable text: CharSequence,
-        @Nullable listener: (View) -> Unit,
+        text: CharSequence?,
+        listener: ((View) -> Unit)?
     ): CustomSnackbar {
         return setAction(
             text,
             View.OnClickListener {
-                listener.invoke(view)
-            },
+                listener?.invoke(view)
+            }
         )
     }
 
@@ -252,11 +249,17 @@ class CustomSnackbar private constructor(
             val controlsFlag = if (hasAction) AccessibilityManager.FLAG_CONTENT_CONTROLS else 0
             return accessibilityManager!!.getRecommendedTimeoutMillis(
                 userSetDuration,
-                controlsFlag or AccessibilityManager.FLAG_CONTENT_ICONS or AccessibilityManager.FLAG_CONTENT_TEXT,
+                controlsFlag
+                    or AccessibilityManager.FLAG_CONTENT_ICONS
+                    or AccessibilityManager.FLAG_CONTENT_TEXT
             )
         }
 
         // If touch exploration is enabled override duration to give people chance to interact.
-        return if (hasAction && accessibilityManager!!.isTouchExplorationEnabled) LENGTH_INDEFINITE else userSetDuration
+        return if (hasAction && accessibilityManager!!.isTouchExplorationEnabled) {
+            LENGTH_INDEFINITE
+        } else {
+            userSetDuration
+        }
     }
 }

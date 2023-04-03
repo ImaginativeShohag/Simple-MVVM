@@ -73,7 +73,7 @@ class DemoPostPagedFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DemoFragmentPostPagedBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -116,12 +116,12 @@ class DemoPostPagedFragment :
 
         val dividerItemDecoration = DividerItemDecoration(
             binding.recyclerView.context,
-            layoutManager.orientation,
+            layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
-            DemoPostPagedLoadStateAdapter { adapter.retry() },
+            DemoPostPagedLoadStateAdapter { adapter.retry() }
         )
 
         // Add paging data
@@ -149,9 +149,11 @@ class DemoPostPagedFragment :
     }
 
     override fun onClick(position: Int, dataObject: DemoPost) {
+        /* no-op */
     }
 
     override fun onLongClick(position: Int, dataObject: DemoPost) {
+        /* no-op */
     }
 
     override fun showEmptyView() {

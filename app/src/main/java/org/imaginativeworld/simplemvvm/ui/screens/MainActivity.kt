@@ -43,6 +43,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
@@ -57,7 +58,6 @@ import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
@@ -120,7 +120,7 @@ class MainActivity :
                 splashScreenView.view,
                 View.TRANSLATION_Y,
                 0f,
-                -splashScreenView.view.height.toFloat(),
+                -splashScreenView.view.height.toFloat()
             )
             slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = 1000L

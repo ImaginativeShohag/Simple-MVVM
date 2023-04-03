@@ -64,7 +64,7 @@ class DemoFragmentNavList : Fragment(R.layout.fragment_demo_fragment_nav_list), 
         "🍒 Cherries",
         "🍓 Strawberry",
         "🫐 Blueberries",
-        "🥝 Kiwi Fruit",
+        "🥝 Kiwi Fruit"
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +108,7 @@ class DemoFragmentNavList : Fragment(R.layout.fragment_demo_fragment_nav_list), 
     override fun initListeners() {
         binding.list.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             parentViewModel.selectItem(
-                items[position],
+                items[position]
             )
         }
     }

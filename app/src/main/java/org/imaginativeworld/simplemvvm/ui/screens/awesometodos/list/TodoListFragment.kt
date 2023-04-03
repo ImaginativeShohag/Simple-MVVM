@@ -123,8 +123,8 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         binding.btnAdd.setOnClickListener {
             parentViewModel.navigate(
                 NavDestination(
-                    TodoAddFragment::class.java,
-                ),
+                    TodoAddFragment::class.java
+                )
             )
         }
 
@@ -142,14 +142,14 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     private fun adapterOnClick(todo: TodoItem) {
         val args = bundleOf(
             TodoDetailsFragment.ARG_TODO_ID to todo.id,
-            TodoDetailsFragment.ARG_USER_ID to todo.userId,
+            TodoDetailsFragment.ARG_USER_ID to todo.userId
         )
 
         parentViewModel.navigate(
             NavDestination(
                 TodoDetailsFragment::class.java,
-                args,
-            ),
+                args
+            )
         )
     }
 }

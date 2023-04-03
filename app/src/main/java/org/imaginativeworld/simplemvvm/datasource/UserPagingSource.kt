@@ -29,37 +29,35 @@ package org.imaginativeworld.simplemvvm.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import okio.IOException
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.PostRepository
+import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import retrofit2.HttpException
 
-class PostPagingSource(
-    private val repository: PostRepository
-) : PagingSource<Int, DemoPost>() {
+class UserPagingSource(
+    private val repository: UserRepository
+) : PagingSource<Long, User>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DemoPost> {
+    override suspend fun load(params: LoadParams<Long>): LoadResult<Long, User> {
         val pagePosition = params.key ?: 1
 
         return try {
-            val response = repository.getPostsPaged(
+            val users = repository.getUsers(
                 pagePosition
             )
 
-            val result = response?.data
-
-            if (result == null) {
+            if (users == null) {
                 LoadResult.Error(ApiException("No data returned!"))
             } else {
-                val nextKey = if (result.isEmpty()) {
+                val nextKey = if (users.isEmpty()) {
                     null
                 } else {
                     pagePosition + 1
                 }
 
                 LoadResult.Page(
-                    data = result,
-                    prevKey = if (pagePosition == 1) null else pagePosition - 1,
+                    data = users,
+                    prevKey = if (pagePosition == 1L) null else pagePosition - 1,
                     nextKey = nextKey
                 )
             }
@@ -73,7 +71,7 @@ class PostPagingSource(
     }
 
     // The refresh key is used for subsequent refresh calls to PagingSource.load after the initial load
-    override fun getRefreshKey(state: PagingState<Int, DemoPost>): Int? {
+    override fun getRefreshKey(state: PagingState<Long, User>): Long? {
         // We need to get the previous key (or next key if previous is null) of the page
         // that was closest to the most recently accessed index.
         // Anchor position is the most recently accessed index

@@ -27,10 +27,10 @@
 package org.imaginativeworld.simplemvvm.utils.extensions
 
 import com.squareup.moshi.Moshi
-import org.imaginativeworld.simplemvvm.network.jsonadapter.DateJsonAdapter
-import timber.log.Timber
 import java.net.URLEncoder
 import java.util.*
+import org.imaginativeworld.simplemvvm.network.jsonadapter.DateJsonAdapter
+import timber.log.Timber
 
 object MoshiUtil {
     fun getMoshi(): Moshi {

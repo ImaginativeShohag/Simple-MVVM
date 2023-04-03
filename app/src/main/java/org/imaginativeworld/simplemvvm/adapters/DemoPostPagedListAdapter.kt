@@ -44,7 +44,7 @@ import org.imaginativeworld.simplemvvm.utils.calculatePaletteInImage
 import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostPagedListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPost>,
+    private val listener: OnObjectListInteractionListener<DemoPost>
 ) : PagingDataAdapter<DemoPost, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -52,14 +52,14 @@ class DemoPostPagedListAdapter(
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
             override fun areItemsTheSame(
                 oldItem: DemoPost,
-                newItem: DemoPost,
+                newItem: DemoPost
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: DemoPost,
-                newItem: DemoPost,
+                newItem: DemoPost
             ): Boolean {
                 return oldItem == newItem
             }
@@ -77,7 +77,7 @@ class DemoPostPagedListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPost>,
+        private val listener: OnObjectListInteractionListener<DemoPost>
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DemoPost?) {
@@ -93,30 +93,30 @@ class DemoPostPagedListAdapter(
                 }
 
                 binding.root.setBackgroundColor(
-                    Color.parseColor("#ffffff"),
+                    Color.parseColor("#ffffff")
                 )
                 binding.tvTitle.setTextColor(
-                    Color.parseColor("#000000"),
+                    Color.parseColor("#000000")
                 )
                 binding.tvBody.setTextColor(
-                    Color.parseColor("#000000"),
+                    Color.parseColor("#000000")
                 )
 
                 CoroutineScope(Dispatchers.Main).launch {
                     val position = bindingAdapterPosition
                     calculatePaletteInImage(
                         context = binding.root.context,
-                        imageUrl = imageUrl,
+                        imageUrl = imageUrl
                     )?.let { swatch ->
                         if (position == bindingAdapterPosition) {
                             binding.root.setBackgroundColor(
-                                swatch.rgb,
+                                swatch.rgb
                             )
                             binding.tvTitle.setTextColor(
-                                swatch.titleTextColor,
+                                swatch.titleTextColor
                             )
                             binding.tvBody.setTextColor(
-                                swatch.bodyTextColor,
+                                swatch.bodyTextColor
                             )
                         }
                     }
@@ -136,7 +136,7 @@ class DemoPostPagedListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPost>,
+                listener: OnObjectListInteractionListener<DemoPost>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)

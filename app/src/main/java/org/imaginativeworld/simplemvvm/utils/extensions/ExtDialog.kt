@@ -36,11 +36,11 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
+import java.util.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DialogMonthPickerBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogSingleInputBinding
 import org.imaginativeworld.simplemvvm.databinding.DialogTimePickerBinding
-import java.util.*
 
 /**
  * Fix the dialog height.
@@ -48,7 +48,7 @@ import java.util.*
 fun Window.setDialogMaxWidthAndMinHeight() {
     setLayout(
         WindowManager.LayoutParams.MATCH_PARENT,
-        WindowManager.LayoutParams.WRAP_CONTENT,
+        WindowManager.LayoutParams.WRAP_CONTENT
     )
 }
 
@@ -61,7 +61,7 @@ fun Activity.showAlertDialog(
     positiveBtnText: String,
     positiveListener: DialogInterface.OnClickListener,
     negativeBtnText: String? = null,
-    negativeListener: DialogInterface.OnClickListener? = null,
+    negativeListener: DialogInterface.OnClickListener? = null
 ) {
     if (this.isFinishing) {
         return
@@ -107,7 +107,7 @@ fun Activity.showDialogSingleInput(
     positiveListener: (inputText: String) -> Unit,
     negativeBtnText: String,
     negativeListener: () -> Unit,
-    inputFieldCustomization: (editText: TextInputEditText) -> Unit,
+    inputFieldCustomization: (editText: TextInputEditText) -> Unit
 ): AlertDialog? {
     if (this.isFinishing) return null
 
@@ -161,7 +161,7 @@ fun Activity.showDialogSingleInput(
 fun Context.showMonthPickerDialog(
     month: Int = -1,
     year: Int = -1,
-    listener: (year: Int, month: Int) -> Unit,
+    listener: (year: Int, month: Int) -> Unit
 ) {
     val binding = DialogMonthPickerBinding.inflate(LayoutInflater.from(this))
 
@@ -197,7 +197,7 @@ fun Context.showMonthPickerDialog(
         "Sep",
         "Oct",
         "Nov",
-        "Dec",
+        "Dec"
     )
 
     binding.pickerYear.minValue = 1950
@@ -225,7 +225,7 @@ fun Int.getMonthName(): String {
             "Sep",
             "Oct",
             "Nov",
-            "Dec",
+            "Dec"
         )[this]
     } catch (e: Exception) {
         e.printStackTrace()
@@ -248,7 +248,7 @@ interface TimePickerListener {
 fun Context.showTimePickerDialog(
     currentHour: Int = 0,
     currentMin: Int = 1,
-    listener: TimePickerListener,
+    listener: TimePickerListener
 ) {
     val hours = (1..12).map { "%02d".format(it) }.toTypedArray()
     val minutes = arrayOf("00", "30")
@@ -274,7 +274,7 @@ fun Context.showTimePickerDialog(
 
             listener.onSuccess(
                 hour,
-                minutes[binding.pickerMinute.value].toInt(),
+                minutes[binding.pickerMinute.value].toInt()
             )
         }
         .setNegativeButton("Cancel") { _, _ ->
@@ -343,7 +343,7 @@ fun Activity.askAndOpenUrl(url: String) {
         "No",
         { _, _ ->
             /* no-op */
-        },
+        }
     )
 }
 
@@ -359,14 +359,14 @@ fun Activity.askAndStartPhoneCall(number: String) {
             startActivity(
                 Intent(
                     Intent.ACTION_DIAL,
-                    Uri.parse("tel:$number"),
-                ),
+                    Uri.parse("tel:$number")
+                )
             )
         },
         "No",
         { _, _ ->
             /* no-op */
-        },
+        }
     )
 }
 
@@ -376,7 +376,7 @@ fun Activity.askAndStartPhoneCall(number: String) {
 fun Activity.askAndOpenEmailClient(
     fromEmail: String,
     subject: String,
-    body: String = "",
+    body: String = ""
 ) {
     showAlertDialog(
         null,
@@ -386,12 +386,12 @@ fun Activity.askAndOpenEmailClient(
             sendEmail(
                 fromEmail,
                 subject,
-                body,
+                body
             )
         },
         "No",
         { _, _ ->
             /* no-op */
-        },
+        }
     )
 }

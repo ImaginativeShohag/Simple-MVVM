@@ -71,5 +71,5 @@ class AwesomeTodosMainViewModel @Inject constructor() : ViewModel() {
 data class NavDestination(
     val fragmentClass: Class<out Fragment>,
     val args: Bundle? = null,
-    val addToBackStack: Boolean = true,
+    val addToBackStack: Boolean = true
 )

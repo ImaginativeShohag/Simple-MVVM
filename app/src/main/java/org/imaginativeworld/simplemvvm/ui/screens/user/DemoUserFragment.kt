@@ -69,7 +69,7 @@ class DemoUserFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DemoFragmentUserBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -106,7 +106,7 @@ class DemoUserFragment :
 
         val dividerItemDecoration = DividerItemDecoration(
             binding.recyclerView.context,
-            layoutManager.orientation,
+            layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 

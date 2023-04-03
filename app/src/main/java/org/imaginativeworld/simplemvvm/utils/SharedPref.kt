@@ -30,15 +30,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.models.awesometodos.User
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class SharedPref @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext context: Context
 ) {
     companion object {
         private const val PREF_TOKEN = "token"
@@ -57,7 +57,7 @@ class SharedPref @Inject constructor(
         return sharedPref ?: synchronized(this) {
             context.getSharedPreferences(
                 "${BuildConfig.APPLICATION_ID}.main",
-                Context.MODE_PRIVATE,
+                Context.MODE_PRIVATE
             )
         }
     }

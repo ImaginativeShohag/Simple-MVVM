@@ -26,12 +26,12 @@
 
 package org.imaginativeworld.simplemvvm.usecase
 
+import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import javax.inject.Inject
 
 class UserUseCase @Inject constructor(
-    private val repository: UserRepository,
+    private val repository: UserRepository
 ) {
     suspend fun addUser(userModel: DemoUserEntity) {
         repository.saveUserInDB(userModel)

@@ -36,7 +36,9 @@ import androidx.annotation.AttrRes
  * This method converts device specific pixels to density independent pixels.
  */
 fun Int.pxToDp(context: Context): Int {
-    return (this / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+    val screenDensity =
+        context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT
+    return (this / screenDensity).toInt()
 }
 
 /**
@@ -46,7 +48,7 @@ fun Int.dpToPx(): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         this.toFloat(),
-        Resources.getSystem().displayMetrics,
+        Resources.getSystem().displayMetrics
     ).toInt()
 }
 
@@ -57,7 +59,7 @@ fun Int.spToPx(): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_SP,
         this.toFloat(),
-        Resources.getSystem().displayMetrics,
+        Resources.getSystem().displayMetrics
     ).toInt()
 }
 

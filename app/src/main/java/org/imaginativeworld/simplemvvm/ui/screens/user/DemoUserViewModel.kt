@@ -31,16 +31,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.random.Random
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 import org.imaginativeworld.simplemvvm.usecase.UserUseCase
 import timber.log.Timber
-import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class DemoUserViewModel @Inject constructor(
-    private val userUseCase: UserUseCase,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
 
     private val totalData = 4
@@ -49,14 +49,14 @@ class DemoUserViewModel @Inject constructor(
         "Shohag",
         "Rakib",
         "Shafee",
-        "Imran",
+        "Imran"
     )
 
     private val phones = listOf(
         "01111111111",
         "02222222222",
         "03333333333",
-        "04444444444",
+        "04444444444"
     )
 
     // ----------------------------------------------------------------
@@ -96,8 +96,8 @@ class DemoUserViewModel @Inject constructor(
                 DemoUserEntity(
                     name = names[randomIndex],
                     phone = phones[randomIndex],
-                    image = "https://picsum.photos/300/300?${Random.nextInt()}",
-                ),
+                    image = "https://picsum.photos/300/300?${Random.nextInt()}"
+                )
             )
 
             Timber.e("insertUserId: $insertUserId")

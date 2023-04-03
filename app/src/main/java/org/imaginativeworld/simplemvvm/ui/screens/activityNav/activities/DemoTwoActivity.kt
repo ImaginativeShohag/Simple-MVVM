@@ -55,7 +55,7 @@ class DemoTwoActivity : AppCompatActivity(), CommonFunctions {
         binding.btnFinishActivity.setOnClickListener {
             val data = DemoTwoActivityData(
                 dataOne = binding.inputDataOne.text.toString().toIntOrNull() ?: -1,
-                dataTwo = binding.inputDataTwo.text.toString(),
+                dataTwo = binding.inputDataTwo.text.toString()
             )
             val intent = Intent()
                 .apply {
@@ -70,5 +70,5 @@ class DemoTwoActivity : AppCompatActivity(), CommonFunctions {
 @Parcelize
 data class DemoTwoActivityData(
     val dataOne: Int,
-    val dataTwo: String?,
+    val dataTwo: String?
 ) : Parcelable

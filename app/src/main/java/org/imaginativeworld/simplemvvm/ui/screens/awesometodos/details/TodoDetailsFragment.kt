@@ -100,8 +100,8 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
                     binding.tvStatus.setTextColor(
                         ContextCompat.getColor(
                             context,
-                            todo.getStatusColor(),
-                        ),
+                            todo.getStatusColor()
+                        )
                     )
                 }
                 binding.tvDueDate.text = "Due: ${todo.getDueDate()}"
@@ -133,14 +133,14 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
         binding.btnEdit.setOnClickListener {
             val args = bundleOf(
                 ARG_TODO_ID to todoId,
-                ARG_USER_ID to userId,
+                ARG_USER_ID to userId
             )
 
             parentViewModel.navigate(
                 NavDestination(
                     TodoEditFragment::class.java,
-                    args,
-                ),
+                    args
+                )
             )
         }
 

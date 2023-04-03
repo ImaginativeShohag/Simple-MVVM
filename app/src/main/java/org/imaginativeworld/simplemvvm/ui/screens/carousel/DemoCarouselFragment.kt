@@ -32,12 +32,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlin.random.Random
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.DemoFragmentCarouselBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
-import kotlin.random.Random
 
 class DemoCarouselFragment : Fragment(), CommonFunctions {
 
@@ -48,7 +48,7 @@ class DemoCarouselFragment : Fragment(), CommonFunctions {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DemoFragmentCarouselBinding.inflate(inflater)
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -74,22 +74,22 @@ class DemoCarouselFragment : Fragment(), CommonFunctions {
         list.add(
             CarouselItem(
                 imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
-                caption = "Awesome first photo",
-            ),
+                caption = "Awesome first photo"
+            )
         )
 
         list.add(
             CarouselItem(
                 imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
-                caption = "Beautiful second photo",
-            ),
+                caption = "Beautiful second photo"
+            )
         )
 
         list.add(
             CarouselItem(
                 imageUrl = "https://picsum.photos/1080?${Random.nextInt()}",
-                caption = "Cool third photo",
-            ),
+                caption = "Cool third photo"
+            )
         )
 
         binding.carousel.setData(list)

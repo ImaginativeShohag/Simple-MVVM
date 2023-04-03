@@ -100,7 +100,7 @@ object AlarmUtils {
         alarmMgr.setExact(
             AlarmManager.RTC_WAKEUP,
             alarmTime,
-            operation,
+            operation
         )
     }
 
@@ -118,7 +118,7 @@ object AlarmUtils {
         context: Context,
         operation: PendingIntent,
         alarmTime: Long,
-        intervalTime: Long,
+        intervalTime: Long
     ) {
         val alarmMgr = context.getAlarmManager()
 
@@ -126,7 +126,7 @@ object AlarmUtils {
             AlarmManager.RTC_WAKEUP,
             alarmTime,
             intervalTime,
-            operation,
+            operation
         )
     }
 
@@ -155,13 +155,13 @@ object AlarmUtils {
     fun isAlarmExist(
         context: Context,
         requestCode: Int,
-        intent: Intent,
+        intent: Intent
     ): Boolean {
         return PendingIntent.getBroadcast(
             context,
             requestCode,
             intent,
-            PendingIntent.FLAG_NO_CREATE,
+            PendingIntent.FLAG_NO_CREATE
         ) != null
     }
 }

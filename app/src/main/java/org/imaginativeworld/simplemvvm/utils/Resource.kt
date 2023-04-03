@@ -30,7 +30,7 @@ package org.imaginativeworld.simplemvvm.utils
 // Source: https://developer.android.com/jetpack/docs/guide#addendum
 sealed class Resource<T>(
     val data: T? = null,
-    val message: String? = null,
+    val message: String? = null
 ) {
     class Success<T>(data: T) : Resource<T>(data)
 

@@ -27,12 +27,12 @@
 package org.imaginativeworld.simplemvvm.network
 
 import android.content.Context
+import java.net.HttpURLConnection
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
 import timber.log.Timber
-import java.net.HttpURLConnection
 
 object SafeApiRequest {
 

@@ -41,7 +41,7 @@ class ApiClient {
                 .addInterceptor(
                     HttpLoggingInterceptor().apply {
                         this.level = HttpLoggingInterceptor.Level.BODY
-                    },
+                    }
                 )
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()

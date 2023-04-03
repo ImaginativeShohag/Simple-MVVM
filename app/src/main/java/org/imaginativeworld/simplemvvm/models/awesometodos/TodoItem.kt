@@ -30,11 +30,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
+import java.util.Locale
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.utils.extensions.getHumanReadableDate
 import org.imaginativeworld.simplemvvm.utils.extensions.toLower
-import java.util.Date
-import java.util.Locale
 
 @Keep
 @JsonClass(generateAdapter = true)
@@ -48,7 +48,7 @@ data class TodoItem(
     @Json(name = "status")
     val status: String,
     @Json(name = "user_id")
-    val userId: Int = 1, // This is used for demo only.
+    val userId: Int = 1 // This is used for demo only.
 ) {
     fun getDueDate(): String {
         return dueOn?.getHumanReadableDate() ?: "No"
@@ -75,5 +75,5 @@ fun TodoItem.asEntity() = TodoEntity(
     title = title,
     dueOn = dueOn,
     status = status,
-    userId = userId,
+    userId = userId
 )

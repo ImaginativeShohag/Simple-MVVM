@@ -52,7 +52,7 @@ class DemoActivityNavFragment : Fragment(), CommonFunctions {
     private val getActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             val data = result.data?.getParcelableExtra<DemoTwoActivityData>(
-                DemoTwoActivity.PARAM_DATA,
+                DemoTwoActivity.PARAM_DATA
             )
 
             if (result.resultCode == Activity.RESULT_OK && data != null) {
@@ -72,7 +72,7 @@ class DemoActivityNavFragment : Fragment(), CommonFunctions {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentDemoActivityNavBinding.inflate(inflater, container, false)
         return binding.root
@@ -97,7 +97,7 @@ class DemoActivityNavFragment : Fragment(), CommonFunctions {
                 DemoOneActivity.start(
                     it,
                     dataOne,
-                    dataTwo,
+                    dataTwo
                 )
             }
         }

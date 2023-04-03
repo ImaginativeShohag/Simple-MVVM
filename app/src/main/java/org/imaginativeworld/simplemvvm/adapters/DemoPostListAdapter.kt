@@ -40,7 +40,7 @@ import org.imaginativeworld.simplemvvm.models.DemoPost
 import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPost>,
+    private val listener: OnObjectListInteractionListener<DemoPost>
 ) : ListAdapter<DemoPost, DemoPostListAdapter.ListViewHolder>(DIFF_CALLBACK),
     BindableAdapter<List<DemoPost>> {
 
@@ -83,7 +83,7 @@ class DemoPostListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPost>,
+        private val listener: OnObjectListInteractionListener<DemoPost>
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DemoPost) {
@@ -110,7 +110,7 @@ class DemoPostListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPost>,
+                listener: OnObjectListInteractionListener<DemoPost>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)

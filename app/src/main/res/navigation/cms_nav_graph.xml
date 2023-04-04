@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.user.UserListFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.user.list.UserListFragment"
         android:label="UserListFragment" />
 </navigation>

@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.user
+package org.imaginativeworld.simplemvvm.ui.screens.cms.user.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

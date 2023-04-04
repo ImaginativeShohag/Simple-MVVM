@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
-    tools:context=".ui.screens.cms.user.UserListFragment"
+    tools:context=".ui.screens.cms.user.list.UserListFragment"
     tools:ignore="HardcodedText">
 
     <include

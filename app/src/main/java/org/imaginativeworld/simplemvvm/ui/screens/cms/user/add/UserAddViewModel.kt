@@ -41,8 +41,7 @@ import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
 
 @HiltViewModel
 class UserAddViewModel @Inject constructor(
-    private val repository: UserRepository,
-    private val sharedPref: SharedPref
+    private val repository: UserRepository
 ) : ViewModel() {
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
         MutableLiveData<String?>()
@@ -102,7 +101,8 @@ class UserAddViewModel @Inject constructor(
     fun addUser(
         name: String,
         email: String,
-        gender: String
+        gender: String,
+        status: String
     ) = viewModelScope.launch {
         if (!isValid(name, email, gender)) {
             return@launch
@@ -117,13 +117,11 @@ class UserAddViewModel @Inject constructor(
                     name,
                     email,
                     gender,
-                    "active"
+                    status
                 )
             )
 
             if (newUser != null) {
-                sharedPref.setUser(newUser)
-
                 _eventAddUserSuccess.postValue(true)
             } else {
                 _eventShowMessage.postValue("Sign in failed!")

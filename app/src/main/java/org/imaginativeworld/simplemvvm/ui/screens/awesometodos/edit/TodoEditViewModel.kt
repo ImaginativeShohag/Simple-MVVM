@@ -34,7 +34,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 
@@ -61,11 +61,11 @@ class TodoEditViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todo: MutableLiveData<TodoItem?> by lazy {
-        MutableLiveData<TodoItem?>()
+    private val _todo: MutableLiveData<Todo?> by lazy {
+        MutableLiveData<Todo?>()
     }
 
-    val todo: LiveData<TodoItem?>
+    val todo: LiveData<Todo?>
         get() = _todo
 
     // ----------------------------------------------------------------
@@ -134,7 +134,7 @@ class TodoEditViewModel @Inject constructor(
         try {
             repository.updateTodo(
                 todoId,
-                TodoItem(
+                Todo(
                     userId = userId,
                     title = title,
                     dueOn = dueDate,

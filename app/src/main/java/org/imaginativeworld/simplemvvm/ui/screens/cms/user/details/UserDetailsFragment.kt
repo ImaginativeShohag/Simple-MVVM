@@ -106,7 +106,11 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
         }
 
         binding.btnEdit.setOnClickListener {
-            /* no-op */
+            val action =
+                UserDetailsFragmentDirections.actionUserDetailsFragmentToUserEditFragment(
+                    args.userId
+                )
+            findNavController().navigate(action)
         }
 
         binding.btnTodos.setOnClickListener {

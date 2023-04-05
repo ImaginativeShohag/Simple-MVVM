@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.models.todo.asEntity
 import org.imaginativeworld.simplemvvm.models.todo.asModel
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
@@ -64,7 +64,7 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun addTodo(userId: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun addTodo(userId: Int, todo: Todo) = withContext(Dispatchers.IO) {
         val newTodo = SafeApiRequest.apiRequest(context) {
             api.addTodo(userId, todo)
         }
@@ -100,7 +100,7 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun updateTodo(id: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun updateTodo(id: Int, todo: Todo) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.updateTodo(id, todo)
         }

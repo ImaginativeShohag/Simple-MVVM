@@ -38,7 +38,7 @@ import org.imaginativeworld.simplemvvm.utils.extensions.toLower
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class TodoItem(
+data class Todo(
     @Json(name = "id")
     val id: Int = 0,
     @Json(name = "title")
@@ -70,7 +70,7 @@ data class TodoItem(
     }
 }
 
-fun TodoItem.asEntity() = TodoEntity(
+fun Todo.asEntity() = TodoEntity(
     id = id,
     title = title,
     dueOn = dueOn,

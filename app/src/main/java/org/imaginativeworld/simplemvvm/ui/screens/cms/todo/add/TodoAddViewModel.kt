@@ -34,7 +34,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 
@@ -108,7 +108,7 @@ class TodoAddViewModel @Inject constructor(
         try {
             repository.addTodo(
                 userId,
-                TodoItem(
+                Todo(
                     title = title,
                     dueOn = dueDate,
                     status = status.lowercase()

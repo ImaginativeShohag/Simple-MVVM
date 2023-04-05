@@ -40,7 +40,7 @@ data class TodoEntity(
     val status: String,
     val userId: Int = 1
 )
-fun TodoEntity.asModel() = TodoItem(
+fun TodoEntity.asModel() = Todo(
     id = id,
     title = title,
     dueOn = dueOn,

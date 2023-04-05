@@ -24,23 +24,23 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.edit
+package org.imaginativeworld.simplemvvm.ui.screens.cms.user.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
+import org.imaginativeworld.simplemvvm.repositories.UserRepository
+import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
 
 @HiltViewModel
-class TodoEditViewModel @Inject constructor(
-    private val repository: TodoRepository
+class UserEditViewModel @Inject constructor(
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -61,12 +61,12 @@ class TodoEditViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todo: MutableLiveData<Todo?> by lazy {
-        MutableLiveData<Todo?>()
+    private val _user: MutableLiveData<User?> by lazy {
+        MutableLiveData<User?>()
     }
 
-    val todo: LiveData<Todo?>
-        get() = _todo
+    val user: LiveData<User?>
+        get() = _user
 
     // ----------------------------------------------------------------
 
@@ -79,13 +79,15 @@ class TodoEditViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getDetails(todoId: Int) = viewModelScope.launch {
+    fun getDetails(
+        userId: Int
+    ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {
-            val todo = repository.getTodo(todoId)
+            val user = repository.getUser(userId)
 
-            _todo.postValue(todo)
+            _user.postValue(user)
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }
@@ -96,22 +98,33 @@ class TodoEditViewModel @Inject constructor(
     // ----------------------------------------------------------------
 
     private fun isValid(
-        title: String,
-        dueDate: Date?,
+        name: String,
+        email: String,
+        gender: String,
         status: String
     ): Boolean {
-        if (title.isBlank()) {
-            _eventShowMessage.postValue("Please enter title!")
+        if (name.isBlank()) {
+            _eventShowMessage.postValue("Please enter your name!")
+            return false
+        }
+
+        if (email.isBlank()) {
+            _eventShowMessage.postValue("Please enter your email!")
+            return false
+        }
+
+        if (!email.isValidEmail()) {
+            _eventShowMessage.postValue("Please enter a valid email!")
+            return false
+        }
+
+        if (gender.isBlank()) {
+            _eventShowMessage.postValue("Please select your gender!")
             return false
         }
 
         if (status.isBlank()) {
-            _eventShowMessage.postValue("Please select status!")
-            return false
-        }
-
-        if (dueDate == null) {
-            _eventShowMessage.postValue("Please select due date!")
+            _eventShowMessage.postValue("Please select user status!")
             return false
         }
 
@@ -120,25 +133,26 @@ class TodoEditViewModel @Inject constructor(
 
     fun update(
         userId: Int,
-        todoId: Int,
-        title: String,
-        dueDate: Date,
+        name: String,
+        email: String,
+        gender: String,
         status: String
     ) = viewModelScope.launch {
-        if (!isValid(title, dueDate, status)) {
+        if (!isValid(name, email, gender, status)) {
             return@launch
         }
 
         _eventShowLoading.value = true
 
         try {
-            repository.updateTodo(
-                todoId,
-                Todo(
-                    userId = userId,
-                    title = title,
-                    dueOn = dueDate,
-                    status = status.lowercase()
+            repository.updateUser(
+                userId,
+                User(
+                    userId,
+                    name,
+                    email,
+                    gender,
+                    status
                 )
             )
 

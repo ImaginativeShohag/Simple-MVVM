@@ -26,7 +26,7 @@
 
 package org.imaginativeworld.simplemvvm.network.api
 
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -37,17 +37,17 @@ import retrofit2.http.Path
 
 interface TodoApiInterface {
     @GET("v2/users/{userId}/todos")
-    suspend fun getTodos(@Path("userId") userId: Int): Response<List<TodoItem>>
+    suspend fun getTodos(@Path("userId") userId: Int): Response<List<Todo>>
 
     @POST("v2/users/{userId}/todos")
-    suspend fun addTodo(@Path("userId") userId: Int, @Body todo: TodoItem): Response<TodoItem>
+    suspend fun addTodo(@Path("userId") userId: Int, @Body todo: Todo): Response<Todo>
 
     @GET("v2/todos/{id}")
-    suspend fun getTodo(@Path("id") id: Int): Response<TodoItem>
+    suspend fun getTodo(@Path("id") id: Int): Response<Todo>
 
     @DELETE("v2/todos/{id}")
     suspend fun deleteTodo(@Path("id") id: Int): Response<Unit>
 
     @PUT("v2/todos/{id}")
-    suspend fun updateTodo(@Path("id") id: Int, @Body todo: TodoItem): Response<TodoItem>
+    suspend fun updateTodo(@Path("id") id: Int, @Body todo: Todo): Response<Todo>
 }

@@ -38,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.add.TodoAddFragment
@@ -139,7 +139,7 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         }
     }
 
-    private fun adapterOnClick(todo: TodoItem) {
+    private fun adapterOnClick(todo: Todo) {
         val args = bundleOf(
             TodoDetailsFragment.ARG_TODO_ID to todo.id,
             TodoDetailsFragment.ARG_USER_ID to todo.userId

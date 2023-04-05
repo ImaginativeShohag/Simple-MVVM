@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_userDetailsFragment_to_todoListFragment"
             app:destination="@id/todoListFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/userAddFragment"
@@ -76,6 +79,14 @@
             app:argType="integer" />
         <argument
             android:name="todoId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/userEditFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.user.edit.UserEditFragment"
+        android:label="UserEditFragment" >
+        <argument
+            android:name="userId"
             app:argType="integer" />
     </fragment>
 </navigation>

@@ -33,11 +33,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsTodoItemBinding
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 
 class TodoListAdapter(
-    private val onClick: (TodoItem) -> Unit
-) : ListAdapter<TodoItem, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
+    private val onClick: (Todo) -> Unit
+) : ListAdapter<Todo, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder.from(parent, onClick)
@@ -50,10 +50,10 @@ class TodoListAdapter(
 
     class TodoViewHolder private constructor(
         private val binding: CmsTodoItemBinding,
-        private val onClick: (TodoItem) -> Unit
+        private val onClick: (Todo) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TodoItem) {
+        fun bind(item: Todo) {
             binding.tvTitle.text = item.title
             binding.tvDueDate.text = "Due: ${item.getDueDate()}"
             binding.tvStatus.text = item.getStatusLabel()
@@ -74,7 +74,7 @@ class TodoListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                onClick: (TodoItem) -> Unit
+                onClick: (Todo) -> Unit
             ): TodoViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CmsTodoItemBinding.inflate(layoutInflater, parent, false)
@@ -84,12 +84,12 @@ class TodoListAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TodoItem>() {
-            override fun areItemsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Todo>() {
+            override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
+            override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem.id == newItem.id
             }
         }

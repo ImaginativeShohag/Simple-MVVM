@@ -33,7 +33,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
@@ -64,11 +64,11 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<TodoItem>> by lazy {
-        MutableLiveData<List<TodoItem>>()
+    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
+        MutableLiveData<List<Todo>>()
     }
 
-    val todoItems: LiveData<List<TodoItem>?>
+    val todoItems: LiveData<List<Todo>?>
         get() = _todoItems
 
     // ----------------------------------------------------------------

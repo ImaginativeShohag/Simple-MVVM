@@ -52,6 +52,12 @@ data class User(
         }
     }
 
+    fun getGenderLabel(): String {
+        return gender.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+    }
+
     @ColorRes
     fun getStatusColor(): Int {
         return if (status.toLower() == "active") {

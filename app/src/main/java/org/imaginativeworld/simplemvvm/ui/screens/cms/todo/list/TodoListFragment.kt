@@ -38,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 
 @AndroidEntryPoint
@@ -128,7 +128,7 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
         }
     }
 
-    private fun adapterOnClick(todo: TodoItem) {
+    private fun adapterOnClick(todo: Todo) {
         val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailsFragment(
             args.userId,
             todo.id

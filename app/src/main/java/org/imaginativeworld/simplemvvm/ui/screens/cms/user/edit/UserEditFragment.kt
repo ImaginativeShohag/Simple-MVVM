@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.user.add
+package org.imaginativeworld.simplemvvm.ui.screens.cms.user.edit
 
 import android.os.Bundle
 import android.view.View
@@ -33,19 +33,21 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserAddBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserEditBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
-class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunctions {
+class UserEditFragment : Fragment(R.layout.fragment_cms_user_edit), CommonFunctions {
+    private val args: UserEditFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentCmsUserAddBinding
+    private lateinit var binding: FragmentCmsUserEditBinding
 
-    private val viewModel: UserAddViewModel by viewModels()
+    private val viewModel: UserEditViewModel by viewModels()
     private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
@@ -57,11 +59,13 @@ class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunction
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentCmsUserAddBinding.bind(view)
+        binding = FragmentCmsUserEditBinding.bind(view)
 
         initViews()
 
         initListeners()
+
+        getDetails()
     }
 
     override fun initObservers() {
@@ -81,13 +85,24 @@ class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunction
             }
         }
 
-        viewModel.eventAddUserSuccess.observe(this) {
-            findNavController().popBackStack()
+        viewModel.user.observe(this) { todo ->
+            todo?.let {
+                binding.etName.setText(todo.name)
+                binding.etEmail.setText(todo.email)
+                binding.tvGender.setText(todo.getGenderLabel(), false)
+                binding.tvStatus.setText(todo.getStatusLabel(), false)
+            }
+        }
+
+        viewModel.eventUpdateSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                findNavController().popBackStack()
+            }
         }
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Add User"
+        binding.actionBar.tvActionTitle.text = "Edit User"
 
         // Gender
         val genderItems = listOf("Male", "Female")
@@ -103,15 +118,24 @@ class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunction
     }
 
     override fun initListeners() {
-        binding.btnAdd.setOnClickListener {
+        binding.actionBar.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnUpdate.setOnClickListener {
             binding.root.hideKeyboard()
 
-            viewModel.addUser(
+            viewModel.update(
+                args.userId,
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),
                 binding.tvGender.text.toString(),
                 binding.tvStatus.text.toString()
             )
         }
+    }
+
+    private fun getDetails() {
+        viewModel.getDetails(args.userId)
     }
 }

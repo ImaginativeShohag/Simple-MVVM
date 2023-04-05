@@ -34,7 +34,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref

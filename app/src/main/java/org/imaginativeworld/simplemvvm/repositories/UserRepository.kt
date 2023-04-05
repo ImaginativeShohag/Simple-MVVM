@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
 
@@ -51,6 +51,18 @@ class UserRepository @Inject constructor(
     suspend fun getUser(userId: Int) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.getUser(userId)
+        }
+    }
+
+    suspend fun deleteUser(postId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.deleteUser(postId)
+        }
+    }
+
+    suspend fun updateUser(id: Int, user: User) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.updateUser(id, user)
         }
     }
 

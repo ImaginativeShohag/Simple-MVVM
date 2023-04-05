@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.signin
+package org.imaginativeworld.simplemvvm.ui.screens.cms.user.add
 
 import android.os.Bundle
 import android.view.View
@@ -32,21 +32,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosSigninBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserAddBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list.TodoListFragment
+import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
-class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), CommonFunctions {
-    private lateinit var binding: FragmentAwesomeTodosSigninBinding
+class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunctions {
 
-    private val viewModel: TodoSignInViewModel by viewModels()
-    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+    private lateinit var binding: FragmentCmsUserAddBinding
+
+    private val viewModel: UserAddViewModel by viewModels()
+    private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
 
@@ -57,7 +57,7 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentAwesomeTodosSigninBinding.bind(view)
+        binding = FragmentCmsUserAddBinding.bind(view)
 
         initViews()
 
@@ -81,29 +81,32 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
             }
         }
 
-        viewModel.eventSignInSuccess.observe(this) {
-            parentViewModel.navigate(
-                NavDestination(
-                    fragmentClass = TodoListFragment::class.java,
-                    addToBackStack = false
-                )
-            )
+        viewModel.eventAddUserSuccess.observe(this) {
+            findNavController().popBackStack()
         }
     }
 
     override fun initViews() {
+        binding.actionBar.tvActionTitle.text = "Add User"
+
         // Gender
         val genderItems = listOf("Male", "Female")
         val genderAdapter =
             ArrayAdapter(requireContext(), R.layout.item_spinner_default, genderItems)
         binding.tvGender.setAdapter(genderAdapter)
+
+        // Status
+        val statusItems = listOf("Active", "Inactive")
+        val statusAdapter =
+            ArrayAdapter(requireContext(), R.layout.item_spinner_default, statusItems)
+        binding.tvStatus.setAdapter(statusAdapter)
     }
 
     override fun initListeners() {
-        binding.btnSignIn.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             binding.root.hideKeyboard()
 
-            viewModel.signIn(
+            viewModel.addUser(
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),
                 binding.tvGender.text.toString()

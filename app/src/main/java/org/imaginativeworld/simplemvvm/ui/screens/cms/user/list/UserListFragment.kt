@@ -33,6 +33,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,7 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.hide
 
@@ -109,26 +110,13 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
 
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
-//            parentViewModel.navigate(
-//                NavDestination(
-//                    TodoAddFragment::class.java
-//                )
-//            )
+            findNavController().navigate(R.id.action_userListFragment_to_userAddFragment)
         }
     }
 
     private fun adapterOnClick(user: User) {
-//        val args = bundleOf(
-//            TodoDetailsFragment.ARG_TODO_ID to todo.id,
-//            TodoDetailsFragment.ARG_USER_ID to todo.userId
-//        )
-//
-//        parentViewModel.navigate(
-//            NavDestination(
-//                TodoDetailsFragment::class.java,
-//                args
-//            )
-//        )
+        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment(user.id)
+        findNavController().navigate(action)
     }
 
     private fun initAdapterObserver() {

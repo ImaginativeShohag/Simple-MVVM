@@ -34,7 +34,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import java.util.Date
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
+import org.imaginativeworld.simplemvvm.models.todo.TodoEntity
 
 @Database(
     entities = [

@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.user.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,19 +33,17 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
+class UserAddViewModel @Inject constructor(
+    private val repository: UserRepository,
     private val sharedPref: SharedPref
 ) : ViewModel() {
-
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
         MutableLiveData<String?>()
     }
@@ -64,46 +62,76 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<TodoItem>> by lazy {
-        MutableLiveData<List<TodoItem>>()
-    }
-
-    val todoItems: LiveData<List<TodoItem>?>
-        get() = _todoItems
-
-    // ----------------------------------------------------------------
-
-    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
+    private val _eventAddUserSuccess: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
-    val eventSignOutSuccess: LiveData<Boolean>
-        get() = _eventSignOutSuccess
+    val eventAddUserSuccess: LiveData<Boolean>
+        get() = _eventAddUserSuccess
 
     // ----------------------------------------------------------------
 
-    fun getTodos() = viewModelScope.launch {
+    private fun isValid(
+        name: String,
+        email: String,
+        gender: String
+    ): Boolean {
+        if (name.isBlank()) {
+            _eventShowMessage.postValue("Please enter your name!")
+            return false
+        }
+
+        if (email.isBlank()) {
+            _eventShowMessage.postValue("Please enter your email!")
+            return false
+        }
+
+        if (!email.isValidEmail()) {
+            _eventShowMessage.postValue("Please enter a valid email!")
+            return false
+        }
+
+        if (gender.isBlank()) {
+            _eventShowMessage.postValue("Please select your gender!")
+            return false
+        }
+
+        return true
+    }
+
+    fun addUser(
+        name: String,
+        email: String,
+        gender: String
+    ) = viewModelScope.launch {
+        if (!isValid(name, email, gender)) {
+            return@launch
+        }
+
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id)
+            val newUser = repository.signIn(
+                User(
+                    0, // It will be ignored in the server.
+                    name,
+                    email,
+                    gender,
+                    "active"
+                )
+            )
 
-            _todoItems.value = response
+            if (newUser != null) {
+                sharedPref.setUser(newUser)
+
+                _eventAddUserSuccess.postValue(true)
+            } else {
+                _eventShowMessage.postValue("Sign in failed!")
+            }
         } catch (e: ApiException) {
-            _todoItems.value = listOf()
-
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
-    }
-
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
-
-        _eventSignOutSuccess.postValue(true)
     }
 }

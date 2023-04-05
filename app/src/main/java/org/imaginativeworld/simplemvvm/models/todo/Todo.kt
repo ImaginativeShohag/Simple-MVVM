@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models.awesometodos
+package org.imaginativeworld.simplemvvm.models.todo
 
 import androidx.annotation.ColorRes
 import androidx.annotation.Keep

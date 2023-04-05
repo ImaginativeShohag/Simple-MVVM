@@ -97,7 +97,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
 
         // Status
         val items = listOf("Pending", "Completed")
-        val adapter = ArrayAdapter(requireContext(), R.layout.awesome_todos_status_list_item, items)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner_default, items)
         binding.tvStatus.setAdapter(adapter)
 
         binding.tvStatus.setText("Pending", false)

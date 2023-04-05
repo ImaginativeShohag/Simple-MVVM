@@ -33,7 +33,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import org.imaginativeworld.simplemvvm.BuildConfig
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import timber.log.Timber
 
 @Singleton

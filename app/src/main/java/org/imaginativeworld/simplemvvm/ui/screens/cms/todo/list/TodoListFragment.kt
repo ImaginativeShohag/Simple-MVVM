@@ -24,33 +24,31 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosListBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.models.todo.TodoItem
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.add.TodoAddFragment
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.details.TodoDetailsFragment
-import org.imaginativeworld.simplemvvm.utils.extensions.hide
+import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 
 @AndroidEntryPoint
-class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonFunctions {
-    private lateinit var binding: FragmentAwesomeTodosListBinding
+class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFunctions {
+    private val args: TodoListFragmentArgs by navArgs()
+
+    private lateinit var binding: FragmentCmsTodoListBinding
 
     private val viewModel: TodoListViewModel by viewModels()
-    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+    private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
 
@@ -67,7 +65,7 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentAwesomeTodosListBinding.bind(view)
+        binding = FragmentCmsTodoListBinding.bind(view)
 
         initViews()
 
@@ -77,7 +75,7 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     }
 
     private fun load() {
-        viewModel.getTodos()
+        viewModel.getTodos(args.userId)
     }
 
     override fun initObservers() {
@@ -112,44 +110,29 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
     }
 
     override fun initViews() {
+        binding.actionBar.tvActionTitle.text = "Todos"
+
+        // Init List
         val layoutManager = LinearLayoutManager(activity)
         binding.list.layoutManager = layoutManager
         binding.list.adapter = adapter
-
-        binding.actionBar.btnBack.hide()
     }
 
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
-            parentViewModel.navigate(
-                NavDestination(
-                    TodoAddFragment::class.java
-                )
-            )
+            findNavController().navigate(R.id.action_todoListFragment_to_todoAddFragment)
         }
 
-        binding.btnSignOut.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Are you sure you want to sign out?")
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes") { _, _ ->
-                    viewModel.signOut()
-                }
-                .show()
+        binding.actionBar.btnBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
     private fun adapterOnClick(todo: TodoItem) {
-        val args = bundleOf(
-            TodoDetailsFragment.ARG_TODO_ID to todo.id,
-            TodoDetailsFragment.ARG_USER_ID to todo.userId
+        val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailsFragment(
+            args.userId,
+            todo.id
         )
-
-        parentViewModel.navigate(
-            NavDestination(
-                TodoDetailsFragment::class.java,
-                args
-            )
-        )
+        findNavController().navigate(action)
     }
 }

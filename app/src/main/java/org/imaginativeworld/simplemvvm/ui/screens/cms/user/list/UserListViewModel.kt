@@ -38,7 +38,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import org.imaginativeworld.simplemvvm.datasource.UserPagingSource
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 
 @HiltViewModel

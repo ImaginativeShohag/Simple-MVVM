@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.edit
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.add
 
 import android.os.Bundle
 import android.view.View
@@ -32,50 +32,44 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosEditBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoAddBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
+import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.getYYYYMMDD
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
-class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonFunctions {
-    private lateinit var binding: FragmentAwesomeTodosEditBinding
+class TodoAddFragment : Fragment(R.layout.fragment_cms_todo_add), CommonFunctions {
+    private val args: TodoAddFragmentArgs by navArgs()
 
-    private val viewModel: TodoEditViewModel by viewModels()
-    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+    private lateinit var binding: FragmentCmsTodoAddBinding
+
+    private val viewModel: TodoAddViewModel by viewModels()
+    private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
 
     private var selectedDueDate: Date? = null
 
-    private var userId: Int = 0
-    private var todoId: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.apply {
-            userId = getInt(ARG_USER_ID)
-            todoId = getInt(ARG_TODO_ID)
-        }
 
         initObservers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentAwesomeTodosEditBinding.bind(view)
+        binding = FragmentCmsTodoAddBinding.bind(view)
 
         initViews()
 
         initListeners()
-
-        getDetails()
     }
 
     override fun initObservers() {
@@ -95,30 +89,22 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
             }
         }
 
-        viewModel.todo.observe(this) { todo ->
-            todo?.let {
-                binding.etTitle.setText(todo.title)
-                binding.tvDueDate.setText(todo.dueOn.getYYYYMMDD())
-                binding.tvStatus.setText(todo.getStatusLabel(), false)
-
-                selectedDueDate = todo.dueOn
-            }
-        }
-
-        viewModel.eventUpdateSuccess.observe(this) { isSuccess ->
+        viewModel.eventSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
-                parentFragmentManager.popBackStack()
+                findNavController().popBackStack()
             }
         }
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Edit Todo"
+        binding.actionBar.tvActionTitle.text = "Add Todo"
 
         // Status
         val items = listOf("Pending", "Completed")
         val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner_default, items)
         binding.tvStatus.setAdapter(adapter)
+
+        binding.tvStatus.setText("Pending", false)
     }
 
     override fun initListeners() {
@@ -130,20 +116,19 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
             showDatePicker()
         }
 
-        binding.btnUpdate.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             binding.root.hideKeyboard()
 
-            viewModel.update(
-                userId,
-                todoId,
+            viewModel.add(
+                args.userId,
                 binding.etTitle.text.toString(),
-                selectedDueDate!!,
+                selectedDueDate,
                 binding.tvStatus.text?.toString() ?: ""
             )
         }
 
         binding.actionBar.btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
     }
 
@@ -155,7 +140,7 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Due Date")
             .setCalendarConstraints(constraintsBuilder.build())
-            .setSelection(selectedDueDate?.time ?: MaterialDatePicker.todayInUtcMilliseconds())
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
 
         datePicker.addOnPositiveButtonClickListener { selection ->
@@ -164,14 +149,5 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
         }
 
         datePicker.show(parentFragmentManager, null)
-    }
-
-    private fun getDetails() {
-        viewModel.getDetails(todoId)
-    }
-
-    companion object {
-        const val ARG_TODO_ID = "todo_id"
-        const val ARG_USER_ID = "user_id"
     }
 }

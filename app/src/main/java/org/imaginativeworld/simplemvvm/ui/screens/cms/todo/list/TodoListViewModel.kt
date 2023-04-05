@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -36,14 +36,10 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.todo.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
 
 @HiltViewModel
 class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref
+    private val todoRepository: TodoRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -82,13 +78,11 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getTodos() = viewModelScope.launch {
+    fun getTodos(userId: Int) = viewModelScope.launch {
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id)
+            val response = todoRepository.getTodos(userId)
 
             _todoItems.value = response
         } catch (e: ApiException) {
@@ -98,12 +92,5 @@ class TodoListViewModel @Inject constructor(
         }
 
         _eventShowLoading.value = false
-    }
-
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
-
-        _eventSignOutSuccess.postValue(true)
     }
 }

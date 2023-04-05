@@ -24,26 +24,23 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.todo.TodoItem
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref
+class TodoAddViewModel @Inject constructor(
+    private val repository: TodoRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -64,46 +61,65 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<TodoItem>> by lazy {
-        MutableLiveData<List<TodoItem>>()
+    private val _eventSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
     }
 
-    val todoItems: LiveData<List<TodoItem>?>
-        get() = _todoItems
+    val eventSuccess: LiveData<Boolean>
+        get() = _eventSuccess
 
     // ----------------------------------------------------------------
 
-    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+    private fun isValid(
+        title: String,
+        dueDate: Date?,
+        status: String
+    ): Boolean {
+        if (title.isBlank()) {
+            _eventShowMessage.postValue("Please enter title!")
+            return false
+        }
+
+        if (status.isBlank()) {
+            _eventShowMessage.postValue("Please select status!")
+            return false
+        }
+
+        if (dueDate == null) {
+            _eventShowMessage.postValue("Please select due date!")
+            return false
+        }
+
+        return true
     }
 
-    val eventSignOutSuccess: LiveData<Boolean>
-        get() = _eventSignOutSuccess
+    fun add(
+        userId: Int,
+        title: String,
+        dueDate: Date?,
+        status: String
+    ) = viewModelScope.launch {
+        if (!isValid(title, dueDate, status)) {
+            return@launch
+        }
 
-    // ----------------------------------------------------------------
-
-    fun getTodos() = viewModelScope.launch {
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id)
+            repository.addTodo(
+                userId,
+                TodoItem(
+                    title = title,
+                    dueOn = dueDate,
+                    status = status.lowercase()
+                )
+            )
 
-            _todoItems.value = response
+            _eventSuccess.postValue(true)
         } catch (e: ApiException) {
-            _todoItems.value = listOf()
-
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
-    }
-
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
-
-        _eventSignOutSuccess.postValue(true)
     }
 }

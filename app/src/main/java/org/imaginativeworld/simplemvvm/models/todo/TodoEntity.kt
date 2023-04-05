@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models.awesometodos
+package org.imaginativeworld.simplemvvm.models.todo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

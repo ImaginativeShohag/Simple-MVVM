@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.edit
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.edit
 
 import android.os.Bundle
 import android.view.View
@@ -32,23 +32,24 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosEditBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoEditBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
+import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.getYYYYMMDD
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
-class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonFunctions {
-    private lateinit var binding: FragmentAwesomeTodosEditBinding
+class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFunctions {
+    private lateinit var binding: FragmentCmsTodoEditBinding
 
     private val viewModel: TodoEditViewModel by viewModels()
-    private val parentViewModel: AwesomeTodosMainViewModel by viewModels(ownerProducer = {
+    private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
 
@@ -69,7 +70,7 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentAwesomeTodosEditBinding.bind(view)
+        binding = FragmentCmsTodoEditBinding.bind(view)
 
         initViews()
 
@@ -107,7 +108,7 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
 
         viewModel.eventUpdateSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
-                parentFragmentManager.popBackStack()
+                findNavController().popBackStack()
             }
         }
     }
@@ -143,7 +144,7 @@ class TodoEditFragment : Fragment(R.layout.fragment_awesome_todos_edit), CommonF
         }
 
         binding.actionBar.btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
     }
 

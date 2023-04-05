@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -32,7 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.imaginativeworld.simplemvvm.databinding.AwesomeTodosTodoItemBinding
+import org.imaginativeworld.simplemvvm.databinding.CmsTodoItemBinding
 import org.imaginativeworld.simplemvvm.models.todo.TodoItem
 
 class TodoListAdapter(
@@ -49,7 +49,7 @@ class TodoListAdapter(
     }
 
     class TodoViewHolder private constructor(
-        private val binding: AwesomeTodosTodoItemBinding,
+        private val binding: CmsTodoItemBinding,
         private val onClick: (TodoItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -77,7 +77,7 @@ class TodoListAdapter(
                 onClick: (TodoItem) -> Unit
             ): TodoViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = AwesomeTodosTodoItemBinding.inflate(layoutInflater, parent, false)
+                val binding = CmsTodoItemBinding.inflate(layoutInflater, parent, false)
                 return TodoViewHolder(binding, onClick)
             }
         }

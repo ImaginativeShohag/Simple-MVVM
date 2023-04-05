@@ -33,9 +33,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
-import org.imaginativeworld.simplemvvm.models.awesometodos.asEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.asModel
+import org.imaginativeworld.simplemvvm.models.todo.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.asEntity
+import org.imaginativeworld.simplemvvm.models.todo.asModel
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.TodoApiInterface
 
@@ -76,11 +76,11 @@ class TodoRepository @Inject constructor(
         newTodo
     }
 
-    suspend fun getTodoDetails(todoId: Int) = withContext(Dispatchers.IO) {
+    suspend fun getTodo(todoId: Int) = withContext(Dispatchers.IO) {
         if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
             // Online
             val todoItem = SafeApiRequest.apiRequest(context) {
-                api.getTodoDetails(todoId)
+                api.getTodo(todoId)
             }
 
             todoItem?.let {

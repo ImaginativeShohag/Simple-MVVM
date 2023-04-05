@@ -101,6 +101,7 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
     }
 
     override fun initViews() {
+        // Init List
         val layoutManager = LinearLayoutManager(activity)
         binding.list.layoutManager = layoutManager
         binding.list.adapter = adapter

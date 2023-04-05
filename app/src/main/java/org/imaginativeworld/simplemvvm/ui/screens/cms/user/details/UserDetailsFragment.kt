@@ -81,7 +81,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
 
         viewModel.eventDeleteSuccess.observe(this) { isSuccess ->
             if (isSuccess == true) {
-                parentFragmentManager.popBackStack()
+                findNavController().popBackStack()
             }
         }
     }

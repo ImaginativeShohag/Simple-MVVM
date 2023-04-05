@@ -120,7 +120,9 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
 
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_todoListFragment_to_todoAddFragment)
+            val action =
+                TodoListFragmentDirections.actionTodoListFragmentToTodoAddFragment(args.userId)
+            findNavController().navigate(action)
         }
 
         binding.actionBar.btnBack.setOnClickListener {

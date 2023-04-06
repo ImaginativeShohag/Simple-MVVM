@@ -34,10 +34,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TodoApiInterface {
     @GET("v2/users/{userId}/todos")
-    suspend fun getTodos(@Path("userId") userId: Int): Response<List<Todo>>
+    suspend fun getTodos(
+        @Path("userId") userId: Int,
+        @Query("page") page: Int
+    ): Response<List<Todo>>
 
     @POST("v2/users/{userId}/todos")
     suspend fun addTodo(@Path("userId") userId: Int, @Body todo: Todo): Response<Todo>

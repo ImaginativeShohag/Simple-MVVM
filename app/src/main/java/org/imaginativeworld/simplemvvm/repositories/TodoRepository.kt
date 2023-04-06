@@ -44,15 +44,19 @@ class TodoRepository @Inject constructor(
     private val api: TodoApiInterface,
     private val db: AppDatabase
 ) {
-    suspend fun getTodos(userId: Int) = withContext(Dispatchers.IO) {
+    suspend fun getTodos(userId: Int, page: Int) = withContext(Dispatchers.IO) {
         if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
             // Online
             val todoItems = SafeApiRequest.apiRequest(context) {
-                api.getTodos(userId)
+                api.getTodos(userId, page)
             }
 
             todoItems?.let {
-                db.todoDao().removeAll()
+                // If this is the first page, then remove all data.
+                // Because it is probably reloading data from server.
+                if (page == 1) {
+                    db.todoDao().removeAll()
+                }
 
                 db.todoDao().insertAll(todoItems.map { it.asEntity() })
             }

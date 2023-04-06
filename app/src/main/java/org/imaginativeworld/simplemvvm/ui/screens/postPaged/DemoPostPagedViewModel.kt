@@ -36,7 +36,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import org.imaginativeworld.simplemvvm.datasource.PostPagingSource
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
 @HiltViewModel
@@ -44,7 +44,7 @@ class DemoPostPagedViewModel @Inject constructor(
     private val repository: PostRepository
 ) : ViewModel() {
 
-    fun getPostsPaged(): Flow<PagingData<DemoPost>> {
+    fun getPostsPaged(): Flow<PagingData<Post>> {
         return Pager(
             PagingConfig(pageSize = 20)
         ) {

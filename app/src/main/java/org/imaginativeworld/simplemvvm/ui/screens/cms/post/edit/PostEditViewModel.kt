@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.post.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,17 +33,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref
+class PostEditViewModel @Inject constructor(
+    private val repository: PostRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -64,46 +60,85 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
-        MutableLiveData<List<Todo>>()
+    private val _post: MutableLiveData<Post?> by lazy {
+        MutableLiveData<Post?>()
     }
 
-    val todoItems: LiveData<List<Todo>?>
-        get() = _todoItems
+    val post: LiveData<Post?>
+        get() = _post
 
     // ----------------------------------------------------------------
 
-    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
+    private val _eventUpdateSuccess: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
-    val eventSignOutSuccess: LiveData<Boolean>
-        get() = _eventSignOutSuccess
+    val eventUpdateSuccess: LiveData<Boolean>
+        get() = _eventUpdateSuccess
 
     // ----------------------------------------------------------------
 
-    fun getTodos() = viewModelScope.launch {
+    fun getDetails(postId: Int) = viewModelScope.launch {
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id, 1)
+            val post = repository.getPost(postId)
 
-            _todoItems.value = response
+            _post.postValue(post)
         } catch (e: ApiException) {
-            _todoItems.value = listOf()
-
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
     }
 
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
+    // ----------------------------------------------------------------
 
-        _eventSignOutSuccess.postValue(true)
+    private fun isValid(
+        title: String,
+        body: String
+    ): Boolean {
+        if (title.isBlank()) {
+            _eventShowMessage.postValue("Please enter title!")
+            return false
+        }
+
+        if (body.isBlank()) {
+            _eventShowMessage.postValue("Please enter body!")
+            return false
+        }
+
+        return true
+    }
+
+    fun update(
+        userId: Int,
+        postId: Int,
+        title: String,
+        body: String
+    ) = viewModelScope.launch {
+        if (!isValid(title, body)) {
+            return@launch
+        }
+
+        _eventShowLoading.value = true
+
+        try {
+            repository.updatePost(
+                postId,
+                Post(
+                    id = 0, // This will be ignored in the server.
+                    userId = userId,
+                    title = title,
+                    body = body
+                )
+            )
+
+            _eventUpdateSuccess.postValue(true)
+        } catch (e: ApiException) {
+            _eventShowMessage.value = e.message
+        }
+
+        _eventShowLoading.value = false
     }
 }

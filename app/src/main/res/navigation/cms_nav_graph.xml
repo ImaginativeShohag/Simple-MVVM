@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_userDetailsFragment_to_userEditFragment"
             app:destination="@id/userEditFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_postListFragment"
+            app:destination="@id/postListFragment" />
     </fragment>
     <fragment
         android:id="@+id/userAddFragment"
@@ -85,6 +88,56 @@
         android:id="@+id/userEditFragment"
         android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.user.edit.UserEditFragment"
         android:label="UserEditFragment" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postAddFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.post.add.PostAddFragment"
+        android:label="fragment_cms_post_add"
+        tools:layout="@layout/fragment_cms_post_add" >
+        <argument android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.post.details.PostDetailsFragment"
+        android:label="fragment_cms_post_details"
+        tools:layout="@layout/fragment_cms_post_details" >
+        <action
+            android:id="@+id/action_postDetailsFragment_to_postEditFragment"
+            app:destination="@id/postEditFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postEditFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.post.edit.PostEditFragment"
+        android:label="fragment_cms_post_edit"
+        tools:layout="@layout/fragment_cms_post_edit" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postListFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.post.list.PostListFragment"
+        android:label="fragment_cms_post_list"
+        tools:layout="@layout/fragment_cms_post_list" >
+        <action
+            android:id="@+id/action_postListFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+        <action
+            android:id="@+id/action_postListFragment_to_postAddFragment"
+            app:destination="@id/postAddFragment" />
         <argument
             android:name="userId"
             app:argType="integer" />

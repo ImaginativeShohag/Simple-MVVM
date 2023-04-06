@@ -33,7 +33,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
@@ -60,11 +60,11 @@ class DemoPostViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _postItems: MutableLiveData<List<DemoPost>> by lazy {
-        MutableLiveData<List<DemoPost>>()
+    private val _postItems: MutableLiveData<List<Post>> by lazy {
+        MutableLiveData<List<Post>>()
     }
 
-    val postItems: LiveData<List<DemoPost>?>
+    val postItems: LiveData<List<Post>?>
         get() = _postItems
 
     // ----------------------------------------------------------------

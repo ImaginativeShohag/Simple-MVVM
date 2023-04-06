@@ -39,27 +39,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.databinding.DemoItemPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.utils.calculatePaletteInImage
 import org.imaginativeworld.simplemvvm.utils.extensions.dpToPx
 
 class DemoPostPagedListAdapter(
-    private val listener: OnObjectListInteractionListener<DemoPost>
-) : PagingDataAdapter<DemoPost, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    private val listener: OnObjectListInteractionListener<Post>
+) : PagingDataAdapter<Post, DemoPostPagedListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoPost>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Post>() {
             override fun areItemsTheSame(
-                oldItem: DemoPost,
-                newItem: DemoPost
+                oldItem: Post,
+                newItem: Post
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: DemoPost,
-                newItem: DemoPost
+                oldItem: Post,
+                newItem: Post
             ): Boolean {
                 return oldItem == newItem
             }
@@ -77,10 +77,10 @@ class DemoPostPagedListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemPostBinding,
-        private val listener: OnObjectListInteractionListener<DemoPost>
+        private val listener: OnObjectListInteractionListener<Post>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DemoPost?) {
+        fun bind(item: Post?) {
             item?.also { _item ->
                 binding.post = _item
                 binding.executePendingBindings()
@@ -136,7 +136,7 @@ class DemoPostPagedListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoPost>
+                listener: OnObjectListInteractionListener<Post>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemPostBinding.inflate(layoutInflater, parent, false)

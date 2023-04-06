@@ -48,13 +48,13 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 
 @AndroidEntryPoint
 class DemoPostPagedFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoPost> {
+    OnObjectListInteractionListener<Post> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -148,11 +148,11 @@ class DemoPostPagedFragment :
         }
     }
 
-    override fun onClick(position: Int, dataObject: DemoPost) {
+    override fun onClick(position: Int, dataObject: Post) {
         /* no-op */
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoPost) {
+    override fun onLongClick(position: Int, dataObject: Post) {
         /* no-op */
     }
 

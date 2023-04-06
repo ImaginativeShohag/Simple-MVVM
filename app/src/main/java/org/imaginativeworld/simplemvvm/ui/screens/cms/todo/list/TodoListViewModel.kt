@@ -82,7 +82,8 @@ class TodoListViewModel @Inject constructor(
         _eventShowLoading.value = true
 
         try {
-            val response = todoRepository.getTodos(userId)
+            // TODO: Make it paged.
+            val response = todoRepository.getTodos(userId, 0)
 
             _todoItems.value = response
         } catch (e: ApiException) {

@@ -27,14 +27,46 @@
 package org.imaginativeworld.simplemvvm.network.api
 
 import org.imaginativeworld.simplemvvm.models.DemoPostResponse
+import org.imaginativeworld.simplemvvm.models.Post
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PostApiInterface {
+    // ----------------------------------------------------------------
+    // Version 1
+    // ----------------------------------------------------------------
+
     @GET("v1/posts")
     suspend fun getPosts(): Response<DemoPostResponse>
 
     @GET("v1/posts")
     suspend fun getPostsPaged(@Query("page") page: Int): Response<DemoPostResponse>
+
+    // ----------------------------------------------------------------
+    // Version 2
+    // ----------------------------------------------------------------
+
+    @GET("v2/users/{userId}/posts")
+    suspend fun getPosts(
+        @Path("userId") userId: Int,
+        @Query("page") page: Int
+    ): Response<List<Post>>
+
+    @POST("v2/users/{userId}/posts")
+    suspend fun addPost(@Path("userId") userId: Int, @Body Post: Post): Response<Post>
+
+    @GET("v2/posts/{id}")
+    suspend fun getPost(@Path("id") id: Int): Response<Post>
+
+    @DELETE("v2/posts/{id}")
+    suspend fun deletePost(@Path("id") id: Int): Response<Unit>
+
+    @PUT("v2/posts/{id}")
+    suspend fun updatePost(@Path("id") id: Int, @Body Post: Post): Response<Post>
 }

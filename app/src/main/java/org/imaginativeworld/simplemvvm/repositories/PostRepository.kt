@@ -31,6 +31,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.PostApiInterface
 
@@ -38,6 +39,10 @@ class PostRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: PostApiInterface
 ) {
+    // ----------------------------------------------------------------
+    // Version 1
+    // ----------------------------------------------------------------
+
     suspend fun getPosts() = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.getPosts()
@@ -51,6 +56,40 @@ class PostRepository @Inject constructor(
             api.getPostsPaged(
                 page
             )
+        }
+    }
+
+    // ----------------------------------------------------------------
+    // Version 2
+    // ----------------------------------------------------------------
+
+    suspend fun getPosts(userId: Int, page: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getPosts(userId, page)
+        }
+    }
+
+    suspend fun addPost(userId: Int, post: Post) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.addPost(userId, post)
+        }
+    }
+
+    suspend fun getPost(todoId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getPost(todoId)
+        }
+    }
+
+    suspend fun deletePost(postId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.deletePost(postId)
+        }
+    }
+
+    suspend fun updatePost(id: Int, post: Post) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.updatePost(id, post)
         }
     }
 }

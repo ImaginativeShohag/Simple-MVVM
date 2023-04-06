@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.post.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,17 +33,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref
+class PostListViewModel @Inject constructor(
+    private val postRepository: PostRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -64,12 +60,12 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
-        MutableLiveData<List<Todo>>()
+    private val _posts: MutableLiveData<List<Post>> by lazy {
+        MutableLiveData<List<Post>>()
     }
 
-    val todoItems: LiveData<List<Todo>?>
-        get() = _todoItems
+    val posts: LiveData<List<Post>?>
+        get() = _posts
 
     // ----------------------------------------------------------------
 
@@ -82,28 +78,19 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getTodos() = viewModelScope.launch {
+    fun getPosts(userId: Int) = viewModelScope.launch {
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id, 1)
+            val response = postRepository.getPosts(userId, 0)
 
-            _todoItems.value = response
+            _posts.value = response
         } catch (e: ApiException) {
-            _todoItems.value = listOf()
+            _posts.value = listOf()
 
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
-    }
-
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
-
-        _eventSignOutSuccess.postValue(true)
     }
 }

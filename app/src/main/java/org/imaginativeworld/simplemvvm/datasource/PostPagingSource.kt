@@ -29,16 +29,16 @@ package org.imaginativeworld.simplemvvm.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import okio.IOException
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.PostRepository
 import retrofit2.HttpException
 
 class PostPagingSource(
     private val repository: PostRepository
-) : PagingSource<Int, DemoPost>() {
+) : PagingSource<Int, Post>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DemoPost> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         val pagePosition = params.key ?: 1
 
         return try {
@@ -73,7 +73,7 @@ class PostPagingSource(
     }
 
     // The refresh key is used for subsequent refresh calls to PagingSource.load after the initial load
-    override fun getRefreshKey(state: PagingState<Int, DemoPost>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Post>): Int? {
         // We need to get the previous key (or next key if previous is null) of the page
         // that was closest to the most recently accessed index.
         // Anchor position is the most recently accessed index

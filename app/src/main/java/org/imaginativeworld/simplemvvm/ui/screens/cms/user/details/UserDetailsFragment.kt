@@ -26,12 +26,8 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
         requireActivity()
     })
 
-    private var userId: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        userId = args.userId
 
         initObservers()
     }
@@ -100,7 +96,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
                 .setTitle("Are you sure you want to delete this todo?")
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes") { _, _ ->
-                    viewModel.delete(userId)
+                    viewModel.delete(args.userId)
                 }
                 .show()
         }
@@ -122,16 +118,15 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
         }
 
         binding.btnPosts.setOnClickListener {
-            /* no-op */
+            val action =
+                UserDetailsFragmentDirections.actionUserDetailsFragmentToPostListFragment(
+                    args.userId
+                )
+            findNavController().navigate(action)
         }
     }
 
     private fun getDetails() {
-        viewModel.getDetails(userId)
-    }
-
-    companion object {
-        const val ARG_TODO_ID = "todo_id"
-        const val ARG_USER_ID = "user_id"
+        viewModel.getDetails(args.userId)
     }
 }

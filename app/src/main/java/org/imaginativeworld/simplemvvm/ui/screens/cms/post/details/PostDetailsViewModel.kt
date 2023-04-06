@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.post.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,17 +33,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
+import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref
+class PostDetailsViewModel @Inject constructor(
+    private val repository: PostRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -55,55 +51,60 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _eventShowLoading: MutableLiveData<Boolean?> by lazy {
-        MutableLiveData<Boolean?>()
+    private val _eventShowLoading: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
     }
 
-    val eventShowLoading: LiveData<Boolean?>
+    val eventShowLoading: LiveData<Boolean>
         get() = _eventShowLoading
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
-        MutableLiveData<List<Todo>>()
+    private val _post: MutableLiveData<Post?> by lazy {
+        MutableLiveData<Post?>()
     }
 
-    val todoItems: LiveData<List<Todo>?>
-        get() = _todoItems
+    val post: LiveData<Post?>
+        get() = _post
 
     // ----------------------------------------------------------------
 
-    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+    private val _eventDeleteSuccess: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
     }
 
-    val eventSignOutSuccess: LiveData<Boolean>
-        get() = _eventSignOutSuccess
+    val eventDeleteSuccess: LiveData<Boolean?>
+        get() = _eventDeleteSuccess
 
     // ----------------------------------------------------------------
 
-    fun getTodos() = viewModelScope.launch {
+    fun getDetails(
+        PostId: Int
+    ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
-        val user = sharedPref.getUser() ?: return@launch
-
         try {
-            val response = todoRepository.getTodos(user.id, 1)
+            val post = repository.getPost(PostId)
 
-            _todoItems.value = response
+            _post.postValue(post)
         } catch (e: ApiException) {
-            _todoItems.value = listOf()
-
             _eventShowMessage.value = e.message
         }
 
         _eventShowLoading.value = false
     }
 
-    fun signOut() = viewModelScope.launch {
-        userRepository.signOut()
-        sharedPref.reset()
+    fun deletePost(PostId: Int) = viewModelScope.launch {
+        _eventShowLoading.value = true
 
-        _eventSignOutSuccess.postValue(true)
+        try {
+            repository.deletePost(PostId)
+
+            _eventDeleteSuccess.postValue(true)
+        } catch (e: ApiException) {
+            _eventShowMessage.value = e.message
+        }
+
+        _eventShowLoading.value = false
     }
 }

@@ -30,11 +30,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import org.imaginativeworld.simplemvvm.datasource.CMSPostPagingSource
 import org.imaginativeworld.simplemvvm.models.Post
-import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.PostRepository
 
 @HiltViewModel
@@ -78,19 +82,11 @@ class PostListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getPosts(userId: Int) = viewModelScope.launch {
-        _eventShowLoading.value = true
-
-        try {
-            val response = postRepository.getPosts(userId, 0)
-
-            _posts.value = response
-        } catch (e: ApiException) {
-            _posts.value = listOf()
-
-            _eventShowMessage.value = e.message
+    fun getPosts(userId: Int): Flow<PagingData<Post>> {
+        return Pager(PagingConfig(pageSize = 20)) {
+            CMSPostPagingSource(userId, postRepository)
         }
-
-        _eventShowLoading.value = false
+            .flow
+            .cachedIn(viewModelScope)
     }
 }

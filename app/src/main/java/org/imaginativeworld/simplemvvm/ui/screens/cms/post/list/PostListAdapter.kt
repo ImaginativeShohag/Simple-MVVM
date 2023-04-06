@@ -28,23 +28,23 @@ package org.imaginativeworld.simplemvvm.ui.screens.cms.post.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsPostItemBinding
 import org.imaginativeworld.simplemvvm.models.Post
 
 class PostListAdapter(
     private val onClick: (Post) -> Unit
-) : ListAdapter<Post, PostListAdapter.PostViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<Post, PostListAdapter.PostViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder.from(parent, onClick)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val Post = getItem(position)
-        holder.bind(Post)
+        val post = getItem(position)
+        holder.bind(post)
     }
 
     class PostViewHolder private constructor(
@@ -52,12 +52,14 @@ class PostListAdapter(
         private val onClick: (Post) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Post) {
-            binding.tvTitle.text = item.title
-            binding.tvBody.text = item.body
+        fun bind(item: Post?) {
+            item?.also {
+                binding.tvTitle.text = item.title
+                binding.tvBody.text = item.body
 
-            binding.root.setOnClickListener {
-                onClick(item)
+                binding.root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
 

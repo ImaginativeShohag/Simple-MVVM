@@ -29,12 +29,17 @@ package org.imaginativeworld.simplemvvm.ui.screens.cms.post.list
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsPostListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
@@ -68,14 +73,16 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
         binding = FragmentCmsPostListBinding.bind(view)
 
         initViews()
-
         initListeners()
-
+        initAdapterObserver()
         load()
     }
 
     private fun load() {
-        viewModel.getPosts(args.userId)
+        lifecycleScope.launch {
+            viewModel.getPosts(args.userId)
+                .collectLatest(adapter::submitData)
+        }
     }
 
     override fun initObservers() {
@@ -93,13 +100,6 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
                     parentViewModel.hideLoading()
                 }
             }
-        }
-
-        viewModel.posts.observe(this) { PostItems ->
-            binding.tvEmpty.visibility =
-                if (PostItems?.isEmpty() == true) View.VISIBLE else View.GONE
-
-            adapter.submitList(PostItems)
         }
 
         viewModel.eventSignOutSuccess.observe(this) { isSignedOut ->
@@ -136,5 +136,22 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
             post.id
         )
         findNavController().navigate(action)
+    }
+
+    private fun initAdapterObserver() {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect { loadState ->
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                val isLoading = loadState.refresh is LoadState.Loading
+
+                binding.tvEmpty.isVisible = isListEmpty
+                if (isLoading) {
+                    parentViewModel.showLoading()
+                } else {
+                    parentViewModel.hideLoading()
+                }
+            }
+        }
     }
 }

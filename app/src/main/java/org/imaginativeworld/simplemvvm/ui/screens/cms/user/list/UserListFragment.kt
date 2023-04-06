@@ -78,7 +78,8 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
 
     private fun load() {
         lifecycleScope.launch {
-            viewModel.getUsers().collectLatest(adapter::submitData)
+            viewModel.getUsers()
+                .collectLatest(adapter::submitData)
         }
     }
 

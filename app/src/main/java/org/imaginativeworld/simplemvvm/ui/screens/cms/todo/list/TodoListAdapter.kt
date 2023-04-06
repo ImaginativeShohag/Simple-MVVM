@@ -29,15 +29,15 @@ package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsTodoItemBinding
 import org.imaginativeworld.simplemvvm.models.todo.Todo
 
 class TodoListAdapter(
     private val onClick: (Todo) -> Unit
-) : ListAdapter<Todo, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<Todo, TodoListAdapter.TodoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder.from(parent, onClick)
@@ -53,21 +53,23 @@ class TodoListAdapter(
         private val onClick: (Todo) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Todo) {
-            binding.tvTitle.text = item.title
-            binding.tvDueDate.text = "Due: ${item.getDueDate()}"
-            binding.tvStatus.text = item.getStatusLabel()
-            binding.root.context?.let { context ->
-                binding.tvStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        item.getStatusColor()
+        fun bind(item: Todo?) {
+            item?.also {
+                binding.tvTitle.text = item.title
+                binding.tvDueDate.text = "Due: ${item.getDueDate()}"
+                binding.tvStatus.text = item.getStatusLabel()
+                binding.root.context?.let { context ->
+                    binding.tvStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            item.getStatusColor()
+                        )
                     )
-                )
-            }
+                }
 
-            binding.root.setOnClickListener {
-                onClick(item)
+                binding.root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
 

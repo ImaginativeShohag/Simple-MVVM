@@ -30,9 +30,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import org.imaginativeworld.simplemvvm.datasource.CMSTodoPagingSource
 import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
@@ -78,20 +84,11 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getTodos(userId: Int) = viewModelScope.launch {
-        _eventShowLoading.value = true
-
-        try {
-            // TODO: Make it paged.
-            val response = todoRepository.getTodos(userId, 0)
-
-            _todoItems.value = response
-        } catch (e: ApiException) {
-            _todoItems.value = listOf()
-
-            _eventShowMessage.value = e.message
+    fun getTodos(userId: Int): Flow<PagingData<Todo>> {
+        return Pager(PagingConfig(pageSize = 20)) {
+            CMSTodoPagingSource(userId, todoRepository)
         }
-
-        _eventShowLoading.value = false
+            .flow
+            .cachedIn(viewModelScope)
     }
 }

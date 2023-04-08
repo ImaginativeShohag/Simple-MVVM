@@ -37,10 +37,8 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.datasource.CMSTodoPagingSource
 import org.imaginativeworld.simplemvvm.models.todo.Todo
-import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 
 @HiltViewModel

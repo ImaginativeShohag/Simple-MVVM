@@ -115,10 +115,11 @@ class CommentDetailsFragment : Fragment(R.layout.fragment_cms_comment_details), 
         }
 
         binding.btnEdit.setOnClickListener {
-            val action = CommentDetailsFragmentDirections.actionCommentDetailsFragmentToCommentEditFragment(
-                args.postId,
-                args.commentId
-            )
+            val action =
+                CommentDetailsFragmentDirections.actionCommentDetailsFragmentToCommentEditFragment(
+                    args.postId,
+                    args.commentId
+                )
             findNavController().navigate(action)
         }
 

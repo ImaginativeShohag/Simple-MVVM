@@ -36,7 +36,6 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
-import org.imaginativeworld.simplemvvm.utils.SharedPref
 import org.imaginativeworld.simplemvvm.utils.extensions.isValidEmail
 
 @HiltViewModel

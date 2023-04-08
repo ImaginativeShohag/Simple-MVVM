@@ -88,9 +88,9 @@ class TodoListViewModel @Inject constructor(
         val user = sharedPref.getUser() ?: return@launch
 
         try {
-            val response = todoRepository.getTodos(user.id, 1)
+            val todos = todoRepository.getTodos(user.id, 1)
 
-            _todoItems.value = response
+            _todoItems.value = todos
         } catch (e: ApiException) {
             _todoItems.value = listOf()
 

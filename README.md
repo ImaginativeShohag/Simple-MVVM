@@ -25,6 +25,7 @@ A simple Android MVVM pattern example and template.
 
 ## Others
 
+- Splash Screen (Introduced in Android 12)
 - Custom Build variant (https://developer.android.com/studio/build/build-variants)
 - Environment variable based on Build variant
 - Custom Snackbar
@@ -41,9 +42,15 @@ A simple Android MVVM pattern example and template.
   - Pass data on `Fragment` transaction
 - Simple Todo app (for beginner)
   - Single Activity approach
-  - Used [Go REST](https://gorest.co.in) API
+  - Used [Go REST](https://gorest.co.in) API (Just Todo API)
   - Offline support
-- Splash Screen (Introduced in Android 12)
+- Simple CMS app
+  - Single Activity approach
+  - Used [Go REST](https://gorest.co.in) API
+  - Sections: User, Post, Todo and Comment
+  - Navigation Component
+  - Hilt
+  - Material Component 3 **(coming soon...)**
 
 ## Extension Functions (see `utils/extensions`)
 

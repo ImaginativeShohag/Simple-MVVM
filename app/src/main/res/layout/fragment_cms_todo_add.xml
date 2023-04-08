@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:colorBackground"
     tools:context=".ui.screens.cms.todo.add.TodoAddFragment"
     tools:ignore="HardcodedText">
@@ -44,12 +44,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                app:endIconMode="none"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Due Date"
-                android:labelFor="@+id/tv_due_date">
+                android:labelFor="@+id/tv_due_date"
+                app:endIconMode="none">
 
                 <AutoCompleteTextView
                     android:id="@+id/tv_due_date"
@@ -65,11 +65,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_select_due_date"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                app:icon="@drawable/round_calendar_month_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Select" />
+                android:text="Select"
+                app:icon="@drawable/round_calendar_month_24" />
 
         </LinearLayout>
 
@@ -96,7 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="36dp"
-            android:text="Add" />
+            android:text="Add"
+            app:icon="@drawable/ic_add_24dp" />
 
     </LinearLayout>
 </ScrollView>

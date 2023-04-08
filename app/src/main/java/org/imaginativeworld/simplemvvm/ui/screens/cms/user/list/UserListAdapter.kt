@@ -55,7 +55,7 @@ class UserListAdapter(
 
         fun bind(item: User?) {
             item?.also {
-                binding.tvId.text = "${item.id}"
+                binding.tvId.text = "#${item.id}"
                 binding.tvName.text = item.name
                 binding.tvEmail.text = item.email
                 binding.tvGender.text = item.gender

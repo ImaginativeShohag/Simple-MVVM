@@ -32,7 +32,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoEntity
+import org.imaginativeworld.simplemvvm.models.todo.TodoEntity
 
 @Dao
 interface TodoDao {

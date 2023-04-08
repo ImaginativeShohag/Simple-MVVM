@@ -28,31 +28,35 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
-import org.imaginativeworld.simplemvvm.models.awesometodos.asEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.asModel
+import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.todo.asEntity
+import org.imaginativeworld.simplemvvm.models.todo.asModel
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.TodoApiInterface
-import javax.inject.Inject
 
 class TodoRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: TodoApiInterface,
-    private val db: AppDatabase,
+    private val db: AppDatabase
 ) {
-    suspend fun getTodos(userId: Int) = withContext(Dispatchers.IO) {
+    suspend fun getTodos(userId: Int, page: Int) = withContext(Dispatchers.IO) {
         if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
             // Online
             val todoItems = SafeApiRequest.apiRequest(context) {
-                api.getTodos(userId)
+                api.getTodos(userId, page)
             }
 
             todoItems?.let {
-                db.todoDao().removeAll()
+                // If this is the first page, then remove all data.
+                // Because it is probably reloading data from server.
+                if (page == 1) {
+                    db.todoDao().removeAll()
+                }
 
                 db.todoDao().insertAll(todoItems.map { it.asEntity() })
             }
@@ -64,7 +68,7 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun addTodo(userId: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun addTodo(userId: Int, todo: Todo) = withContext(Dispatchers.IO) {
         val newTodo = SafeApiRequest.apiRequest(context) {
             api.addTodo(userId, todo)
         }
@@ -76,11 +80,11 @@ class TodoRepository @Inject constructor(
         newTodo
     }
 
-    suspend fun getTodoDetails(todoId: Int) = withContext(Dispatchers.IO) {
+    suspend fun getTodo(todoId: Int) = withContext(Dispatchers.IO) {
         if (NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
             // Online
             val todoItem = SafeApiRequest.apiRequest(context) {
-                api.getTodoDetails(todoId)
+                api.getTodo(todoId)
             }
 
             todoItem?.let {
@@ -100,7 +104,7 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun updateTodo(id: Int, todo: TodoItem) = withContext(Dispatchers.IO) {
+    suspend fun updateTodo(id: Int, todo: Todo) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.updateTodo(id, todo)
         }

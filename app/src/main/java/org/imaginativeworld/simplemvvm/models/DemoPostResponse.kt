@@ -34,5 +34,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class DemoPostResponse(
     @Json(name = "data")
-    val data: List<DemoPost>?,
+    val data: List<Post>?
 )

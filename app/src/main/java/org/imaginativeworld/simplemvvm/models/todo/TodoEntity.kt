@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models.awesometodos
+package org.imaginativeworld.simplemvvm.models.todo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -38,12 +38,12 @@ data class TodoEntity(
     val title: String,
     val dueOn: Date?,
     val status: String,
-    val userId: Int = 1,
+    val userId: Int = 1
 )
-fun TodoEntity.asModel() = TodoItem(
+fun TodoEntity.asModel() = Todo(
     id = id,
     title = title,
     dueOn = dueOn,
     status = status,
-    userId = userId,
+    userId = userId
 )

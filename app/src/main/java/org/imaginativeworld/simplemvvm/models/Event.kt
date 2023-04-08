@@ -41,7 +41,7 @@ data class Event<out T>(
         Int.MAX_VALUE
     } else {
         lastId++
-    },
+    }
 ) {
     companion object {
         private var lastId = Int.MAX_VALUE

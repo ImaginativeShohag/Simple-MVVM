@@ -31,19 +31,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoListViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val todoRepository: TodoRepository,
-    private val sharedPref: SharedPref,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -64,11 +64,11 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<TodoItem>> by lazy {
-        MutableLiveData<List<TodoItem>>()
+    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
+        MutableLiveData<List<Todo>>()
     }
 
-    val todoItems: LiveData<List<TodoItem>?>
+    val todoItems: LiveData<List<Todo>?>
         get() = _todoItems
 
     // ----------------------------------------------------------------
@@ -88,9 +88,9 @@ class TodoListViewModel @Inject constructor(
         val user = sharedPref.getUser() ?: return@launch
 
         try {
-            val response = todoRepository.getTodos(user.id)
+            val todos = todoRepository.getTodos(user.id, 1)
 
-            _todoItems.value = response
+            _todoItems.value = todos
         } catch (e: ApiException) {
             _todoItems.value = listOf()
 

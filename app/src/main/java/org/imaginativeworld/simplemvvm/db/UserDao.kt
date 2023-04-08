@@ -37,17 +37,20 @@ import org.imaginativeworld.simplemvvm.models.DemoUserEntity
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(userModel: DemoUserEntity): Long
+    suspend fun insert(userModel: DemoUserEntity): Long
 
     @Update
-    suspend fun updateUser(userModel: DemoUserEntity)
+    suspend fun update(userModel: DemoUserEntity)
 
     @Delete
-    suspend fun deleteUser(userModel: DemoUserEntity)
+    suspend fun delete(userModel: DemoUserEntity)
 
     @Query("DELETE FROM users")
-    suspend fun removeAllUsers()
+    suspend fun removeAll()
 
     @Query("SELECT * FROM users")
-    suspend fun getUsers(): List<DemoUserEntity>
+    suspend fun getAll(): List<DemoUserEntity>
+
+    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): DemoUserEntity?
 }

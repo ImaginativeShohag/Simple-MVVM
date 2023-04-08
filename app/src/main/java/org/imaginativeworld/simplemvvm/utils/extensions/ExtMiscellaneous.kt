@@ -72,7 +72,7 @@ fun View.showKeyboard() {
 fun Activity.downloadFile(
     url: String,
     downloadTitle: String = getString(R.string.app_name),
-    downloadDescription: String = "Downloading file",
+    downloadDescription: String = "Downloading file"
 ) {
     if (NoInternetUtils.isConnectedToInternet(this)) {
         val downloadManager =
@@ -124,7 +124,7 @@ fun Activity.openUrl(url: String) {
 fun Context.sendEmail(
     fromEmail: String,
     subject: String,
-    body: String,
+    body: String
 ) {
     try {
         val emailIntent = Intent(Intent.ACTION_VIEW)

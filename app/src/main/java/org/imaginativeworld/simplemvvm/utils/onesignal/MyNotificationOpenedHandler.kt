@@ -58,7 +58,7 @@ class MyNotificationOpenedHandler(private val application: Application) :
         val intent = Intent(application.applicationContext, MainActivity::class.java)
         intent.putExtra(
             Constants.INTENT_EXTRA_TARGET_KEY,
-            Constants.INTENT_EXTRA_TARGET_VAL_NOTIFICATIONS,
+            Constants.INTENT_EXTRA_TARGET_VAL_NOTIFICATIONS
         )
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK
         application.startActivity(intent)

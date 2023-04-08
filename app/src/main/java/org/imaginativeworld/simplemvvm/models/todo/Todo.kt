@@ -24,21 +24,21 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models.awesometodos
+package org.imaginativeworld.simplemvvm.models.todo
 
 import androidx.annotation.ColorRes
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
+import java.util.Locale
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.utils.extensions.getHumanReadableDate
 import org.imaginativeworld.simplemvvm.utils.extensions.toLower
-import java.util.Date
-import java.util.Locale
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class TodoItem(
+data class Todo(
     @Json(name = "id")
     val id: Int = 0,
     @Json(name = "title")
@@ -48,7 +48,7 @@ data class TodoItem(
     @Json(name = "status")
     val status: String,
     @Json(name = "user_id")
-    val userId: Int = 1, // This is used for demo only.
+    val userId: Int = 1 // This is used for demo only.
 ) {
     fun getDueDate(): String {
         return dueOn?.getHumanReadableDate() ?: "No"
@@ -70,10 +70,10 @@ data class TodoItem(
     }
 }
 
-fun TodoItem.asEntity() = TodoEntity(
+fun Todo.asEntity() = TodoEntity(
     id = id,
     title = title,
     dueOn = dueOn,
     status = status,
-    userId = userId,
+    userId = userId
 )

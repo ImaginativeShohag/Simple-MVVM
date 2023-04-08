@@ -28,23 +28,41 @@ package org.imaginativeworld.simplemvvm.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
-import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: UserApiInterface,
-    private val db: AppDatabase,
+    private val db: AppDatabase
 ) {
+    suspend fun getUsers(page: Long) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.getUsers(page)
+        }
+    }
+
     suspend fun getUser(userId: Int) = withContext(Dispatchers.IO) {
         SafeApiRequest.apiRequest(context) {
             api.getUser(userId)
+        }
+    }
+
+    suspend fun deleteUser(postId: Int) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.deleteUser(postId)
+        }
+    }
+
+    suspend fun updateUser(id: Int, user: User) = withContext(Dispatchers.IO) {
+        SafeApiRequest.apiRequest(context) {
+            api.updateUser(id, user)
         }
     }
 
@@ -63,28 +81,28 @@ class UserRepository @Inject constructor(
     // ----------------------------------------------------------------
 
     suspend fun saveUserInDB(
-        userModel: DemoUserEntity,
+        userModel: DemoUserEntity
     ): Long {
         return withContext(Dispatchers.IO) {
-            db.userDao().insertUser(userModel)
+            db.userDao().insert(userModel)
         }
     }
 
     suspend fun removeAllUsersFromDB() {
         return withContext(Dispatchers.IO) {
-            db.userDao().removeAllUsers()
+            db.userDao().removeAll()
         }
     }
 
     suspend fun getUsersFromDB(): List<DemoUserEntity> {
         return withContext(Dispatchers.IO) {
-            db.userDao().getUsers()
+            db.userDao().getAll()
         }
     }
 
     suspend fun updateUserToDB(user: DemoUserEntity) {
         return withContext(Dispatchers.IO) {
-            db.userDao().updateUser(user)
+            db.userDao().update(user)
         }
     }
 }

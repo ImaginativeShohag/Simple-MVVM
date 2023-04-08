@@ -36,12 +36,12 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.models.GeneralSpinnerItem
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 // ----------------------------------------------------------------
 // RecyclerView
@@ -98,8 +98,8 @@ fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
                 finalItems.add(
                     mapOf(
                         Pair("id", item.id.toString()),
-                        Pair("name", item.name),
-                    ),
+                        Pair("name", item.name)
+                    )
                 )
             }
 
@@ -108,11 +108,11 @@ fun Spinner.setItems(items: LiveData<List<GeneralSpinnerItem>>?) {
                 finalItems,
                 R.layout.item_spinner_default,
                 arrayOf(
-                    "name",
+                    "name"
                 ),
                 intArrayOf(
-                    android.R.id.text1,
-                ),
+                    android.R.id.text1
+                )
             )
 
             this.adapter = adapter
@@ -139,8 +139,8 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
                 finalItems.add(
                     mapOf(
                         Pair("id", item.id.toString()),
-                        Pair("name", item.name),
-                    ),
+                        Pair("name", item.name)
+                    )
                 )
             }
 
@@ -149,11 +149,11 @@ fun Spinner.setItemsWithRestoreLastPosition(items: LiveData<List<GeneralSpinnerI
                 finalItems,
                 R.layout.item_spinner_default,
                 arrayOf(
-                    "name",
+                    "name"
                 ),
                 intArrayOf(
-                    android.R.id.text1,
-                ),
+                    android.R.id.text1
+                )
             )
 
             this.adapter = adapter
@@ -186,8 +186,8 @@ fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
             finalItems.add(
                 mapOf(
                     Pair("id", item.id.toString()),
-                    Pair("name", item.name),
-                ),
+                    Pair("name", item.name)
+                )
             )
         }
 
@@ -196,11 +196,11 @@ fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
             finalItems,
             R.layout.item_spinner_default,
             arrayOf(
-                "name",
+                "name"
             ),
             intArrayOf(
-                android.R.id.text1,
-            ),
+                android.R.id.text1
+            )
         )
 
         this.adapter = adapter
@@ -295,7 +295,7 @@ fun <T> AutoCompleteTextView.setItems(items: LiveData<T>?) {
             val arrayAdapter = ArrayAdapter(
                 this@setItems.context,
                 R.layout.item_dropdown_menu_popup_default,
-                (items.value as List<*>),
+                (items.value as List<*>)
             )
 
             this@setItems.setAdapter(arrayAdapter)

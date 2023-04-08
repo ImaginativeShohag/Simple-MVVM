@@ -63,7 +63,7 @@ class DemoLatexFragment : Fragment(), CommonFunctions {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         Timber.d("onCreateView")
 
@@ -105,7 +105,7 @@ class DemoLatexFragment : Fragment(), CommonFunctions {
                 JLatexMathPlugin.create(binding.tvMarkdown.textSize) { builder ->
                     // ENABLE inlines
                     builder.inlinesEnabled(true)
-                },
+                }
             )
             .build()
 

@@ -43,14 +43,14 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 import timber.log.Timber
 
 @AndroidEntryPoint
 class DemoPostFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoPost> {
+    OnObjectListInteractionListener<Post> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -72,7 +72,7 @@ class DemoPostFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         Timber.d("onCreateView")
 
@@ -115,7 +115,7 @@ class DemoPostFragment :
 
         val dividerItemDecoration = DividerItemDecoration(
             binding.recyclerView.context,
-            layoutManager.orientation,
+            layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
@@ -162,7 +162,7 @@ class DemoPostFragment :
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: DemoPost) {
+    override fun onClick(position: Int, dataObject: Post) {
         this.context?.apply {
             AlertDialog.Builder(this)
                 .setTitle(dataObject.title)
@@ -171,7 +171,7 @@ class DemoPostFragment :
         }
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoPost) {
+    override fun onLongClick(position: Int, dataObject: Post) {
         /* no-op */
     }
 

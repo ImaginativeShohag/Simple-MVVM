@@ -59,7 +59,7 @@ class DemoFragmentNavFragment : Fragment(), CommonFunctions {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentDemoFragmentNavBinding.inflate(inflater, container, false)
         return binding.root

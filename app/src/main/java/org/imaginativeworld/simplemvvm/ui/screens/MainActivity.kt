@@ -43,6 +43,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.BuildConfig
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.ActivityMainBinding
@@ -57,7 +58,6 @@ import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
@@ -66,10 +66,11 @@ class MainActivity :
     OnFragmentInteractionListener,
     MainActivityExtraOnFragmentInteractionListener {
 
-    private lateinit var navController: NavController
+    // TODO: Remove `MainActivityExtraOnFragmentInteractionListener` by viewModels()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var splashScreen: SplashScreen
+    private lateinit var navController: NavController
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -86,6 +87,7 @@ class MainActivity :
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        initObservers()
         initViews()
         initListeners()
         splashScreenOnExitAnimation()
@@ -118,7 +120,7 @@ class MainActivity :
                 splashScreenView.view,
                 View.TRANSLATION_Y,
                 0f,
-                -splashScreenView.view.height.toFloat(),
+                -splashScreenView.view.height.toFloat()
             )
             slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = 1000L
@@ -160,12 +162,15 @@ class MainActivity :
     }
 
     override fun initViews() {
+        /* no-op */
     }
 
     override fun initListeners() {
+        /* no-op */
     }
 
     override fun initObservers() {
+        /* no-op */
     }
 
     override fun setAppTitle(title: String) {
@@ -221,8 +226,8 @@ class MainActivity :
     }
 
     override fun showLoading() {
-        try {
-            val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
+        ignoreCrash {
+            binding.loadingView.globalLoadingLayout.animate()
                 .alpha(1f)
                 .setDuration(200)
                 .setListener(object : Animator.AnimatorListener {
@@ -235,16 +240,13 @@ class MainActivity :
                     override fun onAnimationCancel(animation: Animator) {}
                     override fun onAnimationRepeat(animation: Animator) {}
                 })
-
-            loadingAnimation.start()
-        } catch (e: Exception) {
-            /* no-op */
+                .start()
         }
     }
 
     override fun hideLoading() {
-        try {
-            val loadingAnimation = binding.loadingView.globalLoadingLayout.animate()
+        ignoreCrash {
+            binding.loadingView.globalLoadingLayout.animate()
                 .alpha(0f)
                 .setDuration(200)
                 .setListener(object : Animator.AnimatorListener {
@@ -256,10 +258,7 @@ class MainActivity :
                     override fun onAnimationCancel(animation: Animator) {}
                     override fun onAnimationStart(animation: Animator) {}
                 })
-
-            loadingAnimation.start()
-        } catch (e: Exception) {
-            /* no-op */
+                .start()
         }
     }
 

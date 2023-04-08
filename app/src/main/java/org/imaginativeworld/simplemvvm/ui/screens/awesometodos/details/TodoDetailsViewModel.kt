@@ -31,15 +31,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailsViewModel @Inject constructor(
-    private val repository: TodoRepository,
+    private val repository: TodoRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -60,11 +60,11 @@ class TodoDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todo: MutableLiveData<TodoItem?> by lazy {
-        MutableLiveData<TodoItem?>()
+    private val _todo: MutableLiveData<Todo?> by lazy {
+        MutableLiveData<Todo?>()
     }
 
-    val todo: LiveData<TodoItem?>
+    val todo: LiveData<Todo?>
         get() = _todo
 
     // ----------------------------------------------------------------
@@ -79,12 +79,12 @@ class TodoDetailsViewModel @Inject constructor(
     // ----------------------------------------------------------------
 
     fun getDetails(
-        todoId: Int,
+        todoId: Int
     ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {
-            val todo = repository.getTodoDetails(todoId)
+            val todo = repository.getTodo(todoId)
 
             _todo.postValue(todo)
         } catch (e: ApiException) {

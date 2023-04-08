@@ -31,18 +31,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
+import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import org.imaginativeworld.simplemvvm.utils.SharedPref
-import java.util.Date
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoAddViewModel @Inject constructor(
     private val repository: TodoRepository,
-    private val sharedPref: SharedPref,
+    private val sharedPref: SharedPref
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -75,7 +75,7 @@ class TodoAddViewModel @Inject constructor(
     private fun isValid(
         title: String,
         dueDate: Date?,
-        status: String,
+        status: String
     ): Boolean {
         if (title.isBlank()) {
             _eventShowMessage.postValue("Please enter title!")
@@ -98,7 +98,7 @@ class TodoAddViewModel @Inject constructor(
     fun add(
         title: String,
         dueDate: Date?,
-        status: String,
+        status: String
     ) = viewModelScope.launch {
         if (!isValid(title, dueDate, status)) {
             return@launch
@@ -111,11 +111,11 @@ class TodoAddViewModel @Inject constructor(
         try {
             repository.addTodo(
                 user.id,
-                TodoItem(
+                Todo(
                     title = title,
                     dueOn = dueDate,
-                    status = status.lowercase(),
-                ),
+                    status = status.lowercase()
+                )
             )
 
             _eventSuccess.postValue(true)

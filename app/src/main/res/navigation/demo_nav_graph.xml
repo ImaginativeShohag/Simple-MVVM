@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.imaginativeworld.simplemvvm.ui.screens.home.DemoHomeFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/demo_fragment_home" >
         <action
@@ -61,4 +61,8 @@
         android:id="@+id/awesomeTodosMainActivity"
         android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"
         android:label="AwesomeTodosMainActivity" />
+    <activity
+        android:id="@+id/cmsApp"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
+        android:label="CMSMainActivity" />
 </navigation>

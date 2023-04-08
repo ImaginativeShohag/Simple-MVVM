@@ -84,7 +84,7 @@ data class Options(
     val askForTurnOnLocationService: Ask = Ask.ONCE,
 
     // Post location data just once
-    var postOnce: Boolean = false,
+    var postOnce: Boolean = false
 )
 
 class LocationProviderUtilClient(
@@ -95,7 +95,7 @@ class LocationProviderUtilClient(
     private val locationRequestFastestInterval: Long = 15000,
     private val locationRequestPriority: Int = LocationRequest.PRIORITY_HIGH_ACCURACY,
     private val smallestDisplacementInMeter: Float = 50f,
-    var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null,
+    var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null
 ) : DefaultLifecycleObserver {
 
     // Callback for posting the locations
@@ -184,7 +184,7 @@ class LocationProviderUtilClient(
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
-                Looper.getMainLooper(),
+                Looper.getMainLooper()
             )
 
             locationUpdatedStarted = true
@@ -216,8 +216,8 @@ class LocationProviderUtilClient(
     @RequiresPermission(
         anyOf = [
             "android.permission.ACCESS_COARSE_LOCATION",
-            "android.permission.ACCESS_FINE_LOCATION",
-        ],
+            "android.permission.ACCESS_FINE_LOCATION"
+        ]
     )
     fun enable() {
         Timber.d("enable")
@@ -321,11 +321,11 @@ class LocationProviderUtilClient(
 
             return ActivityCompat.checkSelfPermission(
                 context,
-                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(
                     context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
         }
     }

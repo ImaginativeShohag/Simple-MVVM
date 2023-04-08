@@ -7,7 +7,7 @@
 
         <variable
             name="post"
-            type="org.imaginativeworld.simplemvvm.models.DemoPost" />
+            type="org.imaginativeworld.simplemvvm.models.Post" />
 
     </data>
 

@@ -31,16 +31,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.awesometodos.TodoItem
-import org.imaginativeworld.simplemvvm.network.ApiException
-import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 import java.util.Date
 import javax.inject.Inject
+import kotlinx.coroutines.launch
+import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.network.ApiException
+import org.imaginativeworld.simplemvvm.repositories.TodoRepository
 
 @HiltViewModel
 class TodoEditViewModel @Inject constructor(
-    private val repository: TodoRepository,
+    private val repository: TodoRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -61,11 +61,11 @@ class TodoEditViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todo: MutableLiveData<TodoItem?> by lazy {
-        MutableLiveData<TodoItem?>()
+    private val _todo: MutableLiveData<Todo?> by lazy {
+        MutableLiveData<Todo?>()
     }
 
-    val todo: LiveData<TodoItem?>
+    val todo: LiveData<Todo?>
         get() = _todo
 
     // ----------------------------------------------------------------
@@ -83,7 +83,7 @@ class TodoEditViewModel @Inject constructor(
         _eventShowLoading.value = true
 
         try {
-            val todo = repository.getTodoDetails(todoId)
+            val todo = repository.getTodo(todoId)
 
             _todo.postValue(todo)
         } catch (e: ApiException) {
@@ -98,7 +98,7 @@ class TodoEditViewModel @Inject constructor(
     private fun isValid(
         title: String,
         dueDate: Date?,
-        status: String,
+        status: String
     ): Boolean {
         if (title.isBlank()) {
             _eventShowMessage.postValue("Please enter title!")
@@ -123,7 +123,7 @@ class TodoEditViewModel @Inject constructor(
         todoId: Int,
         title: String,
         dueDate: Date,
-        status: String,
+        status: String
     ) = viewModelScope.launch {
         if (!isValid(title, dueDate, status)) {
             return@launch
@@ -134,12 +134,12 @@ class TodoEditViewModel @Inject constructor(
         try {
             repository.updateTodo(
                 todoId,
-                TodoItem(
+                Todo(
                     userId = userId,
                     title = title,
                     dueOn = dueDate,
-                    status = status.lowercase(),
-                ),
+                    status = status.lowercase()
+                )
             )
 
             _eventUpdateSuccess.postValue(true)

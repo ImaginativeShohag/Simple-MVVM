@@ -48,13 +48,13 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentPostPagedBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoPost
+import org.imaginativeworld.simplemvvm.models.Post
 
 @AndroidEntryPoint
 class DemoPostPagedFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoPost> {
+    OnObjectListInteractionListener<Post> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -73,7 +73,7 @@ class DemoPostPagedFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DemoFragmentPostPagedBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -116,12 +116,12 @@ class DemoPostPagedFragment :
 
         val dividerItemDecoration = DividerItemDecoration(
             binding.recyclerView.context,
-            layoutManager.orientation,
+            layoutManager.orientation
         )
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
-            DemoPostPagedLoadStateAdapter { adapter.retry() },
+            DemoPostPagedLoadStateAdapter { adapter.retry() }
         )
 
         // Add paging data
@@ -148,10 +148,12 @@ class DemoPostPagedFragment :
         }
     }
 
-    override fun onClick(position: Int, dataObject: DemoPost) {
+    override fun onClick(position: Int, dataObject: Post) {
+        /* no-op */
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoPost) {
+    override fun onLongClick(position: Int, dataObject: Post) {
+        /* no-op */
     }
 
     override fun showEmptyView() {

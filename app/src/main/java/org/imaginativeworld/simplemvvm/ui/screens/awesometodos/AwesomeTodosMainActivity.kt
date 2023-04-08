@@ -86,7 +86,7 @@ class AwesomeTodosMainActivity : AppCompatActivity(), CommonFunctions {
                 R.anim.slide_in,
                 R.anim.fade_out,
                 R.anim.fade_in,
-                R.anim.slide_out,
+                R.anim.slide_out
             )
             replace(binding.navHostFragment.id, destination.fragmentClass, destination.args)
             setReorderingAllowed(true)

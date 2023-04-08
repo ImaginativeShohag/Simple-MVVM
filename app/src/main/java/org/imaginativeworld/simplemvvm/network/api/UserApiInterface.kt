@@ -26,17 +26,29 @@
 
 package org.imaginativeworld.simplemvvm.network.api
 
-import org.imaginativeworld.simplemvvm.models.awesometodos.User
+import org.imaginativeworld.simplemvvm.models.User
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserApiInterface {
+    @GET("v2/users")
+    suspend fun getUsers(@Query("page") page: Long): Response<List<User>>
+
     @GET("v2/users/{id}")
     suspend fun getUser(@Path("id") userId: Int): Response<User>
 
     @POST("v2/users")
     suspend fun createUser(@Body user: User): Response<User>
+
+    @DELETE("v2/users/{id}")
+    suspend fun deleteUser(@Path("id") id: Int): Response<Unit>
+
+    @PUT("v2/users/{id}")
+    suspend fun updateUser(@Path("id") id: Int, @Body user: User): Response<User>
 }

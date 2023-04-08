@@ -35,13 +35,13 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentAwesomeTodosAddBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.utils.extensions.getYYYYMMDD
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
-import java.util.Date
 
 @AndroidEntryPoint
 class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFunctions {
@@ -97,7 +97,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
 
         // Status
         val items = listOf("Pending", "Completed")
-        val adapter = ArrayAdapter(requireContext(), R.layout.awesome_todos_status_list_item, items)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner_default, items)
         binding.tvStatus.setAdapter(adapter)
 
         binding.tvStatus.setText("Pending", false)
@@ -118,7 +118,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_awesome_todos_add), CommonFun
             viewModel.add(
                 binding.etTitle.text.toString(),
                 selectedDueDate,
-                binding.tvStatus.text?.toString() ?: "",
+                binding.tvStatus.text?.toString() ?: ""
             )
         }
 

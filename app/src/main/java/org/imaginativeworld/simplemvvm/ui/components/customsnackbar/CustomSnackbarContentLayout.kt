@@ -38,7 +38,7 @@ import org.imaginativeworld.simplemvvm.R
 class CustomSnackbarContentLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), ContentViewCallback {
 
     var messageView: TextView

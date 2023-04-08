@@ -18,11 +18,12 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Starting"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:name=".ui.screens.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +39,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name="org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
             android:theme="@style/AppTheme" />
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->

@@ -39,6 +39,7 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list.TodoListFragment
+import org.imaginativeworld.simplemvvm.utils.extensions.hide
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
@@ -85,17 +86,19 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
             parentViewModel.navigate(
                 NavDestination(
                     fragmentClass = TodoListFragment::class.java,
-                    addToBackStack = false,
-                ),
+                    addToBackStack = false
+                )
             )
         }
     }
 
     override fun initViews() {
+        binding.actionBar.btnBack.hide()
+
         // Gender
         val genderItems = listOf("Male", "Female")
         val genderAdapter =
-            ArrayAdapter(requireContext(), R.layout.awesome_todos_status_list_item, genderItems)
+            ArrayAdapter(requireContext(), R.layout.item_spinner_default, genderItems)
         binding.tvGender.setAdapter(genderAdapter)
     }
 
@@ -106,7 +109,7 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
             viewModel.signIn(
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),
-                binding.tvGender.text.toString(),
+                binding.tvGender.text.toString()
             )
         }
     }

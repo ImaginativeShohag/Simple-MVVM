@@ -87,14 +87,14 @@ class TodoSplashFragment : Fragment(R.layout.fragment_awesome_todos_splash), Com
             if (isSuccess == true) {
                 parentViewModel.navigate(
                     NavDestination(
-                        TodoListFragment::class.java,
-                    ),
+                        TodoListFragment::class.java
+                    )
                 )
             } else if (isSuccess == false) {
                 parentViewModel.navigate(
                     NavDestination(
-                        TodoSignInFragment::class.java,
-                    ),
+                        TodoSignInFragment::class.java
+                    )
                 )
             }
         }

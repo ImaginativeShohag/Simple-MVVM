@@ -41,6 +41,9 @@ subprojects {
             targetExclude("bin/**/*.kt")
 
             ktlint("0.48.2")
+                    .editorConfigOverride([
+                            "ktlint_code_style": "android"
+                    ])
             licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
         }
     }

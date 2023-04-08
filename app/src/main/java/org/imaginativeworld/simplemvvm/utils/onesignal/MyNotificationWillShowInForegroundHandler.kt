@@ -36,7 +36,9 @@ import org.imaginativeworld.simplemvvm.utils.Constants
 // Runs before displaying a notification while the app is in focus. Use this handler to decide if the notification should show or not.
 class MyNotificationWillShowInForegroundHandler(private val application: Application) :
     OSNotificationWillShowInForegroundHandler {
-    override fun notificationWillShowInForeground(notificationReceivedEvent: OSNotificationReceivedEvent) {
+    override fun notificationWillShowInForeground(
+        notificationReceivedEvent: OSNotificationReceivedEvent
+    ) {
         // Get custom additional data you sent with the notification
 //        JSONObject data = notificationReceivedEvent.getNotification().getAdditionalData();
 

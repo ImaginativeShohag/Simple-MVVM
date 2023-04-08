@@ -24,10 +24,14 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models.awesometodos
+package org.imaginativeworld.simplemvvm.models
 
+import androidx.annotation.ColorRes
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Locale
+import org.imaginativeworld.simplemvvm.R
+import org.imaginativeworld.simplemvvm.utils.extensions.toLower
 
 @JsonClass(generateAdapter = true)
 data class User(
@@ -40,5 +44,26 @@ data class User(
     @Json(name = "gender")
     val gender: String,
     @Json(name = "status")
-    val status: String,
-)
+    val status: String
+) {
+    fun getStatusLabel(): String {
+        return status.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+    }
+
+    fun getGenderLabel(): String {
+        return gender.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+    }
+
+    @ColorRes
+    fun getStatusColor(): Int {
+        return if (status.toLower() == "active") {
+            R.color.flat_awesome_green_2
+        } else {
+            R.color.flat_red_2
+        }
+    }
+}

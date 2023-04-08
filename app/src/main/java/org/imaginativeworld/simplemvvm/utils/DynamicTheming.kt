@@ -48,7 +48,7 @@ import kotlinx.coroutines.withContext
  */
 suspend fun calculatePaletteInImage(
     context: Context,
-    imageUrl: String,
+    imageUrl: String
 ): Palette.Swatch? {
     val r = ImageRequest.Builder(context)
         .data(imageUrl)

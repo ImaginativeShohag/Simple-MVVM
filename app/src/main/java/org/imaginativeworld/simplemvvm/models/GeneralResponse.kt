@@ -36,5 +36,5 @@ data class GeneralResponse(
     @Json(name = "success")
     val success: Boolean,
     @Json(name = "message")
-    val message: String?,
+    val message: String?
 )

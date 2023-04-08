@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.home.DemoHomeFragment"
+    tools:context=".ui.screens.home.HomeFragment"
     tools:ignore="HardcodedText">
 
     <data>
 
         <variable
             name="viewModel"
-            type="org.imaginativeworld.simplemvvm.ui.screens.home.DemoHomeViewModel" />
+            type="org.imaginativeworld.simplemvvm.ui.screens.home.HomeViewModel" />
 
     </data>
 
@@ -147,6 +147,17 @@
                 android:layout_marginEnd="32dp"
                 android:text="Awesome Todos App"
                 app:icon="@drawable/round_ballot_24" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cms_app"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="CMS App"
+                app:icon="@drawable/round_manage_accounts_24" />
 
         </LinearLayout>
 

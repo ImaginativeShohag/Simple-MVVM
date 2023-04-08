@@ -83,8 +83,8 @@ class DemoFragmentNavDetails :
             setFragmentResult(
                 DemoFragmentNavList.REQUEST_KEY,
                 bundleOf(
-                    DemoFragmentNavList.PARAM_ACTION to DemoFragmentNavList.PARAM_ACTION_SHUFFLE,
-                ),
+                    DemoFragmentNavList.PARAM_ACTION to DemoFragmentNavList.PARAM_ACTION_SHUFFLE
+                )
             )
         }
     }

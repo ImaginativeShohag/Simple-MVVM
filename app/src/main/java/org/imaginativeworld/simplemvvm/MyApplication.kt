@@ -52,7 +52,7 @@ class MyApplication : Application() {
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
         OneSignal.setNotificationWillShowInForegroundHandler(
-            MyNotificationWillShowInForegroundHandler(this),
+            MyNotificationWillShowInForegroundHandler(this)
         )
         OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
         OneSignal.setNotificationOpenedHandler(MyNotificationOpenedHandler(this))

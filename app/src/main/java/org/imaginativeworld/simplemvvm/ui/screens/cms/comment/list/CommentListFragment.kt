@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.comment.list
 
 import android.os.Bundle
 import android.view.View
@@ -41,36 +41,36 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoListBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsCommentListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.todo.Todo
+import org.imaginativeworld.simplemvvm.models.Comment
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 
 @AndroidEntryPoint
-class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFunctions {
-    private val args: TodoListFragmentArgs by navArgs()
+class CommentListFragment : Fragment(R.layout.fragment_cms_comment_list), CommonFunctions {
+    private val args: CommentListFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentCmsTodoListBinding
+    private lateinit var binding: FragmentCmsCommentListBinding
 
-    private val viewModel: TodoListViewModel by viewModels()
+    private val viewModel: CommentListViewModel by viewModels()
     private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
 
-    private lateinit var adapter: TodoListAdapter
+    private lateinit var adapter: CommentListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initObservers()
 
-        adapter = TodoListAdapter { todo ->
-            adapterOnClick(todo)
+        adapter = CommentListAdapter { Comment ->
+            adapterOnClick(Comment)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentCmsTodoListBinding.bind(view)
+        binding = FragmentCmsCommentListBinding.bind(view)
 
         initViews()
         initListeners()
@@ -80,7 +80,7 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
 
     private fun load() {
         lifecycleScope.launch {
-            viewModel.getTodos(args.userId)
+            viewModel.getComments(args.postId)
                 .collectLatest(adapter::submitData)
         }
     }
@@ -104,7 +104,7 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Todos"
+        binding.actionBar.tvActionTitle.text = "Comments"
 
         // Init List
         val layoutManager = LinearLayoutManager(activity)
@@ -115,7 +115,9 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
             val action =
-                TodoListFragmentDirections.actionTodoListFragmentToTodoAddFragment(args.userId)
+                CommentListFragmentDirections.actionCommentListFragmentToCommentAddFragment(
+                    args.postId
+                )
             findNavController().navigate(action)
         }
 
@@ -124,11 +126,12 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
         }
     }
 
-    private fun adapterOnClick(todo: Todo) {
-        val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailsFragment(
-            args.userId,
-            todo.id
-        )
+    private fun adapterOnClick(comment: Comment) {
+        val action =
+            CommentListFragmentDirections.actionCommentListFragmentToCommentDetailsFragment(
+                args.postId,
+                comment.id
+            )
         findNavController().navigate(action)
     }
 

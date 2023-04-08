@@ -121,6 +121,14 @@ class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), Common
             findNavController().navigate(action)
         }
 
+        binding.btnComments.setOnClickListener {
+            val action =
+                PostDetailsFragmentDirections.actionPostDetailsFragmentToCommentListFragment(
+                    args.postId
+                )
+            findNavController().navigate(action)
+        }
+
         binding.actionBar.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }

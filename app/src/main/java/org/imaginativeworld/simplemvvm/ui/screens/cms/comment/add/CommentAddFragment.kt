@@ -24,65 +24,45 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.todo.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.comment.add
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
-import org.imaginativeworld.simplemvvm.databinding.FragmentCmsTodoListBinding
+import org.imaginativeworld.simplemvvm.databinding.FragmentCmsCommentAddBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.todo.Todo
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
+import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
-class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFunctions {
-    private val args: TodoListFragmentArgs by navArgs()
+class CommentAddFragment : Fragment(R.layout.fragment_cms_comment_add), CommonFunctions {
+    private val args: CommentAddFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentCmsTodoListBinding
+    private lateinit var binding: FragmentCmsCommentAddBinding
 
-    private val viewModel: TodoListViewModel by viewModels()
+    private val viewModel: CommentAddViewModel by viewModels()
     private val parentViewModel: CMSMainViewModel by viewModels(ownerProducer = {
         requireActivity()
     })
-
-    private lateinit var adapter: TodoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initObservers()
-
-        adapter = TodoListAdapter { todo ->
-            adapterOnClick(todo)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentCmsTodoListBinding.bind(view)
+        binding = FragmentCmsCommentAddBinding.bind(view)
 
         initViews()
-        initListeners()
-        initAdapterObserver()
-        load()
-    }
 
-    private fun load() {
-        lifecycleScope.launch {
-            viewModel.getTodos(args.userId)
-                .collectLatest(adapter::submitData)
-        }
+        initListeners()
     }
 
     override fun initObservers() {
@@ -101,51 +81,32 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
                 }
             }
         }
+
+        viewModel.eventSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Todos"
-
-        // Init List
-        val layoutManager = LinearLayoutManager(activity)
-        binding.list.layoutManager = layoutManager
-        binding.list.adapter = adapter
+        binding.actionBar.tvActionTitle.text = "Add Comment"
     }
 
     override fun initListeners() {
         binding.btnAdd.setOnClickListener {
-            val action =
-                TodoListFragmentDirections.actionTodoListFragmentToTodoAddFragment(args.userId)
-            findNavController().navigate(action)
+            binding.root.hideKeyboard()
+
+            viewModel.add(
+                postId = args.postId,
+                name = binding.etName.text.toString(),
+                email = binding.etEmail.text.toString(),
+                body = binding.etBody.text.toString()
+            )
         }
 
         binding.actionBar.btnBack.setOnClickListener {
             findNavController().popBackStack()
-        }
-    }
-
-    private fun adapterOnClick(todo: Todo) {
-        val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailsFragment(
-            args.userId,
-            todo.id
-        )
-        findNavController().navigate(action)
-    }
-
-    private fun initAdapterObserver() {
-        lifecycleScope.launch {
-            adapter.loadStateFlow.collect { loadState ->
-                val isListEmpty =
-                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-                val isLoading = loadState.refresh is LoadState.Loading
-
-                binding.tvEmpty.isVisible = isListEmpty
-                if (isLoading) {
-                    parentViewModel.showLoading()
-                } else {
-                    parentViewModel.hideLoading()
-                }
-            }
         }
     }
 }

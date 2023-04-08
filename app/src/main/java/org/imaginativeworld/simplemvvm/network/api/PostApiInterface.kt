@@ -59,7 +59,7 @@ interface PostApiInterface {
     ): Response<List<Post>>
 
     @POST("v2/users/{userId}/posts")
-    suspend fun addPost(@Path("userId") userId: Int, @Body Post: Post): Response<Post>
+    suspend fun addPost(@Path("userId") userId: Int, @Body post: Post): Response<Post>
 
     @GET("v2/posts/{id}")
     suspend fun getPost(@Path("id") id: Int): Response<Post>
@@ -68,5 +68,5 @@ interface PostApiInterface {
     suspend fun deletePost(@Path("id") id: Int): Response<Unit>
 
     @PUT("v2/posts/{id}")
-    suspend fun updatePost(@Path("id") id: Int, @Body Post: Post): Response<Post>
+    suspend fun updatePost(@Path("id") id: Int, @Body post: Post): Response<Post>
 }

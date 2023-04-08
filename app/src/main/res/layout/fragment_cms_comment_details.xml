@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.screens.cms.todo.details.TodoDetailsFragment"
-    tools:ignore="HardcodedText">
+    tools:context=".ui.screens.cms.comment.details.CommentDetailsFragment">
 
     <include
         android:id="@+id/action_bar"
@@ -15,7 +14,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="?android:colorBackground"
+        tools:context=".ui.screens.cms.post.details.PostDetailsFragment"
+        tools:ignore="HardcodedText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,38 +39,29 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/tv_body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?android:textColorPrimary"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
                         tools:text="@tools:sample/lorem[10]" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="18sp"
+                        tools:text="@tools:sample/full_names" />
 
-                        <TextView
-                            android:id="@+id/tv_due_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="?android:textColorSecondary"
-                            android:textSize="18sp"
-                            tools:text="@tools:sample/date/mmddyy" />
-
-                        <TextView
-                            android:id="@+id/tv_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/flat_awesome_green_2"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            tools:text="Complete" />
-
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="16sp"
+                        tools:text="example@example.com" />
 
                 </LinearLayout>
 

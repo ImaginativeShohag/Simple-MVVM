@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".ui.screens.cms.post.list.PostListFragment"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
+    tools:context=".ui.screens.cms.comment.list.CommentListFragment"
     tools:ignore="HardcodedText">
 
     <include
@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/action_bar"
-        tools:listitem="@layout/cms_post_item" />
+        tools:listitem="@layout/cms_comment_item" />
 
     <TextView
         android:id="@+id/tv_empty"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="Add New Note"
-        android:text="Add Post"
+        android:text="Add Todo"
         app:icon="@drawable/ic_add_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

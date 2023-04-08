@@ -114,6 +114,9 @@
         <argument
             android:name="postId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_postDetailsFragment_to_commentListFragment"
+            app:destination="@id/commentListFragment" />
     </fragment>
     <fragment
         android:id="@+id/postEditFragment"
@@ -140,6 +143,53 @@
             app:destination="@id/postAddFragment" />
         <argument
             android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentAddFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.comment.add.CommentAddFragment"
+        android:label="CommentAddFragment" >
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentDetailsFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.comment.details.CommentDetailsFragment"
+        android:label="CommentDetailsFragment" >
+        <action
+            android:id="@+id/action_commentDetailsFragment_to_commentEditFragment"
+            app:destination="@id/commentEditFragment" />
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+        <argument
+            android:name="commentId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentEditFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.comment.edit.CommentEditFragment"
+        android:label="CommentEditFragment" >
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+        <argument
+            android:name="commentId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentListFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.comment.list.CommentListFragment"
+        android:label="CommentListFragment" >
+        <action
+            android:id="@+id/action_commentListFragment_to_commentDetailsFragment"
+            app:destination="@id/commentDetailsFragment" />
+        <action
+            android:id="@+id/action_commentListFragment_to_commentAddFragment"
+            app:destination="@id/commentAddFragment" />
+        <argument
+            android:name="postId"
             app:argType="integer" />
     </fragment>
 </navigation>

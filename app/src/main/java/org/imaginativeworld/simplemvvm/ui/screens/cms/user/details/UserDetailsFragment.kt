@@ -59,7 +59,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
 
         viewModel.todo.observe(this) { user ->
             user?.let {
-                binding.tvId.text = "${user.id}"
+                binding.tvId.text = "#${user.id}"
                 binding.tvName.text = user.name
                 binding.tvEmail.text = user.email
                 binding.tvGender.text = user.gender

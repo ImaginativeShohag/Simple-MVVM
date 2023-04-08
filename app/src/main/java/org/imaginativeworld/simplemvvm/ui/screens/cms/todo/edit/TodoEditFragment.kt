@@ -33,6 +33,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +47,8 @@ import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
 class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFunctions {
+    private val args: TodoEditFragmentArgs by navArgs()
+
     private lateinit var binding: FragmentCmsTodoEditBinding
 
     private val viewModel: TodoEditViewModel by viewModels()
@@ -55,16 +58,8 @@ class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFuncti
 
     private var selectedDueDate: Date? = null
 
-    private var userId: Int = 0
-    private var todoId: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.apply {
-            userId = getInt(ARG_USER_ID)
-            todoId = getInt(ARG_TODO_ID)
-        }
 
         initObservers()
     }
@@ -135,8 +130,8 @@ class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFuncti
             binding.root.hideKeyboard()
 
             viewModel.update(
-                userId,
-                todoId,
+                args.userId,
+                args.todoId,
                 binding.etTitle.text.toString(),
                 selectedDueDate!!,
                 binding.tvStatus.text?.toString() ?: ""
@@ -168,11 +163,6 @@ class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFuncti
     }
 
     private fun getDetails() {
-        viewModel.getDetails(todoId)
-    }
-
-    companion object {
-        const val ARG_TODO_ID = "todo_id"
-        const val ARG_USER_ID = "user_id"
+        viewModel.getDetails(args.todoId)
     }
 }

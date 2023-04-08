@@ -39,6 +39,7 @@ import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.AwesomeTodosMainViewModel
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.NavDestination
 import org.imaginativeworld.simplemvvm.ui.screens.awesometodos.list.TodoListFragment
+import org.imaginativeworld.simplemvvm.utils.extensions.hide
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 
 @AndroidEntryPoint
@@ -92,6 +93,8 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
     }
 
     override fun initViews() {
+        binding.actionBar.btnBack.hide()
+
         // Gender
         val genderItems = listOf("Male", "Female")
         val genderAdapter =

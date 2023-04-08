@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="?android:colorBackground"
+    android:orientation="vertical"
+    tools:context=".ui.screens.cms.post.details.PostDetailsFragment"
+    tools:ignore="HardcodedText">
 
     <include
         android:id="@+id/action_bar"
@@ -13,10 +16,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?android:colorBackground"
-        tools:context=".ui.screens.cms.post.details.PostDetailsFragment"
-        tools:ignore="HardcodedText">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,20 +68,41 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_delete"
                     android:layout_width="0dp"
-                    app:icon="@drawable/ic_delete_black_24dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="Delete" />
+                    android:text="Delete"
+                    app:icon="@drawable/ic_delete_black_24dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_edit"
                     android:layout_width="0dp"
-                    app:icon="@drawable/round_edit_24"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="Edit" />
+                    android:text="Edit"
+                    app:icon="@drawable/round_edit_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_comments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="Comments"
+                    app:icon="@drawable/ic_chat_24dp" />
 
             </LinearLayout>
 

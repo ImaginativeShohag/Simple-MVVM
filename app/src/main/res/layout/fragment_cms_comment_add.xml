@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
     android:orientation="vertical"
+    tools:context=".ui.screens.cms.comment.add.CommentAddFragment"
     tools:ignore="HardcodedText">
 
     <include
         android:id="@+id/action_bar"
-        layout="@layout/awesome_todos_app_action_bar" />
+        layout="@layout/cms_action_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:colorBackground"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:hint="Email">
+                android:hint="Email"
+                tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
@@ -55,32 +59,34 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:hint="Gender"
-                android:labelFor="@+id/tv_gender">
+                android:hint="Body"
+                tools:ignore="HardcodedText">
 
-                <AutoCompleteTextView
-                    android:id="@+id/tv_gender"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:gravity="top"
+                    android:minLines="5" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_sign_in"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:text="Sign in" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Add"
+                app:icon="@drawable/ic_add_24dp" />
 
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>

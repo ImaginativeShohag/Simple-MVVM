@@ -66,24 +66,6 @@ class TodoListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todoItems: MutableLiveData<List<Todo>> by lazy {
-        MutableLiveData<List<Todo>>()
-    }
-
-    val todoItems: LiveData<List<Todo>?>
-        get() = _todoItems
-
-    // ----------------------------------------------------------------
-
-    private val _eventSignOutSuccess: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    val eventSignOutSuccess: LiveData<Boolean>
-        get() = _eventSignOutSuccess
-
-    // ----------------------------------------------------------------
-
     fun getTodos(userId: Int): Flow<PagingData<Todo>> {
         return Pager(PagingConfig(pageSize = 20)) {
             CMSTodoPagingSource(userId, todoRepository)

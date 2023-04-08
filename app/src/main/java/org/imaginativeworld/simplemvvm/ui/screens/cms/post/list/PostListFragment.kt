@@ -101,12 +101,6 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
                 }
             }
         }
-
-        viewModel.eventSignOutSuccess.observe(this) { isSignedOut ->
-            if (isSignedOut) {
-                requireActivity().finish()
-            }
-        }
     }
 
     override fun initViews() {

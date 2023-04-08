@@ -13,140 +13,155 @@
         android:id="@+id/action_bar"
         layout="@layout/cms_action_bar" />
 
-    <com.google.android.material.card.MaterialCardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardElevation="8dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="?android:textColorPrimary"
+                            android:textSize="18sp"
+                            tools:text="@tools:sample/full_names" />
+
+                        <TextView
+                            android:id="@+id/tv_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="?android:textColorPrimary"
+                            android:textSize="14sp"
+                            tools:text="#12345" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="16sp"
+                        tools:text="example@example.com" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_gender"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="1"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="14sp"
+                            tools:text="Male" />
+
+                        <TextView
+                            android:id="@+id/tv_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/flat_awesome_green_2"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="Pending" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_name"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="18sp"
-                    tools:text="@tools:sample/full_names" />
+                    android:text="Delete"
+                    app:icon="@drawable/ic_delete_black_24dp" />
 
-                <TextView
-                    android:id="@+id/tv_id"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    tools:text="#12345" />
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Edit"
+                    app:icon="@drawable/round_edit_24" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="16sp"
-                tools:text="example@example.com" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_gender"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_todos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:textColor="?android:textColorSecondary"
-                    android:textSize="14sp"
-                    tools:text="Male" />
+                    android:text="Todos"
+                    app:icon="@drawable/round_ballot_24" />
 
-                <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_posts"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/flat_awesome_green_2"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="Pending" />
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Posts"
+                    app:icon="@drawable/round_text_snippet_24" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_delete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="Delete"
-            app:icon="@drawable/ic_delete_black_24dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:text="Edit"
-            app:icon="@drawable/round_edit_24" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_todos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="Todos" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_posts"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:text="Posts" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -36,6 +36,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.imaginativeworld.simplemvvm.db.AppDatabase
 import org.imaginativeworld.simplemvvm.network.ApiClient
+import org.imaginativeworld.simplemvvm.network.api.CommentApiInterface
 import org.imaginativeworld.simplemvvm.network.api.PostApiInterface
 import org.imaginativeworld.simplemvvm.network.api.TodoApiInterface
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
@@ -79,5 +80,11 @@ class AppModule {
     @Provides
     fun providePostApiInterface(retrofit: Retrofit): PostApiInterface {
         return retrofit.create(PostApiInterface::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCommentApiInterface(retrofit: Retrofit): CommentApiInterface {
+        return retrofit.create(CommentApiInterface::class.java)
     }
 }

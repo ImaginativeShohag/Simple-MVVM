@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.ui.screens.cms.post.list
+package org.imaginativeworld.simplemvvm.ui.screens.cms.comment.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,13 +37,13 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import org.imaginativeworld.simplemvvm.datasource.CMSPostPagingSource
-import org.imaginativeworld.simplemvvm.models.Post
-import org.imaginativeworld.simplemvvm.repositories.PostRepository
+import org.imaginativeworld.simplemvvm.datasource.CMSCommentPagingSource
+import org.imaginativeworld.simplemvvm.models.Comment
+import org.imaginativeworld.simplemvvm.repositories.CommentRepository
 
 @HiltViewModel
-class PostListViewModel @Inject constructor(
-    private val postRepository: PostRepository
+class CommentListViewModel @Inject constructor(
+    private val CommentRepository: CommentRepository
 ) : ViewModel() {
 
     private val _eventShowMessage: MutableLiveData<String?> by lazy {
@@ -64,9 +64,9 @@ class PostListViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    fun getPosts(userId: Int): Flow<PagingData<Post>> {
+    fun getComments(postId: Int): Flow<PagingData<Comment>> {
         return Pager(PagingConfig(pageSize = 20)) {
-            CMSPostPagingSource(userId, postRepository)
+            CMSCommentPagingSource(postId, CommentRepository)
         }
             .flow
             .cachedIn(viewModelScope)

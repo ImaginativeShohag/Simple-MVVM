@@ -156,6 +156,10 @@ class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
         binding.btnCmsApp.setOnClickListener {
             listener?.navigate(R.id.cmsApp)
         }
+
+        binding.btnService.setOnClickListener {
+            listener?.navigate(R.id.serviceFragment)
+        }
     }
 
     override fun onAttach(context: Context) {

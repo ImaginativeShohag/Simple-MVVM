@@ -44,6 +44,8 @@
             android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
             android:theme="@style/AppTheme" />
 
+        <service android:name="org.imaginativeworld.simplemvvm.ui.screens.service.CountService" />
+
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -58,7 +60,6 @@
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
-
     </application>
 
 </manifest>

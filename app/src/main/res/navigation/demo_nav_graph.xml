@@ -65,4 +65,8 @@
         android:id="@+id/cmsApp"
         android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
         android:label="CMSMainActivity" />
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="org.imaginativeworld.simplemvvm.ui.screens.service.ServiceFragment"
+        android:label="ServiceFragment" />
 </navigation>

@@ -21,7 +21,6 @@ A simple Android MVVM pattern example and template.
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
 - Hilt (https://dagger.dev/hilt/)
 - Paging 3 (https://developer.android.com/topic/libraries/architecture/paging)
-- Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**
 
 ## Others
 
@@ -50,7 +49,6 @@ A simple Android MVVM pattern example and template.
   - Sections: User, Post, Todo and Comment
   - Navigation Component
   - Hilt
-  - Material Component 3 **(coming soon...)**
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -83,10 +81,13 @@ A simple Android MVVM pattern example and template.
 
 ## Todo
 
+- [ ] Dexter (https://github.com/Karumi/Dexter)
 - [ ] OneSignal integration
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
 - [ ] Add spotless to CI/CD
+- [ ] Material 3 migration: Simple CMS App
+- [ ] Service
 
 # Note
 

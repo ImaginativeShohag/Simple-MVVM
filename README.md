@@ -81,7 +81,6 @@ A simple Android MVVM pattern example and template.
 
 ## Todo
 
-- [ ] Dexter (https://github.com/Karumi/Dexter)
 - [ ] OneSignal integration
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`

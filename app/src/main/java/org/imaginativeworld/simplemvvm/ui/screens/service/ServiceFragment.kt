@@ -36,10 +36,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentServiceBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
+import org.imaginativeworld.simplemvvm.utils.Constants
 
 @SuppressLint("SetTextI18n")
 class ServiceFragment : Fragment(R.layout.fragment_service), CommonFunctions {
@@ -60,10 +62,11 @@ class ServiceFragment : Fragment(R.layout.fragment_service), CommonFunctions {
         super.onCreate(savedInstanceState)
 
         // Register Broadcast
-        requireContext().registerReceiver(
-            receiver,
-            IntentFilter(CountService.BROADCAST_SERVICE_INTENT)
-        )
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(
+                receiver,
+                IntentFilter(Constants.BROADCAST_ACTION_COUNT_SERVICE)
+            )
 
         initObservers()
     }
@@ -72,7 +75,8 @@ class ServiceFragment : Fragment(R.layout.fragment_service), CommonFunctions {
         super.onDestroy()
 
         // Unregister Broadcast
-        requireContext().unregisterReceiver(receiver)
+        LocalBroadcastManager.getInstance(requireContext())
+            .unregisterReceiver(receiver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

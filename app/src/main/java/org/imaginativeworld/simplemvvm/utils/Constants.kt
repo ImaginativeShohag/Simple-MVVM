@@ -45,4 +45,10 @@ object Constants {
      * For Broadcast
      */
     const val BROADCAST_ACTION_NOTIFICATIONS = BuildConfig.APPLICATION_ID + ".notifications"
+    const val BROADCAST_ACTION_COUNT_SERVICE = BuildConfig.APPLICATION_ID + ".count_service"
+
+    /**
+     * Notification Channel
+     */
+    const val NOTIFICATION_CHANNEL_SERVICE_DEFAULT = "service_default"
 }

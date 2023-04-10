@@ -72,7 +72,10 @@ class ServiceFragment : Fragment(R.layout.fragment_service), CommonFunctions {
 
                 Intent(requireContext(), CountService::class.java).also { intent ->
                     intent.putExtra(CountService.BUNDLE_KEY_STOP_SERVICE, true)
-                    requireActivity().startService(intent)
+                    ContextCompat.startForegroundService(
+                        requireActivity(),
+                        intent
+                    )
                 }
             } else {
                 updateUI(true)

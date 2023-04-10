@@ -26,15 +26,21 @@
 
 package org.imaginativeworld.simplemvvm.ui.screens
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnticipateInterpolator
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
@@ -77,6 +83,22 @@ class MainActivity :
 
     private val viewModel: MainViewModel by viewModels()
 
+    private val requestNotificaitonPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                // Permission is granted. Continue the action or workflow in your
+                // app.
+            } else {
+                // Explain to the user that the feature is unavailable because the
+                // feature requires a permission that the user has denied. At the
+                // same time, respect the user's decision. Don't link to system
+                // settings in an effort to convince the user to change their
+                // decision.
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -92,6 +114,7 @@ class MainActivity :
         initListeners()
         splashScreenOnExitAnimation()
         updateOneSignalId()
+        checkNotificationPermission()
 
         sharedPref.isUserLoggedIn()
 
@@ -158,6 +181,46 @@ class MainActivity :
 //            ) {
 //                AuthRepo.get().updateOneSignalId(userId)
 //            }
+        }
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // You can use the API that requires the permission.
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+                    // In an educational UI, explain to the user why your app requires this
+                    // permission for a specific feature to behave as expected, and what
+                    // features are disabled if it's declined. In this UI, include a
+                    // "cancel" or "no thanks" button that lets the user continue
+                    // using your app without granting the permission.
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Notification permission")
+                    builder.setMessage("Please grant notification permission to get notifications.")
+                    builder.setPositiveButton("Ok") { _, _ ->
+                        requestNotificaitonPermissionLauncher.launch(
+                            Manifest.permission.POST_NOTIFICATIONS
+                        )
+                    }
+                    builder.setNegativeButton("Cancel") { _, _ ->
+                        /* no-op */
+                    }
+                    val dialog = builder.create()
+                    dialog.show()
+                }
+                else -> {
+                    // You can directly ask for the permission.
+                    // The registered ActivityResultCallback gets the result of this request.
+                    requestNotificaitonPermissionLauncher.launch(
+                        Manifest.permission.POST_NOTIFICATIONS
+                    )
+                }
+            }
         }
     }
 

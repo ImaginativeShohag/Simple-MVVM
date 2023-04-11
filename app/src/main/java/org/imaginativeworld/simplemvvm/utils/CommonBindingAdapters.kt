@@ -222,6 +222,13 @@ fun ImageView.setProfileImageFromUrl(url: String) {
         .into(this)
 }
 
+@BindingAdapter("srcUrl")
+fun ImageView.setImageFromUrl(url: String) {
+    GlideApp.with(context)
+        .load(url)
+        .into(this)
+}
+
 // ----------------------------------------------------------------
 // View
 // ----------------------------------------------------------------

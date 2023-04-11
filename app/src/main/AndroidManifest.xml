@@ -45,7 +45,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name="org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.M3" />
 
         <service android:name="org.imaginativeworld.simplemvvm.ui.screens.service.CountService" />
 

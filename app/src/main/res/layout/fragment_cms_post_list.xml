@@ -9,7 +9,7 @@
     tools:ignore="HardcodedText">
 
     <include
-        android:id="@+id/action_bar"
+        android:id="@+id/action_bar_container"
         layout="@layout/cms_action_bar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,14 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar_container"
         tools:listitem="@layout/cms_post_item" />
 
     <TextView
         android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No todo found!"
+        android:text="No post found!"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

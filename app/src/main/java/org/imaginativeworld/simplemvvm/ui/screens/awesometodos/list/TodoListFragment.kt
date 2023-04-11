@@ -116,7 +116,7 @@ class TodoListFragment : Fragment(R.layout.fragment_awesome_todos_list), CommonF
         binding.list.layoutManager = layoutManager
         binding.list.adapter = adapter
 
-        binding.actionBar.btnBack.hide()
+        binding.actionBarContainer.btnBack.hide()
     }
 
     override fun initListeners() {

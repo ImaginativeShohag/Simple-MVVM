@@ -60,12 +60,12 @@ class UserDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _todo: MutableLiveData<User?> by lazy {
+    private val _user: MutableLiveData<User?> by lazy {
         MutableLiveData<User?>()
     }
 
-    val todo: LiveData<User?>
-        get() = _todo
+    val user: LiveData<User?>
+        get() = _user
 
     // ----------------------------------------------------------------
 
@@ -86,7 +86,7 @@ class UserDetailsViewModel @Inject constructor(
         try {
             val user = repository.getUser(userId)
 
-            _todo.postValue(user)
+            _user.postValue(user)
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }

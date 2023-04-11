@@ -87,7 +87,7 @@ class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunction
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Add User"
+        binding.actionBarContainer.actionBar.subtitle = "Add User"
 
         // Gender
         val genderItems = listOf("Male", "Female")
@@ -112,6 +112,10 @@ class UserAddFragment : Fragment(R.layout.fragment_cms_user_add), CommonFunction
                 binding.tvGender.text.toString(),
                 binding.tvStatus.text.toString()
             )
+        }
+
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }

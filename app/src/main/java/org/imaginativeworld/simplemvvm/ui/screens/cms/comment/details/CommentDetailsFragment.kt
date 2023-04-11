@@ -100,7 +100,7 @@ class CommentDetailsFragment : Fragment(R.layout.fragment_cms_comment_details), 
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Comment Details"
+        binding.actionBarContainer.actionBar.subtitle = "Comment Details"
     }
 
     override fun initListeners() {
@@ -123,7 +123,7 @@ class CommentDetailsFragment : Fragment(R.layout.fragment_cms_comment_details), 
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

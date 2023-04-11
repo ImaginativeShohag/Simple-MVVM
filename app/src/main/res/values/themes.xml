@@ -36,6 +36,11 @@
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>
 
+    <style name="AppTheme.M3" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/titillium_web</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Filled</item>
+    </style>
+
     <style name="Theme.Splash" parent="Theme.MaterialComponents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -60,8 +65,12 @@
     </style>
 
     <!-- Button Styles -->
-    <style name="Button.Default" parent="Widget.MaterialComponents.Button">
+    <style name="Button.Default" parent="Widget.MaterialComponents.Button" />
 
+    <!-- Shapes -->
+    <style name="CircularShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

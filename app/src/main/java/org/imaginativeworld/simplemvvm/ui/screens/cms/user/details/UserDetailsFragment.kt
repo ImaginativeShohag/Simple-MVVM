@@ -40,6 +40,7 @@ import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserDetailsBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
+import org.imaginativeworld.simplemvvm.utils.setImageFromUrl
 
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), CommonFunctions {
@@ -83,7 +84,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
             }
         }
 
-        viewModel.todo.observe(this) { user ->
+        viewModel.user.observe(this) { user ->
             user?.let {
                 binding.tvId.text = "#${user.id}"
                 binding.tvName.text = user.name
@@ -98,6 +99,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
                         )
                     )
                 }
+                binding.img.setImageFromUrl("https://picsum.photos/200/200?${user.id}")
             }
         }
 
@@ -109,11 +111,11 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "User Details"
+        binding.actionBarContainer.actionBar.subtitle = "User Details"
     }
 
     override fun initListeners() {
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

@@ -109,7 +109,7 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_cms_todo_details), Common
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Todo Details"
+        binding.actionBarContainer.actionBar.subtitle = "Todo Details"
     }
 
     override fun initListeners() {
@@ -131,7 +131,7 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_cms_todo_details), Common
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -9,7 +9,7 @@
     tools:ignore="HardcodedText">
 
     <include
-        android:id="@+id/action_bar"
+        android:id="@+id/action_bar_container"
         layout="@layout/awesome_todos_app_action_bar" />
 
     <ScrollView

@@ -10,7 +10,7 @@
     tools:ignore="HardcodedText">
 
     <include
-        android:id="@+id/action_bar"
+        android:id="@+id/action_bar_container"
         layout="@layout/cms_action_bar" />
 
     <ScrollView
@@ -41,17 +41,34 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:textColor="?android:textColorPrimary"
-                            android:textSize="18sp"
-                            tools:text="@tools:sample/full_names" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/img"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="8dp"
+                                android:contentDescription="Profile picture"
+                                app:shapeAppearanceOverlay="@style/CircularShape"
+                                tools:src="@tools:sample/avatars" />
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="?android:textColorPrimary"
+                                android:textSize="18sp"
+                                tools:text="@tools:sample/full_names" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_id"

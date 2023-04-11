@@ -104,7 +104,7 @@ class CommentListFragment : Fragment(R.layout.fragment_cms_comment_list), Common
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Comments"
+        binding.actionBarContainer.actionBar.subtitle = "Comments"
 
         // Init List
         val layoutManager = LinearLayoutManager(activity)
@@ -121,7 +121,7 @@ class CommentListFragment : Fragment(R.layout.fragment_cms_comment_list), Common
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

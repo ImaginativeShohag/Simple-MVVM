@@ -90,7 +90,7 @@ class PostAddFragment : Fragment(R.layout.fragment_cms_post_add), CommonFunction
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Add Post"
+        binding.actionBarContainer.actionBar.subtitle = "Add Post"
     }
 
     override fun initListeners() {
@@ -104,7 +104,7 @@ class PostAddFragment : Fragment(R.layout.fragment_cms_post_add), CommonFunction
             )
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

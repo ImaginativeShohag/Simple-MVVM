@@ -49,6 +49,7 @@ A simple Android MVVM pattern example and template.
   - Sections: User, Post, Todo and Comment
   - Navigation Component
   - Hilt
+  - Material 3
 - Service example
   - Foreground service
   - Data-pass using Broadcast
@@ -88,7 +89,6 @@ A simple Android MVVM pattern example and template.
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
 - [ ] Add spotless to CI/CD
-- [ ] Material 3 migration: Simple CMS App
 
 # Note
 

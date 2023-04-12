@@ -34,7 +34,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsPostItemBinding
 import org.imaginativeworld.simplemvvm.models.Post
 import org.imaginativeworld.simplemvvm.utils.setImageFromUrl
-import org.imaginativeworld.simplemvvm.utils.setProfileImageFromUrl
 
 class PostListAdapter(
     private val onClick: (Post) -> Unit

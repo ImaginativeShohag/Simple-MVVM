@@ -41,6 +41,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Decode BASEURL
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+      run: echo API_KEY="$API_KEY" > ./local.properties
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL

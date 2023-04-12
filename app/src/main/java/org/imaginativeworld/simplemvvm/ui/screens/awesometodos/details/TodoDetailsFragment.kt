@@ -116,7 +116,7 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Todo Details"
+        binding.actionBarContainer.tvActionTitle.text = "Todo Details"
     }
 
     override fun initListeners() {
@@ -144,7 +144,7 @@ class TodoDetailsFragment : Fragment(R.layout.fragment_awesome_todos_details), C
             )
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
     }

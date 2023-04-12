@@ -99,7 +99,7 @@ class PostEditFragment : Fragment(R.layout.fragment_cms_post_edit), CommonFuncti
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Edit Post"
+        binding.actionBarContainer.actionBar.subtitle = "Edit Post"
     }
 
     override fun initListeners() {
@@ -114,7 +114,7 @@ class PostEditFragment : Fragment(R.layout.fragment_cms_post_edit), CommonFuncti
             )
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -44,7 +44,6 @@ import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.models.User
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
-import org.imaginativeworld.simplemvvm.utils.extensions.hide
 
 @AndroidEntryPoint
 class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFunctions {
@@ -107,7 +106,8 @@ class UserListFragment : Fragment(R.layout.fragment_cms_user_list), CommonFuncti
         binding.list.layoutManager = layoutManager
         binding.list.adapter = adapter
 
-        binding.actionBar.btnBack.hide()
+        // Hide back button
+        binding.actionBarContainer.actionBar.navigationIcon = null
     }
 
     override fun initListeners() {

@@ -21,7 +21,6 @@ A simple Android MVVM pattern example and template.
 - Shimmer for Android (https://github.com/facebook/shimmer-android)
 - Hilt (https://dagger.dev/hilt/)
 - Paging 3 (https://developer.android.com/topic/libraries/architecture/paging)
-- Dexter (https://github.com/Karumi/Dexter) **(coming soon...)**
 
 ## Others
 
@@ -50,7 +49,13 @@ A simple Android MVVM pattern example and template.
   - Sections: User, Post, Todo and Comment
   - Navigation Component
   - Hilt
-  - Material Component 3 **(coming soon...)**
+  - Material 3
+- Service example
+  - Foreground service
+  - Data-pass using Broadcast
+- Github Actions
+  - [CodeQL Analysis](https://github.com/github/codeql-action)
+  - [Run ktlint with reviewdog](https://github.com/marketplace/actions/run-ktlint-with-reviewdog)
 
 ## Extension Functions (see `utils/extensions`)
 
@@ -83,23 +88,18 @@ A simple Android MVVM pattern example and template.
 
 ## Todo
 
-- [ ] OneSignal integration
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
-- [ ] Add spotless to CI/CD
 
 # Note
 
-- For dependency version check I am currently
-  using [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin#using-a-gradle-init-script)
-  . I added this in the Gradle init script and can check versions using the following commend.
+- For dependency version check I am currently using [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin#using-a-gradle-init-script). I added this in the Gradle init script and can check versions using the following commend.
 
 ```bash
 ./gradlew dependencyUpdates
 ```
 
-- The project using [spotless](https://github.com/diffplug/spotless/tree/main/plugin-gradle)
-  with [klint](https://github.com/pinterest/ktlint). Apply spotless using the following command.
+- The project using [spotless](https://github.com/diffplug/spotless/tree/main/plugin-gradle) with [klint](https://github.com/pinterest/ktlint). Apply spotless using the following command.
 
 ```bash
 ./gradlew spotlessApply
@@ -109,8 +109,7 @@ A simple Android MVVM pattern example and template.
 
 ### Go REST API Key
 
-Open the `local.properties` in your project level directory, and then add the following code.
-Replace `YOUR_API_KEY` with your [Go REST](https://gorest.co.in) API key.
+Open the `local.properties` in your project level directory, and then add the following code. Replace `YOUR_API_KEY` with your [Go REST](https://gorest.co.in) API key.
 
 ```groovy
 API_KEY=YOUR_API_KEY

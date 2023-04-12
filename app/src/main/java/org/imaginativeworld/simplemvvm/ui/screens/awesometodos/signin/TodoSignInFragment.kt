@@ -93,7 +93,7 @@ class TodoSignInFragment : Fragment(R.layout.fragment_awesome_todos_signin), Com
     }
 
     override fun initViews() {
-        binding.actionBar.btnBack.hide()
+        binding.actionBarContainer.btnBack.hide()
 
         // Gender
         val genderItems = listOf("Male", "Female")

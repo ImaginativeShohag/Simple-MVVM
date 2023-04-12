@@ -159,6 +159,17 @@
                 android:text="CMS App"
                 app:icon="@drawable/round_manage_accounts_24" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_service"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="Service"
+                app:icon="@drawable/baseline_miscellaneous_services_24" />
+
         </LinearLayout>
 
     </ScrollView>

@@ -26,6 +26,7 @@
 
 package org.imaginativeworld.simplemvvm.ui.screens.cms.user.list
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -34,7 +35,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsUserItemBinding
 import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.utils.setProfileImageFromUrl
 
+@SuppressLint("SetTextI18n")
 class UserListAdapter(
     private val onClick: (User) -> Unit
 ) : PagingDataAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
@@ -68,6 +71,7 @@ class UserListAdapter(
                         )
                     )
                 }
+                binding.img.setProfileImageFromUrl("https://picsum.photos/200/200?${item.id}")
 
                 binding.root.setOnClickListener {
                     onClick(item)

@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsPostItemBinding
 import org.imaginativeworld.simplemvvm.models.Post
+import org.imaginativeworld.simplemvvm.utils.setImageFromUrl
 
 class PostListAdapter(
     private val onClick: (Post) -> Unit
@@ -56,6 +57,7 @@ class PostListAdapter(
             item?.also {
                 binding.tvTitle.text = item.title
                 binding.tvBody.text = item.body
+                binding.img.setImageFromUrl("https://picsum.photos/200/200?${item.id}")
 
                 binding.root.setOnClickListener {
                     onClick(item)

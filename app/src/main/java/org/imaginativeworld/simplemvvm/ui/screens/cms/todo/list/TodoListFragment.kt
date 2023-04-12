@@ -104,7 +104,7 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Todos"
+        binding.actionBarContainer.actionBar.subtitle = "Todos"
 
         // Init List
         val layoutManager = LinearLayoutManager(activity)
@@ -119,7 +119,7 @@ class TodoListFragment : Fragment(R.layout.fragment_cms_todo_list), CommonFuncti
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

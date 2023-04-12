@@ -104,7 +104,7 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Posts"
+        binding.actionBarContainer.actionBar.subtitle = "Posts"
 
         // Init List
         val layoutManager = LinearLayoutManager(activity)
@@ -119,7 +119,7 @@ class PostListFragment : Fragment(R.layout.fragment_cms_post_list), CommonFuncti
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

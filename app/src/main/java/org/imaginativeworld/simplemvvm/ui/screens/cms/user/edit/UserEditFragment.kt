@@ -102,7 +102,7 @@ class UserEditFragment : Fragment(R.layout.fragment_cms_user_edit), CommonFuncti
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Edit User"
+        binding.actionBarContainer.actionBar.subtitle = "Edit User"
 
         // Gender
         val genderItems = listOf("Male", "Female")
@@ -118,7 +118,7 @@ class UserEditFragment : Fragment(R.layout.fragment_cms_user_edit), CommonFuncti
     }
 
     override fun initListeners() {
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

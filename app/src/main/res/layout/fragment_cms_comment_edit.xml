@@ -8,7 +8,7 @@
     tools:context=".ui.screens.cms.comment.edit.CommentEditFragment">
 
     <include
-        android:id="@+id/action_bar"
+        android:id="@+id/action_bar_container"
         layout="@layout/cms_action_bar" />
 
     <ScrollView

@@ -100,7 +100,7 @@ class CommentEditFragment : Fragment(R.layout.fragment_cms_comment_edit), Common
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Edit Comment"
+        binding.actionBarContainer.actionBar.subtitle = "Edit Comment"
     }
 
     override fun initListeners() {
@@ -116,7 +116,7 @@ class CommentEditFragment : Fragment(R.layout.fragment_cms_comment_edit), Common
             )
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

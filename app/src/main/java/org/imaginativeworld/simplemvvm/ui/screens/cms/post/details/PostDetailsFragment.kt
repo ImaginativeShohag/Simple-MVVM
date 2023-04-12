@@ -39,6 +39,7 @@ import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsPostDetailsBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
+import org.imaginativeworld.simplemvvm.utils.setImageFromUrl
 
 @AndroidEntryPoint
 class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), CommonFunctions {
@@ -88,6 +89,7 @@ class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), Common
             post?.let {
                 binding.tvTitle.text = post.title
                 binding.tvBody.text = post.body
+                binding.img.setImageFromUrl("https://picsum.photos/200/200?${post.id}")
             }
         }
 
@@ -99,7 +101,7 @@ class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), Common
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Post Details"
+        binding.actionBarContainer.actionBar.subtitle = "Post Details"
     }
 
     override fun initListeners() {
@@ -129,7 +131,7 @@ class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), Common
             findNavController().navigate(action)
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

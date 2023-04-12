@@ -10,7 +10,7 @@
     tools:ignore="HardcodedText">
 
     <include
-        android:id="@+id/action_bar"
+        android:id="@+id/action_bar_container"
         layout="@layout/cms_action_bar" />
 
     <ScrollView
@@ -34,25 +34,40 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_title"
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="match_parent"
+                        android:layout_height="128dp"
+                        android:contentDescription="Thumbnail image"
+                        android:scaleType="centerCrop"
+                        tools:src="@tools:sample/backgrounds/scenic" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="?android:textColorPrimary"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        tools:text="@tools:sample/lorem[10]" />
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tv_body"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?android:textColorPrimary"
-                        android:textSize="18sp"
-                        tools:text="@tools:sample/lorem[10]" />
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?android:textColorPrimary"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            tools:text="@tools:sample/lorem[10]" />
+
+                        <TextView
+                            android:id="@+id/tv_body"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?android:textColorPrimary"
+                            android:textSize="18sp"
+                            tools:text="@tools:sample/lorem[10]" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

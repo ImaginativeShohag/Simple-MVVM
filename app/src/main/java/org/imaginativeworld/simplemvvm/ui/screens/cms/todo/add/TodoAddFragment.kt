@@ -97,7 +97,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_cms_todo_add), CommonFunction
     }
 
     override fun initViews() {
-        binding.actionBar.tvActionTitle.text = "Add Todo"
+        binding.actionBarContainer.actionBar.subtitle = "Add Todo"
 
         // Status
         val items = listOf("Pending", "Completed")
@@ -127,7 +127,7 @@ class TodoAddFragment : Fragment(R.layout.fragment_cms_todo_add), CommonFunction
             )
         }
 
-        binding.actionBar.btnBack.setOnClickListener {
+        binding.actionBarContainer.actionBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

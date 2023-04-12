@@ -28,9 +28,7 @@ package org.imaginativeworld.simplemvvm.ui.screens.fragmentNav
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -42,7 +40,7 @@ import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.ui.screens.fragmentNav.viewmodel.DemoFragmentNavViewModel
 import timber.log.Timber
 
-class DemoFragmentNavFragment : Fragment(), CommonFunctions {
+class DemoFragmentNavFragment : Fragment(R.layout.fragment_demo_fragment_nav), CommonFunctions {
 
     private val viewModel: DemoFragmentNavViewModel by viewModels()
 
@@ -56,17 +54,8 @@ class DemoFragmentNavFragment : Fragment(), CommonFunctions {
         initObservers()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDemoFragmentNavBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentDemoFragmentNavBinding.bind(view)
 
         listener?.setAppTitle(getString(R.string.app_name))
 

@@ -48,6 +48,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsResponse
+import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.OnCompleteListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -91,10 +92,10 @@ class LocationProviderUtilClient(
     private val activity: Activity,
     private val lifecycle: Lifecycle,
     private val options: Options = Options(),
-    private val locationRequestInterval: Long = 15000,
-    private val locationRequestFastestInterval: Long = 15000,
-    private val locationRequestPriority: Int = LocationRequest.PRIORITY_HIGH_ACCURACY,
-    private val smallestDisplacementInMeter: Float = 50f,
+    locationRequestInterval: Long = 15000,
+    locationRequestFastestInterval: Long = 15000,
+    locationRequestPriority: Int = Priority.PRIORITY_HIGH_ACCURACY,
+    smallestDisplacementInMeter: Float = 50f,
     var turnOnLocationCallback: ((IntentSenderRequest) -> Unit)? = null
 ) : DefaultLifecycleObserver {
 
@@ -122,12 +123,14 @@ class LocationProviderUtilClient(
             LocationServices.getFusedLocationProviderClient(activity.application)
 
         // Set up location request
-        locationRequest = LocationRequest.create().apply {
-            interval = locationRequestInterval
-            fastestInterval = locationRequestFastestInterval
-            priority = locationRequestPriority
-            smallestDisplacement = smallestDisplacementInMeter
-        }
+        locationRequest =
+            LocationRequest.Builder(
+                /* priority = */ locationRequestPriority,
+                /* intervalMillis = */ locationRequestInterval
+            )
+                .setMinUpdateIntervalMillis(locationRequestFastestInterval)
+                .setMinUpdateDistanceMeters(smallestDisplacementInMeter)
+                .build()
 
         // Init location callback
         locationCallback = object : LocationCallback() {

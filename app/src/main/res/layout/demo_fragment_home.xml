@@ -38,137 +38,149 @@
 
             <!-- ================================================================ -->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_dark_mode"
-                style="@style/Widget.MaterialComponents.Button.Icon"
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Toggle Dark Mode"
-                app:icon="@drawable/ic_round_invert_colors_24" />
+                android:layout_marginHorizontal="16dp"
+                android:alignmentMode="alignBounds"
+                android:columnCount="2"
+                android:columnOrderPreserved="true"
+                android:orientation="horizontal"
+                android:useDefaultMargins="true">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_user"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="@string/title_users"
-                app:icon="@drawable/ic_account_box_24dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_dark_mode"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Toggle Dark Mode"
+                    app:icon="@drawable/ic_round_invert_colors_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_post"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="@string/title_posts"
-                app:icon="@drawable/ic_chat_24dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_user"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Users\n(Room Example)"
+                    app:icon="@drawable/ic_account_box_24dp"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_post_paged"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="@string/title_posts_paged"
-                app:icon="@drawable/ic_chat_24dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_post"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Posts"
+                    app:icon="@drawable/ic_chat_24dp"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_custom_snackbar"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Custom Snackbar"
-                app:icon="@drawable/ic_perm_device_information_24dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_post_paged"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Posts\n(Paged)"
+                    app:icon="@drawable/ic_chat_24dp"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_carousel"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Why Not! Image Carousel!"
-                app:icon="@drawable/round_burst_mode_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_custom_snackbar"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Custom Snackbar"
+                    app:icon="@drawable/ic_perm_device_information_24dp"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_latex"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Latex View"
-                app:icon="@drawable/ic_baseline_functions_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_carousel"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Why Not!\nImage Carousel!"
+                    app:icon="@drawable/round_burst_mode_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_activity_nav"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Activity Navigation"
-                app:icon="@drawable/outline_auto_awesome_motion_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_latex"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Latex View"
+                    app:icon="@drawable/ic_baseline_functions_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_fragment_nav"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Fragment Navigation"
-                app:icon="@drawable/outline_auto_awesome_mosaic_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_activity_nav"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Activity Navigation"
+                    app:icon="@drawable/outline_auto_awesome_motion_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_todos_app"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Awesome Todos App"
-                app:icon="@drawable/round_ballot_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_fragment_nav"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Fragment Navigation"
+                    app:icon="@drawable/outline_auto_awesome_mosaic_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cms_app"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="CMS App"
-                app:icon="@drawable/round_manage_accounts_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_todos_app"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Awesome Todos App"
+                    app:icon="@drawable/round_ballot_24"
+                    app:iconGravity="top" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_service"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="Service"
-                app:icon="@drawable/baseline_miscellaneous_services_24" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cms_app"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="CMS App"
+                    app:icon="@drawable/round_manage_accounts_24"
+                    app:iconGravity="top" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_service"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Service"
+                    app:icon="@drawable/baseline_miscellaneous_services_24"
+                    app:iconGravity="top" />
+
+            </GridLayout>
 
         </LinearLayout>
 

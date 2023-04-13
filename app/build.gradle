@@ -6,7 +6,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -31,6 +31,12 @@ android {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
         buildConfigField "String", "API_KEY", "\"${properties.getProperty('API_KEY')}\""
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas"]
+            }
+        }
     }
 
     buildTypes {
@@ -106,6 +112,10 @@ android {
         renderScript false
         resValues false
         shaders false
+    }
+
+    hilt {
+        enableAggregatingTask = true
     }
 
     signingConfigs {

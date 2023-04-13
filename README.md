@@ -53,7 +53,7 @@ A simple Android MVVM pattern example and template.
 - Service example
   - Foreground service
   - Data-pass using Broadcast
-- Github Actions
+- GitHub Actions
   - [CodeQL Analysis](https://github.com/github/codeql-action)
   - [Run ktlint with reviewdog](https://github.com/marketplace/actions/run-ktlint-with-reviewdog)
 

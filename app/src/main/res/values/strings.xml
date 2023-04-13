@@ -10,6 +10,6 @@
 
     <!-- Demo View Strings -->
     <string name="title_posts">Posts</string>
-    <string name="title_users">Users</string>
+    <string name="title_users">Users (Room Example)</string>
     <string name="title_posts_paged">Posts (Paged)</string>
 </resources>

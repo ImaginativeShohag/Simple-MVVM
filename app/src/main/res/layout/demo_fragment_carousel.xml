@@ -7,8 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/container_default_background">
+        android:layout_height="match_parent">
 
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
             android:id="@+id/carousel"

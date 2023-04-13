@@ -6,7 +6,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -106,6 +106,10 @@ android {
         renderScript false
         resValues false
         shaders false
+    }
+
+    hilt {
+        enableAggregatingTask = true
     }
 
     signingConfigs {

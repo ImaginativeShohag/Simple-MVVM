@@ -12,7 +12,7 @@ A simple Android MVVM pattern example and template.
 - View Binding (https://developer.android.com/topic/libraries/view-binding)
 - Data Binding (https://developer.android.com/topic/libraries/data-binding)
 - Retrofit (https://github.com/square/retrofit) with Moshi (https://github.com/square/moshi)
-- Room Persistence Library  (https://developer.android.com/topic/libraries/architecture/room)
+- Room Persistence Library (https://developer.android.com/topic/libraries/architecture/room)
 - Shared Preferences (https://developer.android.com/training/data-storage/shared-preferences)
 - Navigation Component (https://developer.android.com/guide/navigation)
 - Glide (https://github.com/bumptech/glide)

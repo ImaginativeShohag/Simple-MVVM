@@ -34,7 +34,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsUserItemBinding
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.User
 import org.imaginativeworld.simplemvvm.utils.setProfileImageFromUrl
 
 @SuppressLint("SetTextI18n")

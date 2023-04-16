@@ -27,13 +27,13 @@
 package org.imaginativeworld.simplemvvm.usecase
 
 import javax.inject.Inject
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 
 class UserUseCase @Inject constructor(
     private val repository: UserRepository
 ) {
-    suspend fun addUser(userModel: DemoUserEntity) {
+    suspend fun addUser(userModel: UserEntity) {
         repository.saveUserInDB(userModel)
     }
 
@@ -41,11 +41,11 @@ class UserUseCase @Inject constructor(
         repository.removeAllUsersFromDB()
     }
 
-    suspend fun getUsers(): List<DemoUserEntity> {
+    suspend fun getUsers(): List<UserEntity> {
         return repository.getUsersFromDB()
     }
 
-    suspend fun updateUser(user: DemoUserEntity) {
+    suspend fun updateUser(user: UserEntity) {
         return repository.updateUserToDB(user)
     }
 }

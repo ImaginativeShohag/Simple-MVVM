@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.databinding.FragmentCmsUserListBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.User
 import org.imaginativeworld.simplemvvm.ui.screens.cms.CMSMainViewModel
 
 @AndroidEntryPoint

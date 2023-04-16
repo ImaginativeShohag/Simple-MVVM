@@ -36,7 +36,6 @@ import org.imaginativeworld.simplemvvm.R
 import org.imaginativeworld.simplemvvm.utils.extensions.getHumanReadableDate
 import org.imaginativeworld.simplemvvm.utils.extensions.toLower
 
-@Keep
 @JsonClass(generateAdapter = true)
 data class Todo(
     @Json(name = "id")

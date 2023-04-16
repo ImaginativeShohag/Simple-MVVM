@@ -32,25 +32,25 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(userModel: DemoUserEntity): Long
+    suspend fun insert(userModel: UserEntity): Long
 
     @Update
-    suspend fun update(userModel: DemoUserEntity)
+    suspend fun update(userModel: UserEntity)
 
     @Delete
-    suspend fun delete(userModel: DemoUserEntity)
+    suspend fun delete(userModel: UserEntity)
 
     @Query("DELETE FROM users")
     suspend fun removeAll()
 
     @Query("SELECT * FROM users")
-    suspend fun getAll(): List<DemoUserEntity>
+    suspend fun getAll(): List<UserEntity>
 
     @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    suspend fun getById(id: Int): DemoUserEntity?
+    suspend fun getById(id: Int): UserEntity?
 }

@@ -31,7 +31,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.random.Random
 
-@Keep
 @JsonClass(generateAdapter = true)
 data class Post(
     @Json(name = "id")

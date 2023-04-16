@@ -24,13 +24,13 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models
+package org.imaginativeworld.simplemvvm.models.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
-data class DemoUserEntity(
+data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
 

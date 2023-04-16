@@ -24,7 +24,7 @@
  * Source: https://github.com/ImaginativeShohag/Simple-MVVM
  */
 
-package org.imaginativeworld.simplemvvm.models
+package org.imaginativeworld.simplemvvm.models.user
 
 import androidx.annotation.ColorRes
 import com.squareup.moshi.Json

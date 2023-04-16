@@ -34,7 +34,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.random.Random
 import kotlinx.coroutines.launch
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 import org.imaginativeworld.simplemvvm.usecase.UserUseCase
 import timber.log.Timber
 
@@ -93,7 +93,7 @@ class DemoUserViewModel @Inject constructor(
             val randomIndex = Random.nextInt(totalData)
 
             val insertUserId = userUseCase.addUser(
-                DemoUserEntity(
+                UserEntity(
                     name = names[randomIndex],
                     phone = phones[randomIndex],
                     image = "https://picsum.photos/300/300?${Random.nextInt()}"
@@ -121,11 +121,11 @@ class DemoUserViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _userItems: MutableLiveData<List<DemoUserEntity>> by lazy {
-        MutableLiveData<List<DemoUserEntity>>()
+    private val _userItems: MutableLiveData<List<UserEntity>> by lazy {
+        MutableLiveData<List<UserEntity>>()
     }
 
-    val userItems: LiveData<List<DemoUserEntity>>
+    val userItems: LiveData<List<UserEntity>>
         get() = _userItems
 
     // ----------------------------------------------------------------
@@ -138,14 +138,14 @@ class DemoUserViewModel @Inject constructor(
         _eventShowLoading.value = false
     }
 
-    fun addToFav(user: DemoUserEntity, result: (isSuccess: Boolean) -> Unit) =
+    fun addToFav(user: UserEntity, result: (isSuccess: Boolean) -> Unit) =
         viewModelScope.launch {
             userUseCase.updateUser(user)
 
             result(true)
         }
 
-    fun removeFromFav(user: DemoUserEntity, result: (isSuccess: Boolean) -> Unit) =
+    fun removeFromFav(user: UserEntity, result: (isSuccess: Boolean) -> Unit) =
         viewModelScope.launch {
             userUseCase.updateUser(user)
 

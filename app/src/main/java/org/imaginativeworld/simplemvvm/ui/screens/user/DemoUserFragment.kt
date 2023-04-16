@@ -42,13 +42,13 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 
 @AndroidEntryPoint
 class DemoUserFragment :
     Fragment(),
     CommonFunctions,
-    OnObjectListInteractionListener<DemoUserEntity> {
+    OnObjectListInteractionListener<UserEntity> {
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -151,7 +151,7 @@ class DemoUserFragment :
         listener = null
     }
 
-    override fun onClick(position: Int, dataObject: DemoUserEntity) {
+    override fun onClick(position: Int, dataObject: UserEntity) {
         if (dataObject.isFav) {
             viewModel.removeFromFav(user = dataObject, result = { isSuccess ->
                 if (isSuccess) {
@@ -179,7 +179,7 @@ class DemoUserFragment :
         // ...
     }
 
-    override fun onLongClick(position: Int, dataObject: DemoUserEntity) {
+    override fun onLongClick(position: Int, dataObject: UserEntity) {
     }
 
     override fun showEmptyView() {

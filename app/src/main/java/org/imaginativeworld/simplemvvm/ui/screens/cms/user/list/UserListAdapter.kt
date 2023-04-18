@@ -71,7 +71,7 @@ class UserListAdapter(
                         )
                     )
                 }
-                binding.img.setProfileImageFromUrl("https://picsum.photos/200/200?${item.id}")
+                binding.img.setProfileImageFromUrl("https://picsum.photos/seed/u${item.id}/200/200")
 
                 binding.root.setOnClickListener {
                     onClick(item)

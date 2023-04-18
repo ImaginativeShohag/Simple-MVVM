@@ -57,7 +57,7 @@ class PostListAdapter(
             item?.also {
                 binding.tvTitle.text = item.title
                 binding.tvBody.text = item.body
-                binding.img.setImageFromUrl("https://picsum.photos/200/200?${item.id}")
+                binding.img.setImageFromUrl("https://picsum.photos/seed/p${item.id}/1024/1024")
 
                 binding.root.setOnClickListener {
                     onClick(item)

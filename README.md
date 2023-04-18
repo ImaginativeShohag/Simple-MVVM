@@ -90,6 +90,7 @@ A simple Android MVVM pattern example and template.
 
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
+- [ ] Migrate full app to Material 3
 
 # Note
 

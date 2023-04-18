@@ -89,7 +89,7 @@ class PostDetailsFragment : Fragment(R.layout.fragment_cms_post_details), Common
             post?.let {
                 binding.tvTitle.text = post.title
                 binding.tvBody.text = post.body
-                binding.img.setImageFromUrl("https://picsum.photos/200/200?${post.id}")
+                binding.img.setImageFromUrl("https://picsum.photos/seed/p${post.id}/1024/1024")
             }
         }
 

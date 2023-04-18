@@ -26,7 +26,7 @@
 
 package org.imaginativeworld.simplemvvm.network.api
 
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

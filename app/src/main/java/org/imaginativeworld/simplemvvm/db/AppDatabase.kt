@@ -33,12 +33,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import java.util.Date
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 import org.imaginativeworld.simplemvvm.models.todo.TodoEntity
 
 @Database(
     entities = [
-        DemoUserEntity::class,
+        UserEntity::class,
         TodoEntity::class
     ],
     version = 2

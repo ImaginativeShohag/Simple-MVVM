@@ -3,7 +3,7 @@
 A simple Android MVVM pattern example and template.
 
 [![Developer](https://img.shields.io/badge/Maintainer-ImaginativeShohag-green)](https://github.com/ImaginativeShohag)
-[![Developer](https://img.shields.io/badge/-buy_me_a_coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/ImShohag)
+[![Buy Me A Coffee](https://img.shields.io/badge/-buy_me_a_coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/ImShohag)
 
 ## Used Components/Libraries
 
@@ -12,7 +12,7 @@ A simple Android MVVM pattern example and template.
 - View Binding (https://developer.android.com/topic/libraries/view-binding)
 - Data Binding (https://developer.android.com/topic/libraries/data-binding)
 - Retrofit (https://github.com/square/retrofit) with Moshi (https://github.com/square/moshi)
-- Room Persistence Library  (https://developer.android.com/topic/libraries/architecture/room)
+- Room Persistence Library (https://developer.android.com/topic/libraries/architecture/room)
 - Shared Preferences (https://developer.android.com/training/data-storage/shared-preferences)
 - Navigation Component (https://developer.android.com/guide/navigation)
 - Glide (https://github.com/bumptech/glide)
@@ -90,6 +90,7 @@ A simple Android MVVM pattern example and template.
 
 - [ ] UI/Unit Testing
 - [ ] Example of `LocationProviderUtilClient`
+- [ ] Migrate full app to Material 3
 
 # Note
 

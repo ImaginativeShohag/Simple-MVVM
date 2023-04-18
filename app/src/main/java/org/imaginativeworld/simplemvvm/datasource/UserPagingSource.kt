@@ -29,7 +29,7 @@ package org.imaginativeworld.simplemvvm.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import okio.IOException
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.User
 import org.imaginativeworld.simplemvvm.network.ApiException
 import org.imaginativeworld.simplemvvm.repositories.UserRepository
 import retrofit2.HttpException

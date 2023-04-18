@@ -32,8 +32,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
+import org.imaginativeworld.simplemvvm.models.user.User
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
 
@@ -81,7 +81,7 @@ class UserRepository @Inject constructor(
     // ----------------------------------------------------------------
 
     suspend fun saveUserInDB(
-        userModel: DemoUserEntity
+        userModel: UserEntity
     ): Long {
         return withContext(Dispatchers.IO) {
             db.userDao().insert(userModel)
@@ -94,13 +94,13 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun getUsersFromDB(): List<DemoUserEntity> {
+    suspend fun getUsersFromDB(): List<UserEntity> {
         return withContext(Dispatchers.IO) {
             db.userDao().getAll()
         }
     }
 
-    suspend fun updateUserToDB(user: DemoUserEntity) {
+    suspend fun updateUserToDB(user: UserEntity) {
         return withContext(Dispatchers.IO) {
             db.userDao().update(user)
         }

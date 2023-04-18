@@ -34,34 +34,34 @@ import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.DemoItemUserBinding
 import org.imaginativeworld.simplemvvm.interfaces.BindableAdapter
 import org.imaginativeworld.simplemvvm.interfaces.OnObjectListInteractionListener
-import org.imaginativeworld.simplemvvm.models.DemoUserEntity
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 
 class DemoUserListAdapter(
-    val listener: OnObjectListInteractionListener<DemoUserEntity>
+    val listener: OnObjectListInteractionListener<UserEntity>
 ) :
-    ListAdapter<DemoUserEntity, DemoUserListAdapter.ListViewHolder>(DIFF_CALLBACK),
-    BindableAdapter<List<DemoUserEntity>> {
+    ListAdapter<UserEntity, DemoUserListAdapter.ListViewHolder>(DIFF_CALLBACK),
+    BindableAdapter<List<UserEntity>> {
 
     companion object {
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DemoUserEntity>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserEntity>() {
             override fun areItemsTheSame(
-                oldItem: DemoUserEntity,
-                newItem: DemoUserEntity
+                oldItem: UserEntity,
+                newItem: UserEntity
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: DemoUserEntity,
-                newItem: DemoUserEntity
+                oldItem: UserEntity,
+                newItem: UserEntity
             ): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    override fun setItems(data: List<DemoUserEntity>?) {
+    override fun setItems(data: List<UserEntity>?) {
         data?.apply {
             submitList(this) {
                 checkEmptiness()
@@ -88,10 +88,10 @@ class DemoUserListAdapter(
 
     class ListViewHolder private constructor(
         private val binding: DemoItemUserBinding,
-        private val listener: OnObjectListInteractionListener<DemoUserEntity>
+        private val listener: OnObjectListInteractionListener<UserEntity>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DemoUserEntity) {
+        fun bind(item: UserEntity) {
             binding.user = item
             binding.executePendingBindings()
             binding.root.setOnClickListener {
@@ -107,7 +107,7 @@ class DemoUserListAdapter(
         companion object {
             fun from(
                 parent: ViewGroup,
-                listener: OnObjectListInteractionListener<DemoUserEntity>
+                listener: OnObjectListInteractionListener<UserEntity>
             ): ListViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DemoItemUserBinding.inflate(layoutInflater, parent, false)

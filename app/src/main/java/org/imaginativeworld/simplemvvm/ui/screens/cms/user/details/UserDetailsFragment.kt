@@ -99,7 +99,7 @@ class UserDetailsFragment : Fragment(R.layout.fragment_cms_user_details), Common
                         )
                     )
                 }
-                binding.img.setImageFromUrl("https://picsum.photos/200/200?${user.id}")
+                binding.img.setImageFromUrl("https://picsum.photos/seed/u${user.id}/200/200")
             }
         }
 

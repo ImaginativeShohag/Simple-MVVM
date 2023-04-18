@@ -31,7 +31,7 @@
         <item name="colorOnSurface">@color/flat_grey_dark_2</item>
 
         <item name="colorError">@color/flat_red_1</item>
-        <item name="colorOnError">@color/white</item>
+        <item name="colorOnError">@color/flat_red_2</item>
 
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>

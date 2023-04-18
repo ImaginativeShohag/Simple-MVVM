@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/flat_grey_dark_2</item>
-        <item name="colorPrimaryVariant">@color/flat_grey_dark_2</item>
-        <item name="colorOnPrimary">@color/flat_grey_light_2</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/flat_grey_dark_2</item>
 
         <item name="colorSecondary">@color/flat_green_2</item>
         <item name="colorSecondaryVariant">@color/flat_green_2</item>
-        <item name="colorOnSecondary">@color/flat_grey_light_2</item>
+        <item name="colorOnSecondary">@color/white</item>
 
         <item name="android:colorBackground">@color/flat_grey_dark_2</item>
-        <item name="colorOnBackground">@color/flat_grey_light_1</item>
+        <item name="colorOnBackground">@color/white</item>
 
         <item name="colorSurface">@color/flat_grey_dark_2</item>
-        <item name="colorOnSurface">@color/flat_grey_light_1</item>
+        <item name="colorOnSurface">@color/white</item>
 
         <item name="colorError">@color/flat_red_1</item>
-        <item name="colorOnError">@color/flat_grey_light_2</item>
+        <item name="colorOnError">@color/flat_red_2</item>
 
         <item name="android:fontFamily">@font/titillium_web</item>
     </style>

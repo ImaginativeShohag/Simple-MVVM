@@ -34,7 +34,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.imaginativeworld.simplemvvm.databinding.CmsUserItemBinding
-import org.imaginativeworld.simplemvvm.models.User
+import org.imaginativeworld.simplemvvm.models.user.User
 import org.imaginativeworld.simplemvvm.utils.setProfileImageFromUrl
 
 @SuppressLint("SetTextI18n")
@@ -71,7 +71,7 @@ class UserListAdapter(
                         )
                     )
                 }
-                binding.img.setProfileImageFromUrl("https://picsum.photos/200/200?${item.id}")
+                binding.img.setProfileImageFromUrl("https://picsum.photos/seed/u${item.id}/200/200")
 
                 binding.root.setOnClickListener {
                     onClick(item)

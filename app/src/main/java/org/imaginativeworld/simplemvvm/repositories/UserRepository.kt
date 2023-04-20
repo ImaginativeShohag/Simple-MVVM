@@ -32,8 +32,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.simplemvvm.db.AppDatabase
-import org.imaginativeworld.simplemvvm.models.user.UserEntity
 import org.imaginativeworld.simplemvvm.models.user.User
+import org.imaginativeworld.simplemvvm.models.user.UserEntity
 import org.imaginativeworld.simplemvvm.network.SafeApiRequest
 import org.imaginativeworld.simplemvvm.network.api.UserApiInterface
 

@@ -5,6 +5,13 @@ A simple Android MVVM pattern example and template.
 [![Developer](https://img.shields.io/badge/Maintainer-ImaginativeShohag-green)](https://github.com/ImaginativeShohag)
 [![Buy Me A Coffee](https://img.shields.io/badge/-buy_me_a_coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/ImShohag)
 
+## Screenshots
+
+|                                                         | <img src="images/home.png" style="width:320px"> |                                                              |
+|:-------------------------------------------------------:|:-----------------------------------------------:|:------------------------------------------------------------:|
+| <img src="images/awesome-todo.gif" style="width:320px"> | <img src="images/cms.gif" style="width:320px">  | <img src="images/service-broadcast.gif" style="width:320px"> |
+
+
 ## Used Components/Libraries
 
 - Kotlin

@@ -22,7 +22,7 @@
         android:id="@+id/tv_action_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Awesome Todos"
+        android:text="Awesome TODO"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

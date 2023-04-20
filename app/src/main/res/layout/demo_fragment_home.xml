@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill_horizontal|fill_vertical"
-                    android:text="Awesome Todos App"
+                    android:text="Awesome TODO App"
                     app:icon="@drawable/round_ballot_24"
                     app:iconGravity="top" />
 

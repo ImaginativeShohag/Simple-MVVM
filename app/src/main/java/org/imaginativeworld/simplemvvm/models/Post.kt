@@ -26,7 +26,6 @@
 
 package org.imaginativeworld.simplemvvm.models
 
-import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.random.Random

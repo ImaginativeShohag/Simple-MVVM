@@ -27,7 +27,6 @@
 package org.imaginativeworld.simplemvvm.models.todo
 
 import androidx.annotation.ColorRes
-import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date

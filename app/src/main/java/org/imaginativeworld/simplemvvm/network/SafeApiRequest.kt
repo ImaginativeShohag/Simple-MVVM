@@ -28,6 +28,7 @@ package org.imaginativeworld.simplemvvm.network
 
 import android.content.Context
 import java.net.HttpURLConnection
+import kotlinx.coroutines.CancellationException
 import org.imaginativeworld.oopsnointernet.utils.NoInternetUtils
 import org.json.JSONException
 import org.json.JSONObject
@@ -35,8 +36,10 @@ import retrofit2.Response
 import timber.log.Timber
 
 object SafeApiRequest {
-
-    suspend fun <T : Any?> apiRequest(context: Context, call: suspend () -> Response<T>): T? {
+    suspend fun <T : Any?> apiRequest(
+        context: Context,
+        call: suspend () -> Response<T>
+    ): T? {
         try {
             if (!NoInternetUtils.isConnectedToInternet(context.applicationContext)) {
                 throw ApiException("No internet connection!")
@@ -63,12 +66,20 @@ object SafeApiRequest {
                     message.append("\n")
                 }
 
-                message.append("Error Code: ${response.code()}")
+                if (message.isNotEmpty()) {
+                    message.append("\n")
+                }
 
-                Timber.e("SafeApiRequest: ApiException: $message")
+                message.append("Something went wrong! ${response.message()} (${response.code()})")
+
+                Timber.e("ApiException: $message")
 
                 throw ApiException(message.toString())
             }
+        } catch (e: CancellationException) {
+            e.printStackTrace()
+
+            throw e
         } catch (e: Exception) {
             e.printStackTrace()
 

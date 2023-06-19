@@ -122,7 +122,7 @@ class TodoEditViewModel @Inject constructor(
         userId: Int,
         todoId: Int,
         title: String,
-        dueDate: Date,
+        dueDate: Date?,
         status: String
     ) = viewModelScope.launch {
         if (!isValid(title, dueDate, status)) {

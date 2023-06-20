@@ -125,8 +125,10 @@ class LocationProviderUtilClient(
         // Set up location request
         locationRequest =
             LocationRequest.Builder(
-                /* priority = */ locationRequestPriority,
-                /* intervalMillis = */ locationRequestInterval
+                /* priority = */
+                locationRequestPriority,
+                /* intervalMillis = */
+                locationRequestInterval
             )
                 .setMinUpdateIntervalMillis(locationRequestFastestInterval)
                 .setMinUpdateDistanceMeters(smallestDisplacementInMeter)

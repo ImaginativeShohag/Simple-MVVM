@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background, animated icon, and animation duration. -->
         <item name="windowSplashScreenBackground">@color/flat_awesome_green_1</item>
 

@@ -160,8 +160,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2"
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:$room_version"
@@ -240,10 +240,6 @@ dependencies {
     // for Greek symbols
     implementation "ru.noties:jlatexmath-android-font-greek:$jlatexmath_version"
 }
-
-// Workaround for OneSignal from:
-// https://github.com/OneSignal/OneSignal-Gradle-Plugin/issues/37#issuecomment-391983620
-googleServices { disableVersionCheck = true }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {

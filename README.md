@@ -63,6 +63,7 @@ A simple Android MVVM pattern example and template.
 - GitHub Actions
   - [CodeQL Analysis](https://github.com/github/codeql-action)
   - [Run ktlint with reviewdog](https://github.com/marketplace/actions/run-ktlint-with-reviewdog)
+- Send test push notification to self using OneSignal
 
 ## Extension Functions (see `utils/extensions`)
 

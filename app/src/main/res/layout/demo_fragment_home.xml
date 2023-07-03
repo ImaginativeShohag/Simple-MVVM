@@ -180,6 +180,17 @@
                     app:icon="@drawable/baseline_miscellaneous_services_24"
                     app:iconGravity="top" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_push_notification"
+                    style="@style/Button.Home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal|fill_vertical"
+                    android:text="Send Push Notification"
+                    app:icon="@drawable/round_notifications_active_24"
+                    app:iconGravity="top" />
+
             </GridLayout>
 
         </LinearLayout>

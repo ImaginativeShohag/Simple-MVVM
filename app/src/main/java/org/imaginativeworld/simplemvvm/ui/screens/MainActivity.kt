@@ -48,6 +48,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.onesignal.OneSignal
+import com.onesignal.OneSignal.PostNotificationResponseHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.BuildConfig
@@ -63,6 +64,8 @@ import org.imaginativeworld.simplemvvm.utils.Utils.ignoreCrash
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
+import org.json.JSONException
+import org.json.JSONObject
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -193,6 +196,7 @@ class MainActivity :
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // You can use the API that requires the permission.
                 }
+
                 shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
                     // In an educational UI, explain to the user why your app requires this
                     // permission for a specific feature to behave as expected, and what
@@ -213,6 +217,7 @@ class MainActivity :
                     val dialog = builder.create()
                     dialog.show()
                 }
+
                 else -> {
                     // You can directly ask for the permission.
                     // The registered ActivityResultCallback gets the result of this request.

@@ -36,6 +36,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
+import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 import org.imaginativeworld.simplemvvm.R
@@ -43,6 +44,7 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackbar
+import org.imaginativeworld.simplemvvm.utils.onesignal.OneSignalUtils
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -159,6 +161,10 @@ class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
 
         binding.btnService.setOnClickListener {
             listener?.navigate(R.id.serviceFragment)
+        }
+
+        binding.btnPushNotification.setOnClickListener {
+            OneSignalUtils.sendTestPushNotification()
         }
     }
 

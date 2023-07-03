@@ -1,4 +1,4 @@
-.idea
+.idea/*
 .gradle
 /local.properties
 .DS_Store
@@ -94,3 +94,6 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+
+# IntelliJ project icon
+!.idea/icon.svg

@@ -133,7 +133,7 @@ class TodoEditFragment : Fragment(R.layout.fragment_cms_todo_edit), CommonFuncti
                 args.userId,
                 args.todoId,
                 binding.etTitle.text.toString(),
-                selectedDueDate!!,
+                selectedDueDate,
                 binding.tvStatus.text?.toString() ?: ""
             )
         }

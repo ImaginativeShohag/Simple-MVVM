@@ -128,7 +128,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.13.2'
@@ -136,10 +136,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Fragment
-    implementation "androidx.fragment:fragment-ktx:1.5.6"
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
 
     // Material Design
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -147,8 +147,8 @@ dependencies {
 
     // Moshi
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.15.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.15.0"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -160,8 +160,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2"
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:$room_version"
@@ -171,11 +171,11 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     // Android Navigation Architecture
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // Splash Screen
-    implementation "androidx.core:core-splashscreen:1.0.0"
+    implementation "androidx.core:core-splashscreen:1.0.1"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
@@ -198,7 +198,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
 
     // Firebase Libraries
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -220,10 +220,10 @@ dependencies {
     implementation "org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0"
 
     // OneSignal SDK
-    implementation 'com.onesignal:OneSignal:4.8.5'
+    implementation 'com.onesignal:OneSignal:4.8.6'
 
     // Coil
-    implementation("io.coil-kt:coil:2.2.2")
+    implementation("io.coil-kt:coil:2.4.0")
 
     // Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
@@ -240,10 +240,6 @@ dependencies {
     // for Greek symbols
     implementation "ru.noties:jlatexmath-android-font-greek:$jlatexmath_version"
 }
-
-// Workaround for OneSignal from:
-// https://github.com/OneSignal/OneSignal-Gradle-Plugin/issues/37#issuecomment-391983620
-googleServices { disableVersionCheck = true }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {

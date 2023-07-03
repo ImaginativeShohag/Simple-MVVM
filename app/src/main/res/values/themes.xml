@@ -1,8 +1,8 @@
 <resources>
 
-    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background, animated icon, and animation duration. -->
-        <item name="windowSplashScreenBackground">@color/flat_awesome_green_1</item>
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
 
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
              animated drawable. One of these is required. -->
@@ -17,6 +17,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/flat_grey_dark_1</item>
+        <item name="colorPrimaryDark">@color/flat_grey_dark_1</item>
         <item name="colorPrimaryVariant">@color/flat_grey_dark_2</item>
         <item name="colorOnPrimary">@color/white</item>
 

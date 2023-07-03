@@ -60,12 +60,12 @@ class CommentDetailsViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
 
-    private val _Comment: MutableLiveData<Comment?> by lazy {
+    private val _comment: MutableLiveData<Comment?> by lazy {
         MutableLiveData<Comment?>()
     }
 
     val comment: LiveData<Comment?>
-        get() = _Comment
+        get() = _comment
 
     // ----------------------------------------------------------------
 
@@ -79,14 +79,14 @@ class CommentDetailsViewModel @Inject constructor(
     // ----------------------------------------------------------------
 
     fun getDetails(
-        CommentId: Int
+        commentId: Int
     ) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {
-            val Comment = repository.getComment(CommentId)
+            val comment = repository.getComment(commentId)
 
-            _Comment.postValue(Comment)
+            _comment.postValue(comment)
         } catch (e: ApiException) {
             _eventShowMessage.value = e.message
         }
@@ -94,11 +94,11 @@ class CommentDetailsViewModel @Inject constructor(
         _eventShowLoading.value = false
     }
 
-    fun deleteComment(CommentId: Int) = viewModelScope.launch {
+    fun deleteComment(commentId: Int) = viewModelScope.launch {
         _eventShowLoading.value = true
 
         try {
-            repository.deleteComment(CommentId)
+            repository.deleteComment(commentId)
 
             _eventDeleteSuccess.postValue(true)
         } catch (e: ApiException) {

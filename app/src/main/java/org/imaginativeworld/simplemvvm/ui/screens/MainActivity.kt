@@ -83,7 +83,7 @@ class MainActivity :
 
     private val viewModel: MainViewModel by viewModels()
 
-    private val requestNotificaitonPermissionLauncher =
+    private val requestNotificationPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
@@ -193,6 +193,7 @@ class MainActivity :
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // You can use the API that requires the permission.
                 }
+
                 shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
                     // In an educational UI, explain to the user why your app requires this
                     // permission for a specific feature to behave as expected, and what
@@ -203,7 +204,7 @@ class MainActivity :
                     builder.setTitle("Notification permission")
                     builder.setMessage("Please grant notification permission to get notifications.")
                     builder.setPositiveButton("Ok") { _, _ ->
-                        requestNotificaitonPermissionLauncher.launch(
+                        requestNotificationPermissionLauncher.launch(
                             Manifest.permission.POST_NOTIFICATIONS
                         )
                     }
@@ -213,10 +214,11 @@ class MainActivity :
                     val dialog = builder.create()
                     dialog.show()
                 }
+
                 else -> {
                     // You can directly ask for the permission.
                     // The registered ActivityResultCallback gets the result of this request.
-                    requestNotificaitonPermissionLauncher.launch(
+                    requestNotificationPermissionLauncher.launch(
                         Manifest.permission.POST_NOTIFICATIONS
                     )
                 }

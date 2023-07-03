@@ -43,6 +43,7 @@ import org.imaginativeworld.simplemvvm.databinding.DemoFragmentHomeBinding
 import org.imaginativeworld.simplemvvm.interfaces.CommonFunctions
 import org.imaginativeworld.simplemvvm.interfaces.OnFragmentInteractionListener
 import org.imaginativeworld.simplemvvm.ui.components.customsnackbar.CustomSnackbar
+import org.imaginativeworld.simplemvvm.utils.onesignal.OneSignalUtils
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -159,6 +160,10 @@ class HomeFragment : Fragment(R.layout.demo_fragment_home), CommonFunctions {
 
         binding.btnService.setOnClickListener {
             listener?.navigate(R.id.serviceFragment)
+        }
+
+        binding.btnPushNotification.setOnClickListener {
+            OneSignalUtils.sendTestPushNotification()
         }
     }
 

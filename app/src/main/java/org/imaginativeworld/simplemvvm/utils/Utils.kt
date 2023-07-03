@@ -106,7 +106,7 @@ object Utils {
         targetIntent?.also {
             val pendingIntent = PendingIntent.getActivity(
                 context,
-                0, /* Request code */
+                0, // Request code
                 targetIntent,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

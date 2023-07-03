@@ -36,7 +36,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
-import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 import org.imaginativeworld.simplemvvm.R

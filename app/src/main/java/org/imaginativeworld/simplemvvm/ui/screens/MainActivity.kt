@@ -48,7 +48,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.onesignal.OneSignal
-import com.onesignal.OneSignal.PostNotificationResponseHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import org.imaginativeworld.simplemvvm.BuildConfig
@@ -64,8 +63,6 @@ import org.imaginativeworld.simplemvvm.utils.Utils.ignoreCrash
 import org.imaginativeworld.simplemvvm.utils.extensions.hideKeyboard
 import org.imaginativeworld.simplemvvm.utils.extensions.indefiniteSnackbar
 import org.imaginativeworld.simplemvvm.utils.extensions.longSnackbar
-import org.json.JSONException
-import org.json.JSONObject
 import timber.log.Timber
 
 @AndroidEntryPoint

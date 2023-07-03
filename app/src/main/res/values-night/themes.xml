@@ -3,6 +3,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/flat_grey_dark_1</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/flat_grey_dark_2</item>
 

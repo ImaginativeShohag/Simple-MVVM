@@ -11,6 +11,7 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:name=".MyApplication"
@@ -49,7 +50,12 @@
 
         <service
             android:name="org.imaginativeworld.simplemvvm.ui.screens.service.CountService"
-            android:theme="@style/AppTheme" />
+            android:foregroundServiceType="specialUse"
+            android:theme="@style/AppTheme">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="For service example. See 'ServiceFragment' for details." />
+        </service>
 
         <!-- https://developer.android.com/reference/androidx/core/content/FileProvider -->
         <provider

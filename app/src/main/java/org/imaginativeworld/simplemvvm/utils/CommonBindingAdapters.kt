@@ -36,6 +36,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
 import org.imaginativeworld.simplemvvm.R
@@ -216,15 +217,19 @@ fun Spinner.setItems(items: List<GeneralSpinnerItem>?) {
  */
 @BindingAdapter("srcUrlProfile")
 fun ImageView.setProfileImageFromUrl(url: String) {
-    GlideApp.with(context)
+    Glide.with(context)
         .load(url)
-        .profilePhoto()
+        .fitCenter()
+        .circleCrop()
+        .placeholder(R.drawable.ic_user)
+        .fallback(R.drawable.ic_user)
+        .error(R.drawable.ic_user)
         .into(this)
 }
 
 @BindingAdapter("srcUrl")
 fun ImageView.setImageFromUrl(url: String) {
-    GlideApp.with(context)
+    Glide.with(context)
         .load(url)
         .into(this)
 }

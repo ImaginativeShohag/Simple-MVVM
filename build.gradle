@@ -1,12 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = '1.8.21'
-        lifecycle_version = '2.6.1'
-        hilt_version = '2.46.1'
+        kotlin_version = '1.9.23'
+        lifecycle_version = '2.7.0'
+        hilt_version = '2.51.1'
         markwon_version = '4.6.2'
         jlatexmath_version = '0.2.0'
-        room_version = '2.5.2'
+        room_version = '2.6.1'
     }
 
     repositories {
@@ -20,12 +20,13 @@ plugins {
     id 'com.android.application' version '8.3.2' apply false
     id 'com.android.library' version '8.3.2' apply false
     id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
-    id 'androidx.navigation.safeargs' version '2.6.0' apply false
-    id 'com.google.firebase.crashlytics' version '2.9.6' apply false
-    id 'com.google.gms.google-services' version '4.3.15' apply false
+    id("com.google.devtools.ksp") version "1.9.23-1.0.20" apply false
+    id 'androidx.navigation.safeargs' version '2.7.7' apply false
+    id 'com.google.firebase.crashlytics' version '2.9.9' apply false
+    id 'com.google.gms.google-services' version '4.4.1' apply false
     id 'com.google.dagger.hilt.android' version "$hilt_version" apply false
 
-    id "com.diffplug.spotless" version "6.19.0"
+    id "com.diffplug.spotless" version "6.25.0"
 }
 
 subprojects {
@@ -34,7 +35,7 @@ subprojects {
     spotless {
         kotlin {
             target("**/*.kt")
-            targetExclude("$buildDir/**/*.kt")
+            targetExclude("${layout.buildDirectory}/**/*.kt")
             targetExclude("bin/**/*.kt")
 
             ktlint("0.49.1")

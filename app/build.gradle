@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -11,13 +12,12 @@ plugins {
 
 android {
     namespace 'org.imaginativeworld.simplemvvm'
-    compileSdkVersion 33
-    buildToolsVersion "33.0.0"
+    compileSdk 34
 
     defaultConfig {
         applicationId "org.imaginativeworld.simplemvvm"
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0.0.000000" // Major.Minor.Patch.YYMMDD
         vectorDrawables.useSupportLibrary = true
@@ -128,7 +128,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.13.2'
@@ -136,19 +136,19 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Fragment
-    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
 
     // Material Design
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.11.0'
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
     // Moshi
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation "com.squareup.moshi:moshi-kotlin:1.15.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.15.0"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.11.0'
+    implementation "com.squareup.moshi:moshi-kotlin:1.15.1"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -160,29 +160,29 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta"
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
 
     // Room: Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
     // Android Navigation Architecture
-    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
 
     // Splash Screen
     implementation "androidx.core:core-splashscreen:1.0.1"
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
-    kapt 'com.github.bumptech.glide:compiler:4.15.1'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    ksp 'com.github.bumptech.glide:ksp:4.16.0'
 
     // Paging
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
 
     // Permission
     implementation 'com.karumi:dexter:6.2.3'
@@ -192,23 +192,23 @@ dependencies {
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:32.1.1')
+    implementation platform('com.google.firebase:firebase-bom:32.8.1')
 
     // Firebase Libraries
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     // Maps
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
 
     // Location
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-location:21.2.0'
 
     // Image compressor
     implementation 'id.zelory:compressor:3.0.1'
@@ -223,7 +223,7 @@ dependencies {
     implementation 'com.onesignal:OneSignal:4.8.6'
 
     // Coil
-    implementation("io.coil-kt:coil:2.4.0")
+    implementation("io.coil-kt:coil:2.6.0")
 
     // Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'

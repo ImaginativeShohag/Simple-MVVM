@@ -127,19 +127,19 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Fragment
-    implementation "androidx.fragment:fragment-ktx:1.6.2"
+    implementation "androidx.fragment:fragment-ktx:1.8.2"
 
     // Material Design
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
@@ -151,7 +151,7 @@ dependencies {
     ksp "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -160,8 +160,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
 
     // Room Persistence Library
     implementation "androidx.room:room-runtime:$room_version"
@@ -182,7 +182,7 @@ dependencies {
     ksp 'com.github.bumptech.glide:ksp:4.16.0'
 
     // Paging
-    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.3.2"
 
     // Permission
     implementation 'com.karumi:dexter:6.2.3'
@@ -198,17 +198,17 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:32.8.1')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
 
     // Firebase Libraries
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     // Maps
-    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
 
     // Location
-    implementation 'com.google.android.gms:play-services-location:21.2.0'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
 
     // Image compressor
     implementation 'id.zelory:compressor:3.0.1'
@@ -223,7 +223,7 @@ dependencies {
     implementation 'com.onesignal:OneSignal:4.8.6'
 
     // Coil
-    implementation("io.coil-kt:coil:2.6.0")
+    implementation("io.coil-kt:coil:2.7.0")
 
     // Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
@@ -239,12 +239,6 @@ dependencies {
     implementation "ru.noties:jlatexmath-android-font-cyrillic:$jlatexmath_version"
     // for Greek symbols
     implementation "ru.noties:jlatexmath-android-font-greek:$jlatexmath_version"
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 /**
